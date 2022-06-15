@@ -16,4 +16,6 @@
 5. Run `npm start` in project directory to start the Express server on port 5000
 
 6. Run npx sequelize-cli init in a new terminal
-- in config forlder `{} config.json` under development line 1 change password to `process.env.DB_PASS` and database to `flora`
+- in config forlder `{} config.js` under development line 1 change password to `process.env.DB_PASS` and database to `flora`
+
+-Run `npm run migrate` in a new terminal 
