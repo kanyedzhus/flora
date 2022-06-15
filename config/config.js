@@ -5,8 +5,8 @@ module.exports = {
   development: {
     username: "root",
     password: process.env.DB_PASS,
-    database: "flora",
-    host: "127.0.0.1",
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     dialect: "mysql"
   }
   
