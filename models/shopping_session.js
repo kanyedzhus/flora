@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      shopping_session.hasMany(models.cart_items)// define association here
     }
   }
   shopping_session.init({
