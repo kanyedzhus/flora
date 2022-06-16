@@ -11,6 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       buyers.belongsto(models.Users, {through: "userId"})
+      buyers.hasOne(models.shopping_session)
+      buyers.hasMany(models.orders)
+      buyers.hasMany(models.reviews)
     }
   }
   buyers.init({
