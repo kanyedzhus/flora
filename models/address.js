@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      address.belongsto(models.Users, {through: "userId"})
+      address.belongsTo(models.Users, {through: "userId"})
     }
   }
   address.init({
