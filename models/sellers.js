@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   sellers.init({
-    userId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER(11),
     storeName: DataTypes.STRING,
     storeDescription: DataTypes.TEXT
   }, {

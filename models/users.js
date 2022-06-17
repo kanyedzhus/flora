@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Users.hasMany(models.address)
       Users.hasOne(models.buyers)
-      Users.hasOne(models.sellers)
+      Users.hasMany(models.sellers)
 
     }
   }
