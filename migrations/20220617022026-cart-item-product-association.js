@@ -28,6 +28,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-     await queryInterface.removeConstraint("categories", "category_product_association")
+     await queryInterface.removeConstraint("cart_items", "cart_item_product_association")
   }
 };
