@@ -10,6 +10,7 @@
 
 `DB_NAME = flora`
 `DB_PASS= YOUR_PASSWORD`
+`DB_HOST=127.0.0.1`
 
 4. Run `npm install` in a new terminal
 
