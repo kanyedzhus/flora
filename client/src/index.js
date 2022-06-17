@@ -6,13 +6,26 @@ import App from "./App";
 import CartContextProvider from "./contexts/cart-context";
 import ProductsContextProvider from "./contexts/products-context";
 
+// this allows us to make stripe context down to children. works with hooks
+import { Elements } from "@stripe/react-stripe-js";
+
+// helper function to load stripe js
+import { loadStripe } from "@stripe/stripe-js";
+
+// accepts a publishable key and returns a promise
+const stripePromise = loadStripe(
+	"pk_test_51LAYVvGbLCDl0eiJEzT9xpggaROyBJ0LwQJ2Mh9902UyAE1IoYfPQdzczFYQkF17nKp99WXHqvgDAYnLwrL3yiC000AywInfzE"
+);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<ProductsContextProvider>
 				<CartContextProvider>
-					<App />
+					<Elements stripe={stripePromise}>
+						<App />
+					</Elements>
 				</CartContextProvider>
 			</ProductsContextProvider>
 		</BrowserRouter>
