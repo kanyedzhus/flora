@@ -10,7 +10,7 @@ module.exports = {
       },
       stripeId: {
         allowNull: false,
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       userName: {
         allowNull: false,
