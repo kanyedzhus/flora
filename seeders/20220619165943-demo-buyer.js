@@ -3,8 +3,10 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
    
-     await queryInterface.bulkInsert('People', [{
-      "buyerId":1,"userId":1,"credit":0},
+     await queryInterface.bulkInsert("buyers", [{
+      "buyerId":1,"userId":1,"credit":0,
+      "createdAt":"2022-01-17",
+      "updatedAt":"2022-06-17"},
 {"buyerId":2,"userId":4,"credit":0,
 "createdAt":"2022-01-17",
 "updatedAt":"2022-06-17"},
