@@ -113,7 +113,7 @@ module.exports = {
 "createdAt":"2022-01-17",
 "updatedAt":"2022-06-17"}
 
-   ])
+   ],{})
   },
 
   async down (queryInterface, Sequelize) {
