@@ -4,7 +4,7 @@ var models = require ("../models")
 
 router.get("/", (req, res) =>{
    
-    models.sellers.findAll({attributes: ['sellerId']})
+    models.sellers.findAll({attributes: ['sellerId'],})
        .then((seller)=> res.send(seller))
        .catch((err) =>res.status(500).send({error: err.message}));
     });
