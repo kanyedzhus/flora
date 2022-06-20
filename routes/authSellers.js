@@ -3,11 +3,19 @@ var router = express.Router();
 var models = require ("../models")
 
 router.get("/", (req, res) =>{
-    const where = req.query;
+   
+    models.sellers.findAll()
+       .then((seller)=> res.send(seller))
+       .cath((err) =>res.status(500).send(err));
+    });
 
-    models.sellers.findAll({
-        where,
-    })
-})
+// router.post("/", (req, res, next){
+// const {} = req.body;
+
+// models.products.create {[]}
+// .then((product)=> res.send(product))
+// .cath((err) =>res.status(500).send(err));
+// })
+
 
 module.exports = router;
