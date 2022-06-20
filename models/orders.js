@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       orders.belongsToMany(models.sellers, {through:"sellerId"})
       orders.belongsToMany(models.buyers, {through:"buyerId"})
-      orders.hasMany(models.order_items)
+      orders.hasMany(models.order_Items)
     }
   
   }
