@@ -4,11 +4,17 @@ var models = require ("../models")
 
 router.get("/", (req, res) =>{
    
-    models.sellers.findAll({attributes: ['sellerId'],})
+    models.sellers.findAll({attributes: ['sellerId', 'userId', 'storeName','storeDescription']})
        .then((seller)=> res.send(seller))
        .catch((err) =>res.status(500).send({error: err.message}));
     });
 
+router.get("/product", (req, res) =>{
+   
+    models.products.findAll({attributes: ['productId', 'categoryId', 'sellerId','description', ]})
+       .then((seller)=> res.send(seller))
+       .catch((err) =>res.status(500).send({error: err.message}));
+    });
 // router.post("/", (req, res, next){
 // const {} = req.body;
 
