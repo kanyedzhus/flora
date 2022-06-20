@@ -11,10 +11,36 @@ router.get("/", (req, res) =>{
 
 router.get("/product", (req, res) =>{
    
-    models.products.findAll({attributes: ['productId', 'categoryId', 'sellerId','description', ]})
+    models.products.findAll({attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
        .then((seller)=> res.send(seller))
        .catch((err) =>res.status(500).send({error: err.message}));
     });
+
+
+router.get("/product/:id",(req, res) =>{
+const {productId} = req.params.id;
+    models.products.findOne({ where: {productId,}},{
+        attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
+    .then((seller)=> res.send(seller))
+    .catch((err) =>res.status(500).send({error: err.message}));
+});
+
+router.get("/:id",(req, res) =>{
+    const {sellerId} = req.params.id;
+        models.sellers.findOne({ where: {sellerId,}},{
+            attributes: ['sellerId', 'userId', 'storeName','storeDescription']})
+        .then((seller)=> res.send(seller))
+        .catch((err) =>res.status(500).send({error: err.message}));
+    });
+
+router.get("/product/category/:id",(req, res) =>{
+    const {categoryId} = req.params.id;
+        models.sellers.findOne({ where: {categoryId,}},{
+            attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
+        .then((seller)=> res.send(seller))
+        .catch((err) =>res.status(500).send({error: err.message}));
+    });
+
 // router.post("/", (req, res, next){
 // const {} = req.body;
 
