@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       order.belongsToMany(models.seller, {through:"sellerId"})
       order.belongsToMany(models.buyer, {through:"buyerId"})
+      order.hasMany(models.orderItem)
     }
   }
   order.init({
