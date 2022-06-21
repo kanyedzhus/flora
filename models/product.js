@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       product.belongsTo(models.category, {through:"categoryId"})
       product.hasMany(models.cartItem)
       product.hasMany(models.orderItem)
+      product.hasMany(models.favorite)
     }
   }
   product.init({

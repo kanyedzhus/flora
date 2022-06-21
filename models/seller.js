@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       seller.hasMany(models.product)
       seller.hasMany(models.order)
       seller.hasMany(models.review)
+      seller.hasMany(models.favorite)
     }
   }
   seller.init({
