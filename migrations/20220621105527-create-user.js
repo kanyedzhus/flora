@@ -1,58 +1,41 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('products', {
-      productId: {
+    await queryInterface.createTable('user', {
+      userId: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      categoryId: {
-        type: Sequelize.INTEGER
-      },
-      sellerId: {
-        type: Sequelize.INTEGER
-      },
-      description: {
+      userName: {
         allowNull: false,
-        type: Sequelize.TEXT
+        unique: true,
+        type: Sequelize.STRING
       },
-      color: {
+      email: {
+        allowNull: false,
+        unique: true,
+        type: Sequelize.STRING
+      },
+      hashedPassword: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      dimensionsCM: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      imgURL: {
+      firstName: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      price: {
-        allowNull: false,
-        type: Sequelize.DECIMAL(10,2)
-      },
-      quantity: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      careDifficulty: {
+      lastName: {
         allowNull: false,
         type: Sequelize.STRING
       },
-      light: {
-        allowNull: false,
+      imgUrl: {
         type: Sequelize.STRING
       },
-      petFriendly: {
+      role: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
-      },
-      airPurifying: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -65,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('products');
+    await queryInterface.dropTable('user');
   }
 };
