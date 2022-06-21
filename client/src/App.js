@@ -1,7 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import HomeDisplay from "./components/HomeDisplay/HomeDisplay";
 import "./App.css";
 import "jquery";
 import "popper.js/dist/umd/popper";
@@ -12,6 +9,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import Canceled from "./components/Stripe/Canceled";
 import Success from "./components/Stripe/Success";
+import SearchPage from "./Pages/SearchPage";
+import NotFound from "./Pages/NotFound";
 
 function App() {
 	return (
@@ -20,6 +19,9 @@ function App() {
 				<Route exact path="/" element={<HomePage />} />
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
+				<Route path="/search" element={<SearchPage />} />
+				{/* any route not declared here will lead to the NotFound page */}
+				<Route path="*" element={<NotFound />} />
 			</Routes>
 		</div>
 	);
