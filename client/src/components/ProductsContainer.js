@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 export default function ProductsContainer() {
-	const { products } = useContext(ProductsContext);
+	// const { products } = useContext(ProductsContext);
 
 	return (
 		<div class="container">
