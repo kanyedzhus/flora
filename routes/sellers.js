@@ -4,7 +4,7 @@ var models = require ("../models")
 
 //Get all sellers
 router.get("/", (req, res) =>{
-    models.sellers.findAll({attributes: ['sellerId', 'userId', 'storeName','storeDescription']})
+    models.seller.findAll({attributes: ['sellerId', 'userId', 'storeName','storeDescription']})
     .then((seller)=> res.send(seller))
     .catch((err) =>res.status(500).send({error: err.message}));
 });
@@ -13,7 +13,7 @@ router.get("/", (req, res) =>{
 router.get("/:sellerId",(req, res) =>{
     const {sellerId} = req.params;
     console.log(req.params)
-        models.sellers.findOne({ where: {sellerId}},{
+        models.seller.findOne({ where: {sellerId}},{
             attributes: ['sellerId', 'userId', 'storeName','storeDescription']})
         .then((seller)=> res.send(seller))
         .catch((err) =>res.status(500).send({error: err.message}));
@@ -21,7 +21,7 @@ router.get("/:sellerId",(req, res) =>{
 
 //Get all products
 router.get("/product", (req, res) =>{
-    models.products.findAll({attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
+    models.product.findAll({attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
        .then((product)=> res.send(product))
        .catch((err) =>res.status(500).send({error: err.message}));
     });

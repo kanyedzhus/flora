@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       product.belongsTo(models.seller, {through: "sellerId"})
+      product.belongsTo(models.category, {through:"categoryId"})
     }
   }
   product.init({
