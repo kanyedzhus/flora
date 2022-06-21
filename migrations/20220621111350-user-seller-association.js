@@ -3,12 +3,12 @@
 module.exports = {
   async up (queryInterface, Sequelize) {
    
-     await queryInterface.addConstraint("seller", {
+     await queryInterface.addConstraint("sellers", {
       fields: ["userId"],
       type: "foreign key",
       name: "user_seller_association",
       references:{
-        table: "user",
+        table: "users",
         field: "userId"
       },
       onUpdate: "CASCADE",
@@ -18,6 +18,6 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
   
-     await queryInterface.removeConstraint("seller", "user_seller_association")
+     await queryInterface.removeConstraint("sellers", "user_seller_association")
   }
 };

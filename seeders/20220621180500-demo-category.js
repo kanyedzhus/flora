@@ -2,58 +2,58 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-  await queryInterface.bulkInsert("category", [{
+  await queryInterface.bulkInsert("categories", [{
     "categoryId":1,
-    "parentId":null,
     "categoryName":"Indoor",
+    "parentId":null,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":2,
-    "parentId":1,
     "categoryName":"Potted plants",
+    "parentId":1,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":3,
-    "parentId":1,
     "categoryName":"Cacti and succulents",
+    "parentId":1,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":4,
-    "parentId":null,
     "categoryName":"Outdoor",
+    "parentId":null,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":5,
-    "parentId":4,
     "categoryName":"Climbing plants",
+    "parentId":4,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":6,
-    "parentId":4,
     "categoryName":"Trees",
+    "parentId":4,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":7,
-    "parentId":null,
     "categoryName":"Flowers",
+    "parentId":null,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":8,
-    "parentId":7,
     "categoryName":"Bouquet",
+    "parentId":7,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     },
     {"categoryId":9,
-    "parentId":7,
     "categoryName":"Dried Flowers",
+    "parentId":7,
     "createdAt":"2022-01-17",
     "updatedAt":"2022-06-17"
     }], {});
@@ -61,5 +61,5 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete("category", null, {});}
+    await queryInterface.bulkDelete("categories", null, {});}
 };
