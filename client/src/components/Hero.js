@@ -15,7 +15,7 @@ export default function Hero() {
 						loading="lazy"
 					/>
 				</div>
-				<div className="col-lg-6">
+				<div className="col-lg-6 text-lg-left  text-center">
 					<h1 className=" fw-bold lh-1 mb-3">Nurture your green thumb</h1>
 					<p className="lead">
 						Easily find the perfect plant for your home or garden.
