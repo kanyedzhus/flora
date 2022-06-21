@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       buyer.belongsTo(models.user, {through: "userId"})
       buyer.hasMany(models.order)
       buyer.hasOne(models.cartSession)
+      buyer.hasMany(models.review)
     }
   }
   buyer.init({
