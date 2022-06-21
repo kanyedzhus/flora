@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       user.hasOne(models.seller)
       user.hasOne(models.address)
+      user.hasOne(models.buyer)
     }
   }
   user.init({
@@ -22,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
     imgUrl: DataTypes.STRING,
-    role: DataTypes.STRING
+    role: DataTypes.STRING,
+    stripeId:DataTypes.STRING
   }, {
     sequelize,
     modelName: 'user',
