@@ -7,11 +7,13 @@ export default function NotFound() {
 
 	return (
 		<Layout>
-			<p className="h1"> Oops, there's nothing to see here. </p>
-			<button className="btn btn-primary" onClick={() => navigate("/")}>
-				{" "}
-				Continue Shopping
-			</button>
+			<div className="d-flex flex-column g-3 align-items-center my-5">
+				<p className="h1"> Oops, there's nothing to see here. </p>
+				<button className="btn btn-primary" onClick={() => navigate("/")}>
+					{" "}
+					Continue Shopping
+				</button>
+			</div>
 		</Layout>
 	);
 }

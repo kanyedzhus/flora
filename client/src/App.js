@@ -11,6 +11,7 @@ import Canceled from "./components/Stripe/Canceled";
 import Success from "./components/Stripe/Success";
 import SearchPage from "./Pages/SearchPage";
 import NotFound from "./Pages/NotFound";
+import SignInPage from "./Pages/SignInPage";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
+				<Route path="/signin" element={<SignInPage />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>
