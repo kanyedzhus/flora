@@ -1,7 +1,4 @@
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/Footer/Footer";
-import HomeDisplay from "./components/HomeDisplay/HomeDisplay";
 import "./App.css";
 import "jquery";
 import "popper.js/dist/umd/popper";
