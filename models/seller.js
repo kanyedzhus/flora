@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      seller.belongsTo(models.user, {through: "userId"})
     }
   }
   seller.init({
