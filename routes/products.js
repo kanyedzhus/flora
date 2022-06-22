@@ -30,4 +30,16 @@ router.post("/", upload.single("product_image"), async (req, res, next) => {
 	const correctedPath = path.replace(/\\/g, "/");
 
 	// destructure necessary info from req.body to make insert into db.
+	const {
+		categoryId,
+		desc,
+		color,
+		imgURL,
+		price,
+		quantity,
+		careDifficulty,
+		light,
+		petFriendly,
+		airPurifying,
+	} = req.body;
 });
