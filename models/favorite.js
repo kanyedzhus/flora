@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   favorite.init({
+    favoriteId: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     buyerId: DataTypes.INTEGER,
     sellerId: DataTypes.INTEGER,
     productId: DataTypes.INTEGER

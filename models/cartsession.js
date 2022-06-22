@@ -15,6 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   cartSession.init({
+    cartSessionId: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     total: DataTypes.DECIMAL,
     buyerId: DataTypes.INTEGER
   }, {

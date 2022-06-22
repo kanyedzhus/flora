@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   buyer.init({
+    buyerId: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     userId: DataTypes.INTEGER,
     credit: DataTypes.INTEGER
   }, {
