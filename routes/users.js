@@ -39,7 +39,7 @@ router.get("/address", async (req, res) =>{
 });
 
 // post addresse by user id
-router.post("/")
+router.post("/address/:userId")
 
 
 module.exports = router;
