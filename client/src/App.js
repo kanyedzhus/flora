@@ -13,6 +13,8 @@ import SearchPage from "./Pages/SearchPage";
 import NotFound from "./Pages/NotFound";
 import SignInPage from "./Pages/SignInPage";
 import SellerRegistrationPage from "./Pages/SellerRegistrationPage";
+import BuyerRegistrationPage from "./Pages/BuyerRegistrationPage";
+import SellerProfile from "./components/SellerProfile";
 
 function App() {
 	return (

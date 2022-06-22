@@ -119,6 +119,7 @@ function Navbar() {
 									</Link>
 								</OverlayTrigger>
 							</li>
+							{/* I AM A SELLER LINK */}
 							<li className="nav-item ms-lg-5">
 								<OverlayTrigger
 									delay={{ hide: 400, show: 300 }}
@@ -128,7 +129,8 @@ function Navbar() {
 									placement="bottom"
 								>
 									<Link
-										to="/sellers"
+										// * NEEDS A CONDITION. IF LOGGED IN THIS SHOULD NAVIGATE TO PROFILE.
+										to="/seller/register"
 										className="nav-link active"
 										aria-current="page"
 										href="#"

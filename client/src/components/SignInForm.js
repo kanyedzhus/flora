@@ -36,7 +36,7 @@ export default function SignInForm() {
 				</Link>
 			</p>
 			<p className="mt-3">
-				Are you a seller?{" "}
+				Need a seller account?{" "}
 				<Link className="text-decoration-none" to="/seller/register">
 					{" "}
 					Register here
