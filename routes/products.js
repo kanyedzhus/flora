@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-const { QueryTypes } = require("sequelize");
+const stripeAPI = require("../StripeApi/stripe");
 
 // this package allows us to handle FormData (different content type) - both text and files
 const multer = require("multer");
-const { sequelize } = require("../models");
 
 // for adjusting how files get stored. multer will execute these functions whenever a new file is received
 const storage = multer.diskStorage({
@@ -47,7 +46,27 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		airPurifying,
 	} = req.body;
 
+	// get price in cents to send to stripe
+	const priceInCents = price * 100;
+
 	try {
+		// create product in stripe
+		const stripeProduct = await stripeAPI.products.create({
+			name: productName,
+			description,
+			// can't use images since they're local
+			// images: [correctedPath],
+			// adding this property will automatically create an associated price object.
+			default_price_data: { currency: "eur", unit_amount: priceInCents },
+		});
+		console.log(stripeProduct);
+		// get stripeProduct id to save in db
+		const stripeProductId = stripeProduct.id;
+
+		// get the stripe price id automatically created with the product. use this in db
+		const stripePriceId = stripeProduct.default_price;
+		console.log(stripePriceId);
+
 		const newProduct = await models.product.create({
 			categoryId,
 			sellerId,
@@ -60,6 +79,8 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 			light,
 			petFriendly,
 			airPurifying,
+			stripeProductId: stripeProductId,
+			stripePriceId: stripePriceId,
 		});
 
 		console.log({ newProduct });

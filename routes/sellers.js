@@ -23,8 +23,6 @@ router.get("/product", (req, res) => {
 				"categoryId",
 				"sellerId",
 				"description",
-				"color",
-				"dimensionsCM",
 				"imgURL",
 				"price",
 				"quantity",

@@ -1,6 +1,7 @@
-var express = require("express");
-var router = express.Router();
-var models = require("../models");
+const express = require("express");
+const router = express.Router();
+const models = require("../models");
+const stripeAPI = require("../StripeApi/stripe");
 
 /* GET users listing. */
 //  router.get('/', function(req, res, next) {
@@ -28,21 +29,26 @@ router.get("/", async (req, res) => {
 
 //Post user - buyer
 // route: "/users/buyers"
-router.post("/buyers", (req, res) => {
-	const {
-		userName,
-		email,
-		hashedPassword,
-		firstName,
-		lastName,
-		imgUrl,
-		role,
-		stripeId,
-	} = req.body;
+router.post("/buyers", async (req, res) => {
+	const { userName, email, hashedPassword, firstName, lastName, imgUrl, role } =
+		req.body;
+	try {
+		// create customer on Stripe
+		const stripeCustomer = await stripeAPI.customers.create({
+			email: email,
+			description: userName,
+			name: firstName + " " + lastName,
+		});
 
-	console.log(req.body);
-	models.user
-		.create({
+		// console.log(stripeCustomer);
+		// get the stripe customer id
+		const stripeId = stripeCustomer.id;
+
+		// destructure from models
+		const { user, buyer } = models;
+
+		// insert into users table, role is buyer
+		const customer = await user.create({
 			userName,
 			email,
 			hashedPassword,
@@ -50,12 +56,20 @@ router.post("/buyers", (req, res) => {
 			lastName,
 			imgUrl,
 			role,
-			stripeId,
-		})
-		.then((data) => res.send(data))
-		.catch((error) => {
-			res.status(500).send(error);
 		});
+
+		const userId = customer.userId;
+		// insert into buyers table
+
+		const buyerWithStripeId = await buyer.create({
+			userId,
+			stripeId,
+		});
+
+		res.send({ buyer, buyerWithStripeId });
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 //Post user - seller
@@ -70,7 +84,6 @@ router.post("/sellers", async (req, res) => {
 		lastName,
 		imgUrl,
 		role,
-
 		storeName,
 		storeDescription,
 	} = req.body;
@@ -87,7 +100,6 @@ router.post("/sellers", async (req, res) => {
 			firstName,
 			lastName,
 			imgUrl,
-			stripeId,
 			role,
 		});
 
