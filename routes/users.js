@@ -39,7 +39,10 @@ router.get("/address", async (req, res) =>{
 });
 
 // post addresse by user id
-router.post("/address/:userId")
-
+router.post("/address/:userId", (req, res) =>{
+  const {userId} = req.params;
+  const {line1, line2, city, postalCode, country} = req.body;
+  models.address.findOne({where:{userId},})
+})
 
 module.exports = router;
