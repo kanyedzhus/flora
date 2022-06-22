@@ -1,46 +1,95 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var models = require ("../models")
+var models = require("../models");
 
 //Get all sellers
-router.get("/", async (req, res) =>{ 
-    try {
-        const response = await models.seller.findAll({attributes:["userId","sellerId"]});
-        res.send(response);
-      } catch (err) {
-        res.status(400).send({ message: err.message });
-      }
-    
+router.get("/", async (req, res) => {
+	try {
+		const response = await models.seller.findAll({
+			attributes: ["userId", "sellerId"],
+		});
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
 });
 
 //Get all products
-router.get("/product", (req, res) =>{
-    models.product.findAll({attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
-       .then((product)=> res.send(product))
-       .catch((err) =>res.status(500).send({error: err.message}));
-    });
+router.get("/product", (req, res) => {
+	models.product
+		.findAll({
+			attributes: [
+				"productId",
+				"categoryId",
+				"sellerId",
+				"description",
+				"color",
+				"dimensionsCM",
+				"imgURL",
+				"price",
+				"quantity",
+				"careDifficulty",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		})
+		.then((product) => res.send(product))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
 
 //Get seller by Id
-router.get("/:sellerId",(req, res) =>{
-    const {sellerId} = req.params;
-    
-        models.seller.findOne({ 
-            attributes: ['sellerId', 'userId', 'storeName','storeDescription'], where: {sellerId}})
-        .then((seller)=> res.send(seller))
-        .catch((err) =>res.status(500).send({error: err.message}));
-    });
+router.get("/:sellerId", (req, res) => {
+	const { sellerId } = req.params;
 
+	models.seller
+		.findOne({
+			attributes: ["sellerId", "userId", "storeName", "storeDescription"],
+			where: { sellerId },
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
 
 //Post a Product
-    router.post("/product", (req, res) =>{
-      const {categoryId, sellerId, description, color, dimensionsCM, imgURL, price, quantity, careDifficulty, light, petFriendly,airPurifying} = req.body;
-      //console.log({categoryId, sellerId, description, color, dimensionsCM, imgURL, price, quantity, careDifficulty, light, petFriendly,airPurifying});
-       
-        models.product.create({categoryId, sellerId, description, color, dimensionsCM, imgURL, price, quantity, careDifficulty, light, petFriendly,airPurifying}).then((data) => res.send(data))
-        .catch((error) => {
-        res.status(500).send(error);
-    });
-    });
+// route - /sellers/product
+router.post("/product", (req, res) => {
+	const {
+		categoryId,
+		sellerId,
+		description,
+		productName,
+		imgURL,
+		price,
+		quantity,
+		easyCare,
+		light,
+		petFriendly,
+		airPurifying,
+	} = req.body;
+	console.log(req.body);
+
+	models.product
+		.create({
+			categoryId,
+			sellerId,
+			description,
+			productName,
+			imgURL,
+			price,
+			quantity,
+			easyCare,
+			light,
+			petFriendly,
+			airPurifying,
+			stripePriceId,
+			stripeProductId,
+		})
+		.then((data) => res.send(data))
+		.catch((error) => {
+			res.status(500).send(error);
+		});
+});
 
 //Get products by id
 // router.get("/product/:id",(req, res) =>{
@@ -71,8 +120,6 @@ router.get("/:sellerId",(req, res) =>{
 
 // Get orders by seller Id
 
-
-
 // router.post("/", (req, res, next){
 // const {} = req.body;
 
@@ -80,6 +127,5 @@ router.get("/:sellerId",(req, res) =>{
 // .then((product)=> res.send(product))
 // .cath((err) =>res.status(500).send(err));
 // })
-
 
 module.exports = router;

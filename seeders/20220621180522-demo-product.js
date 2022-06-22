@@ -15,7 +15,7 @@ module.exports = {
 					imgURL: "http://#",
 					price: 100.0,
 					quantity: 5,
-					easyCare: "1",
+					easyCare: true,
 					light: "Bright Direct",
 					petFriendly: false,
 					airPurifying: false,
