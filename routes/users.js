@@ -58,6 +58,57 @@ router.post("/buyers", (req, res) => {
 		});
 });
 
+//Post user - seller
+// route: "/users/sellers"
+router.post("/sellers", async (req, res) => {
+	// destructure variables from req.body
+	const {
+		userName,
+		email,
+		hashedPassword,
+		firstName,
+		lastName,
+		imgUrl,
+		role,
+		stripeId,
+		storeName,
+		storeDescription,
+	} = req.body;
+
+	try {
+		// destructure user and seller from models
+		const { user, seller } = models;
+
+		// create user with role of seller and save the result in a variable
+		const vendor = await user.create({
+			userName,
+			email,
+			hashedPassword,
+			firstName,
+			lastName,
+			imgUrl,
+			stripeId,
+			role,
+		});
+
+		console.log({ vendor });
+		// get the userID from the variable returned from creating a user with the role of seller
+		const userId = vendor.userId;
+
+		// create entry in the Sellers table for the user created above and use the userId above as the foreign key
+		await seller.create({
+			userId,
+			storeName,
+			storeDescription,
+		});
+
+		res.send(vendor);
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error);
+	}
+});
+
 // get all addresses
 router.get("/address", async (req, res) => {
 	try {
