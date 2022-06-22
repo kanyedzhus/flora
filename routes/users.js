@@ -35,8 +35,11 @@ router.get("/address", async (req, res) =>{
       res.send(response);
     } catch (err) {
       res.status(400).send({ message: err.message });
-    }
-  
+    } 
 });
+
+// post addresse by user id
+router.post("/")
+
 
 module.exports = router;
