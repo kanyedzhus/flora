@@ -31,7 +31,7 @@ router.get("/:sellerId",(req, res) =>{
     });
 
 
-    //Post a Product
+//Post a Product
     router.post("/product", (req, res) =>{
       const {categoryId, sellerId, description, color, dimensionsCM, imgURL, price, quantity, careDifficulty, light, petFriendly,airPurifying} = req.body;
       //console.log({categoryId, sellerId, description, color, dimensionsCM, imgURL, price, quantity, careDifficulty, light, petFriendly,airPurifying});
