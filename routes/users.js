@@ -70,7 +70,7 @@ router.post("/sellers", async (req, res) => {
 		lastName,
 		imgUrl,
 		role,
-		stripeId,
+
 		storeName,
 		storeDescription,
 	} = req.body;

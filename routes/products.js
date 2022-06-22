@@ -37,7 +37,7 @@ router.post("/", upload.single("product_image"), async (req, res, next) => {
 		imgURL,
 		price,
 		quantity,
-		careDifficulty,
+		easyCare,
 		light,
 		petFriendly,
 		airPurifying,
