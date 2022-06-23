@@ -8,12 +8,10 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const sellerRouter = require("./routes/sellers");
 const productsRouter = require("./routes/products");
+const ordersRouter = require("./routes/orders");
+const categoriesRouter = require("./routes/categories");
+
 const cors = require("cors");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var sellerRouter = require("./routes/sellers");
-var ordersRouter = require("./routes/orders");
-var categoriesRouter = require("./routes/categories");
 
 const app = express();
 app.use(cors());
