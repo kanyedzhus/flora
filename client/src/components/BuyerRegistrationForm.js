@@ -15,19 +15,19 @@ export default function BuyerRegistrationForm() {
 					Create your Flora Account
 				</h2>
 				<div className="form-group mb-3">
-					<label for="username">Username</label>
+					<label htmlFor="username">Username</label>
 					<input type="text" className="form-control py-1" id="username" />
 				</div>
 				<div className="form-group mb-3">
-					<label for="email">Email address</label>
+					<label htmlFor="email">Email address</label>
 					<input type="email" className="form-control py-1" id="email" />
 				</div>
 				<div className="form-group mb-3">
 					{" "}
-					<label for="password">Password</label>
+					<label htmlFor="password">Password</label>
 					<input type="password" className="form-control" id="password" />
 				</div>
-				
+
 				<button className="w-100 btn btn-md btn-outline-primary" type="submit">
 					Create Account
 				</button>

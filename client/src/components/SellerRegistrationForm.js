@@ -15,24 +15,24 @@ export default function SellerRegistrationForm() {
 					Create your Flora Account
 				</h2>
 				<div className="form-group mb-3">
-					<label for="username">Username</label>
+					<label htmlFor="username">Username</label>
 					<input type="text" className="form-control py-1" id="username" />
 				</div>
 				<div className="form-group mb-3">
-					<label for="email">Email address</label>
+					<label htmlFor="email">Email address</label>
 					<input type="email" className="form-control py-1" id="email" />
 				</div>
 				<div className="form-group mb-3">
 					{" "}
-					<label for="password">Password</label>
+					<label htmlFor="password">Password</label>
 					<input type="password" className="form-control" id="password" />
 				</div>
 				<div className="form-group mb-3">
-					<label for="storeName">Store Name</label>
+					<label htmlFor="storeName">Store Name</label>
 					<input type="text" className="form-control py-1" id="storeName" />
 				</div>
 				<div className="form-group mb-3">
-					<label for="storeDescription">Store Description</label>
+					<label htmlFor="storeDescription">Store Description</label>
 					<textarea className="form-control py-1" id="storeDescription" />
 				</div>
 				<button className="w-100 btn btn-md btn-outline-primary" type="submit">
