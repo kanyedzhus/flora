@@ -66,10 +66,10 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		// get the stripe price id automatically created with the product. use this in db
 		const stripePriceId = stripeProduct.default_price;
 		console.log(stripePriceId);
-
+		// sellerId is hard coded for test. Needs to change. Same for categoryId
 		const newProduct = await models.product.create({
-			categoryId,
-			sellerId,
+			categoryId: 1,
+			sellerId: 1,
 			description,
 			productName,
 			imgURL: correctedPath,

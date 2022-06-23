@@ -116,7 +116,9 @@ export default function SellerRegistrationForm() {
 			>
 				<h2 className="h3 mb-3 fw-normal text-center">Add a product</h2>
 				<div className="form-group mb-3">
-					<label htmlFor="productName">Product Name</label>
+					<label htmlFor="productName" className="fw-bold mb-1">
+						Product Name
+					</label>
 					<input
 						type="text"
 						className="form-control py-1"
@@ -127,8 +129,11 @@ export default function SellerRegistrationForm() {
 					/>
 				</div>
 				<div className="form-group mb-3">
-					<label htmlFor="productDescription">Product Description</label>
+					<label htmlFor="productDescription" className="fw-bold mb-1">
+						Product Description
+					</label>
 					<textarea
+						rows="5"
 						className="form-control py-1"
 						id="productDescription"
 						name="description"
@@ -136,9 +141,14 @@ export default function SellerRegistrationForm() {
 						onChange={handleInputChange}
 					/>
 				</div>
+
+				{/*************************** PRODUCT IMAGE ****************************/}
+
 				<div className="form-group mb-3">
 					{" "}
-					<label htmlFor="imgURL">Product Image</label>
+					<label htmlFor="imgURL " className="fw-bold mb-1">
+						Product Image
+					</label>
 					<input
 						type="file"
 						className="form-control"
@@ -146,10 +156,12 @@ export default function SellerRegistrationForm() {
 						onChange={handleFileChange}
 					/>
 				</div>
-				<div className="d-flex">
+				<div className="d-flex justify-content-between">
 					<div className="form-group mb-3">
 						{" "}
-						<label htmlFor="price">Price</label>
+						<label className="fw-bold mb-1" htmlFor="price">
+							Price
+						</label>
 						<input
 							type="number"
 							className="form-control"
@@ -160,10 +172,12 @@ export default function SellerRegistrationForm() {
 						/>
 					</div>
 					<div className="form-group mb-3">
-						<label htmlFor="quantity">Stock</label>
+						<label className="fw-bold mb-1" htmlFor="quantity">
+							Stock
+						</label>
 						<input
 							type="number"
-							className="form-control py-1"
+							className="form-control"
 							id="quantity"
 							name="quantity"
 							value={productDetails.quantity}
