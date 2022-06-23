@@ -15,49 +15,28 @@ export default function SellerRegistrationForm() {
 		petFriendly: false,
 		airPurifying: false,
 	});
+	const [parentId, setParentId] = useState();
+	const [subcategoryOptions, setSubcategoryOptions] = useState([]);
 
-	const [categoryValue, setCategoryValue] = useState();
-	const [subcategoryOptions, setSubcategoryOptions] = useState();
-
-	const subcategories = {
-		potted: 2,
-		cacti: 3,
-		climbing: 5,
-		trees: 6,
-		bouquet: 8,
-		dried: 9,
-	};
-
-	const getSubcategories = (subcategories) => {
-		if (categoryValue === "Indoor Plants") {
-			setSubcategoryOptions(
-				<>
-					<option value={subcategories.potted}>Potted Plants</option>
-					<option value={subcategories.cacti}>Cacti and Succulents</option>
-				</>
+	const getSubcategories = async () => {
+		try {
+			const response = await fetch(
+				`http://localhost:5000/categories/${parentId}`
 			);
-		} else if (categoryValue === "Outdoor Plants") {
-			setSubcategoryOptions(
-				<>
-					<option value={subcategories.climbing}>Climbing Plants</option>
-					<option value={subcategories.trees}>Trees</option>
-				</>
-			);
-		} else if (categoryValue === "Flowers") {
-			setSubcategoryOptions(
-				<>
-					<option value={subcategories.bouquet}>Bouquet</option>
-					<option value={subcategories.dried}>Dried Flowers</option>
-				</>
-			);
+			if (response.ok) {
+				const jsonResponse = await response.json();
+				setSubcategoryOptions(jsonResponse);
+			}
+		} catch (error) {
+			console.log(error);
 		}
-
-		return subcategoryOptions;
 	};
 
 	useEffect(() => {
 		console.log(productDetails);
-	});
+		console.log({ parentId });
+		getSubcategories();
+	}, [parentId]);
 
 	const handleCheckboxChange = (event) => {
 		// get value and checked from event.target. checked is true when checked
@@ -203,19 +182,32 @@ export default function SellerRegistrationForm() {
 						className="form-select me-3"
 						aria-label="Plant Categories"
 						onChange={(event) => {
-							setCategoryValue(event.target.value);
-							getSubcategories(subcategories);
+							// console.log(event.target.selectedIndex);
+							console.log(event.target.value);
+							setParentId(event.target.value);
+							console.log({ parentId });
 						}}
 					>
 						<option selected>Choose category</option>
-						<option value="Indoor Plants">Indoor Plants</option>
-						<option value="Outdoor Plants">Outdoor Plants</option>
-						<option value="Flowers">Flowers</option>
+						<option value="1">Indoor Plants</option>
+						<option value="4">Outdoor Plants</option>
+						<option value="7">Flowers</option>
 					</select>
 
-					<select className="form-select" aria-label="Plant Subcategories">
+					<select
+						className="form-select"
+						aria-label="Plant Subcategories"
+						onChange={(event) =>
+							setProductDetails({
+								...productDetails,
+								categoryId: event.target.value,
+							})
+						}
+					>
 						<option selected>Choose subcategory</option>
-						{subcategoryOptions}
+						{subcategoryOptions.map((option) => (
+							<option value={option.categoryId}>{option.categoryName}</option>
+						))}
 					</select>
 				</div>
 

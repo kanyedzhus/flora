@@ -1,17 +1,18 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var models = require ("../models")
+var models = require("../models");
 
-//Get products by category Id
-// /categories/:categoryId
-// router.get("/:categoryId",(req, res) =>{
-//     const {categoryId} = req.params;
-//     // console.log(models)
-//         models.product.findAll({ where: {categoryId}},{
-//             attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
-//         .then((seller)=> res.send(seller))
-//         .catch((err) =>res.status(500).send({error: err.message}));
-//     });
+//Get categories by parent id
+router.get("/:parentId", (req, res) => {
+	const { parentId } = req.params;
 
+	models.category
+		.findAll({
+			attributes: ["categoryId", "categoryName", "parentId"],
+			where: { parentId },
+		})
+		.then((categories) => res.send(categories))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
 
-    module.exports = router;
+module.exports = router;

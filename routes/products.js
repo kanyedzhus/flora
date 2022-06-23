@@ -45,7 +45,7 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		petFriendly,
 		airPurifying,
 	} = req.body;
-
+	console.log(req.body);
 	// get price in cents to send to stripe
 	const priceInCents = price * 100;
 
@@ -68,7 +68,7 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		console.log(stripePriceId);
 		// sellerId is hard coded for test. Needs to change. Same for categoryId
 		const newProduct = await models.product.create({
-			categoryId: 1,
+			categoryId,
 			sellerId: 1,
 			description,
 			productName,
@@ -90,6 +90,82 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 	}
 });
 
-router.post;
+// Get products by category Id
+// /products/:categoryId
+router.get("/category/:categoryId", (req, res) => {
+	const { categoryId } = req.params;
+	// console.log(models)
+	models.product
+		.findAll({
+			where: { categoryId },
 
+			attributes: [
+				"productId",
+				"description",
+				"categoryId",
+				"sellerId",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
+router.get("/:productId", (req, res) => {
+	const { productId } = req.params;
+	// console.log(models)
+	models.product
+		.findAll({
+			where: { productId },
+
+			attributes: [
+				"productId",
+				"description",
+				"categoryId",
+				"sellerId",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
+// Get products by seller Id
+router.get("/sellers/:sellerId", (req, res) => {
+	const { sellerId } = req.params;
+	models.sellers
+		.findAll({
+			where: { sellerId },
+
+			attributes: [
+				"productId",
+				"categoryId",
+				"sellerId",
+				"description",
+				"color",
+				"dimensionsCM",
+				"imgURL",
+				"price",
+				"quantity",
+				"careDifficulty",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
 module.exports = router;
