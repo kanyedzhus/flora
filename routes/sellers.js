@@ -44,17 +44,8 @@ router.get("/:sellerId",(req, res) =>{
     });
 
 
-//Get products by category Id
-// /seller/product/:productId
-router.get("/product/:categoryId",(req, res) =>{
-    const {categoryId} = req.params;
-        models.product.findAll({ where: {categoryId}},{
-            attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
-        .then((seller)=> res.send(seller))
-        .catch((err) =>res.status(500).send({error: err.message}));
-    });
 
-//Get products by seller Id
+// Get products by seller Id
 // router.get("/product/sellers/:sellerId",(req, res) =>{
 //     const {sellerId} = req.params;
 //         models.sellers.findAll({ where: {sellerId,}},{
