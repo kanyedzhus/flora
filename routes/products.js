@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
 
 // configuring multer. Can add properties for file limits, type, size etc
 const upload = multer({ storage: storage });
-
+// "/products"
 router.post("/", upload.single("imgURL"), async (req, res, next) => {
 	// info about the file uploaded is in req.file, which multer makes available to us.
 	// console.log(req.file, req.body);

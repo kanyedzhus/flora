@@ -15,10 +15,18 @@ import SignInPage from "./Pages/SignInPage";
 import SellerRegistrationPage from "./Pages/SellerRegistrationPage";
 import BuyerRegistrationPage from "./Pages/BuyerRegistrationPage";
 import SellerProfile from "./components/SellerProfile";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
 		<div className="App">
+			{" "}
+			<ToastContainer
+				position="top-center"
+				transition={Slide}
+				autoClose={2500}
+			/>
 			<Routes>
 				<Route exact path="/" element={<HomePage />} />
 				<Route path="/success" element={<Success />} />
@@ -27,6 +35,7 @@ function App() {
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
+				<Route path="/seller/profile" element={<SellerProfile />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>
