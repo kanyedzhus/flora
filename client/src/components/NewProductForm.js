@@ -6,6 +6,7 @@ export default function SellerRegistrationForm() {
 	const [productDetails, setProductDetails] = useState({
 		productName: "",
 		description: "",
+		categoryId: "",
 		imgURL: null,
 		price: "",
 		quantity: "",
@@ -14,6 +15,45 @@ export default function SellerRegistrationForm() {
 		petFriendly: false,
 		airPurifying: false,
 	});
+
+	const [categoryValue, setCategoryValue] = useState();
+	const [subcategoryOptions, setSubcategoryOptions] = useState();
+
+	const subcategories = {
+		potted: 2,
+		cacti: 3,
+		climbing: 5,
+		trees: 6,
+		bouquet: 8,
+		dried: 9,
+	};
+
+	const getSubcategories = (subcategories) => {
+		if (categoryValue === "Indoor Plants") {
+			setSubcategoryOptions(
+				<>
+					<option value={subcategories.potted}>Potted Plants</option>
+					<option value={subcategories.cacti}>Cacti and Succulents</option>
+				</>
+			);
+		} else if (categoryValue === "Outdoor Plants") {
+			setSubcategoryOptions(
+				<>
+					<option value={subcategories.climbing}>Climbing Plants</option>
+					<option value={subcategories.trees}>Trees</option>
+				</>
+			);
+		} else if (categoryValue === "Flowers") {
+			setSubcategoryOptions(
+				<>
+					<option value={subcategories.bouquet}>Bouquet</option>
+					<option value={subcategories.dried}>Dried Flowers</option>
+				</>
+			);
+		}
+
+		return subcategoryOptions;
+	};
 
 	useEffect(() => {
 		console.log(productDetails);
@@ -156,6 +196,29 @@ export default function SellerRegistrationForm() {
 						onChange={handleFileChange}
 					/>
 				</div>
+
+				{/*************************** CATEGORIES****************************/}
+				<div className="d-flex justify-content-between">
+					<select
+						className="form-select me-3"
+						aria-label="Plant Categories"
+						onChange={(event) => {
+							setCategoryValue(event.target.value);
+							getSubcategories(subcategories);
+						}}
+					>
+						<option selected>Choose category</option>
+						<option value="Indoor Plants">Indoor Plants</option>
+						<option value="Outdoor Plants">Outdoor Plants</option>
+						<option value="Flowers">Flowers</option>
+					</select>
+
+					<select className="form-select" aria-label="Plant Subcategories">
+						<option selected>Choose subcategory</option>
+						{subcategoryOptions}
+					</select>
+				</div>
+
 				<div className="d-flex justify-content-between">
 					<div className="form-group mb-3">
 						{" "}

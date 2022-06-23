@@ -90,4 +90,6 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 	}
 });
 
+router.post;
+
 module.exports = router;
