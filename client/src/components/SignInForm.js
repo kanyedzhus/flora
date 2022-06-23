@@ -14,12 +14,12 @@ export default function SignInForm() {
 				<h2 className="h3 mb-3 fw-normal text-center">Please sign in</h2>
 
 				<div className="form-group mb-3">
-					<label for="email">Email address</label>
+					<label htmlFor="email">Email address</label>
 					<input type="email" className="form-control py-1" id="email" />
 				</div>
 				<div className="form-group mb-3">
 					{" "}
-					<label for="password">Password</label>
+					<label htmlFor="password">Password</label>
 					<input type="password" className="form-control" id="password" />
 				</div>
 

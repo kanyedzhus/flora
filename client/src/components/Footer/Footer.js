@@ -87,7 +87,7 @@ function Footer() {
 										id="form5Example21"
 										className="form-control"
 									/>
-									<label className="form-label" for="form5Example21">
+									<label className="form-label" htmlFor="form5Example21">
 										Email address
 									</label>
 								</div>

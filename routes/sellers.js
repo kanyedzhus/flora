@@ -26,7 +26,7 @@ router.get("/product", (req, res) => {
 				"imgURL",
 				"price",
 				"quantity",
-				"careDifficulty",
+				"easyCare",
 				"light",
 				"petFriendly",
 				"airPurifying",
