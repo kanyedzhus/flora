@@ -89,34 +89,14 @@ router.post("/product", (req, res) => {
 		});
 });
 
-//Get products by id
-// router.get("/product/:id",(req, res) =>{
-// const {productId} = req.params.id;
-//     models.products.findAll({ where: {productId,}},{
-//         attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
-//     .then((seller)=> res.send(seller))
-//     .catch((err) =>res.status(500).send({error: err.message}));
-// });
-
-//Get products by category Id
-// router.get("/product/category/:id",(req, res) =>{
-//     const {categoryId} = req.params.id;
-//         models.sellers.findAll({ where: {categoryId,}},{
-//             attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
-//         .then((seller)=> res.send(seller))
-//         .catch((err) =>res.status(500).send({error: err.message}));
-//     });
-
-//Get products by seller Id
-// router.get("/product/sellers/:id",(req, res) =>{
-//     const {sellerId} = req.params.id;
+// Get products by seller Id
+// router.get("/product/sellers/:sellerId",(req, res) =>{
+//     const {sellerId} = req.params;
 //         models.sellers.findAll({ where: {sellerId,}},{
 //             attributes: ['productId', 'categoryId', 'sellerId','description','color','dimensionsCM','imgURL','price','quantity','careDifficulty','light','petFriendly','airPurifying' ]})
 //         .then((seller)=> res.send(seller))
 //         .catch((err) =>res.status(500).send({error: err.message}));
 //     });
-
-// Get orders by seller Id
 
 // router.post("/", (req, res, next){
 // const {} = req.body;

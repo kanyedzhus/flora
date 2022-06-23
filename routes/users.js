@@ -8,24 +8,18 @@ const stripeAPI = require("../StripeApi/stripe");
 //   res.send('respond with a resource');
 //  });
 
-// Get all users
-router.get("/", async (req, res) => {
-	try {
-		const response = await models.user.findAll({
-			attributes: [
-				"userId",
-				"userName",
-				"email",
-				"firstName",
-				"lastName",
-				"role",
-			],
-		});
-		res.send(response);
-	} catch (err) {
-		res.status(400).send({ message: err.message });
-	}
+
+// Get all users / buyer
+router.get("/buyers", async (req, res) =>{ 
+  try {
+      const response = await models.user.findAll({attributes:["userId","userName","email","firstName","lastName","role"]});
+      res.send(response);
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    }
+  
 });
+
 
 //Post user - buyer
 // route: "/users/buyers"
@@ -141,7 +135,19 @@ router.get("/address", async (req, res) => {
 	}
 });
 
+
+// // post address by user id
+// router.post("/address/:userId", (req, res) =>{
+//   const {userId} = req.params;
+//   const {line1, line2, city, postalCode, country} = req.body;
+//   models.user.findOne({where:{userId},})
+//   .then((user) =>{user.createaddress({line1, line2, city, postalCode, country})
+//   .then((data)=>{res.send(data);})
+//   .catch((err)=>{res.status(400).send({ message: err.message })})})
+// })
+
 // post addresse by user id
 router.post("/address/:userId");
+
 
 module.exports = router;
