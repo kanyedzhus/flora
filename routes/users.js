@@ -1,11 +1,12 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var models = require ("../models")
+var models = require("../models");
 
 /* GET users listing. */
 //  router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 //  });
+
 
 // Get all users / buyer
 router.get("/buyers", async (req, res) =>{ 
@@ -26,6 +27,57 @@ router.post("/buyers", (req, res) =>{
     .catch((error) => {
     res.status(500).send(error);
 });
+
+// Get all users
+router.get("/", async (req, res) => {
+	try {
+		const response = await models.user.findAll({
+			attributes: [
+				"userId",
+				"userName",
+				"email",
+				"firstName",
+				"lastName",
+				"role",
+			],
+		});
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
+});
+
+//Post user - buyer
+// route: "/users/buyers"
+router.post("/buyers", (req, res) => {
+	const {
+		userName,
+		email,
+		hashedPassword,
+		firstName,
+		lastName,
+		imgUrl,
+		role,
+		stripeId,
+	} = req.body;
+
+	console.log(req.body);
+	models.user
+		.create({
+			userName,
+			email,
+			hashedPassword,
+			firstName,
+			lastName,
+			imgUrl,
+			role,
+			stripeId,
+		})
+		.then((data) => res.send(data))
+		.catch((error) => {
+			res.status(500).send(error);
+		});
+
 });
 
 // Get all users / sellers
@@ -92,14 +144,25 @@ router.post("/sellers", async (req, res) => {
 });
 
 // get all addresses
-router.get("/address", async (req, res) =>{ 
-  try {
-      const response = await models.address.findAll({attributes:["addressId","userId","line1","line2","city","postalCode","country"]});
-      res.send(response);
-    } catch (err) {
-      res.status(400).send({ message: err.message });
-    } 
+router.get("/address", async (req, res) => {
+	try {
+		const response = await models.address.findAll({
+			attributes: [
+				"addressId",
+				"userId",
+				"line1",
+				"line2",
+				"city",
+				"postalCode",
+				"country",
+			],
+		});
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
 });
+
 
 // // post address by user id
 // router.post("/address/:userId", (req, res) =>{
@@ -110,5 +173,9 @@ router.get("/address", async (req, res) =>{
 //   .then((data)=>{res.send(data);})
 //   .catch((err)=>{res.status(400).send({ message: err.message })})})
 // })
+
+// post addresse by user id
+router.post("/address/:userId");
+
 
 module.exports = router;
