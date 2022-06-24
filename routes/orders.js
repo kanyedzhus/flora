@@ -39,28 +39,28 @@ router.get("/order/:sellerId",async (req, res) =>{
 
      //Post an order
      router.post("/", (req, res) =>{
-      const {orderId, buyerId, sellerId, invoiceId, status, total} = req.body;
+      const { buyerId, sellerId, invoiceId, status, total} = req.body;
    
-        models.order.create({orderId, buyerId, sellerId, invoiceId, status, total})
+        models.order.create({buyerId, sellerId, invoiceId, status, total})
         .then((data) => res.send(data))
         .catch((error) => {
         res.status(500).send(error);
     });
     });
 
-    //Put order status by order Id
+    //Put (edit) order status by order Id
     router.put("/:orderId", async (req, res) => {
       const { orderId } = req.params;
-      const { status } = req.body;
-    
+      
       try {
-        const status = await models.order.findOne({
-          where: {
-            orderId,
-          },
+        const response = await models.order.findOne({
+          where: {orderId},
+          attributes: ["orderId", "buyerId", "sellerId", "invoiceId","status","total","createdAt"],
         });
-    
-        const data = await status.update({where: {status}});
+        console.log(response)
+
+        const { status } = req.body;
+        const data = await response.update({status: {status}});
     
         res.send(data);
       } catch (error) {
@@ -68,7 +68,7 @@ router.get("/order/:sellerId",async (req, res) =>{
       }
     });
 
-    //Get order item buy orderId
+    //Get order item by orderId
     router.get("/item/:orderId", async (req, res) =>{ 
       const {orderId} = req.params;
       try {
@@ -81,7 +81,15 @@ router.get("/order/:sellerId",async (req, res) =>{
 
 
     //Post order item
-  router.post("/item", )
+  router.post("/item", async(req,res) =>{
+   const {orderId, productId, quantity} = req.body;
+   try{
+    const response = await models.orderItem.create({orderId, productId, quantity});
+    res.send(response);
+   } catch (err) {
+    res.status(400).send({ message: err.message });
+  }
+  });
   
 
     module.exports = router;
