@@ -18,6 +18,7 @@ import CartPage from "./Pages/CartPage";
 import SellerProfile from "./components/SellerProfile";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SingleProductPage from "./Pages/SingleProductPage";
 
 function App() {
 	return (
@@ -33,6 +34,7 @@ function App() {
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
+				<Route path="/product/:productId" element={<SingleProductPage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
