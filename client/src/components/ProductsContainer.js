@@ -7,6 +7,7 @@ export default function ProductsContainer() {
 	return (
 		<div className="col-md-9">
 			<div className="row row-cols-1 row-cols-sm-2 g-3">
+				{/* map out product cards */}
 				<ProductCard />
 			</div>
 		</div>
