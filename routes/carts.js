@@ -28,9 +28,9 @@ router.get("/buyer/:buyerId", async (req, res) =>{
 
 //Post cart session
 router.post("/", (req, res) =>{
-    const {total, buyerId} = req.body;
+    const { total, buyerId } = req.body;
  
-      models.cartSession.create({total, buyerId})
+      models.cartSession.create({ total, buyerId })
       .then((data) => res.send(data))
       .catch((error) => {
       res.status(500).send(error);
@@ -38,7 +38,7 @@ router.post("/", (req, res) =>{
   });
 
   //Get cart item by cart session id
-  router.get("/item/:orderId", async (req, res) =>{ 
+  router.get("/item/:cartSessionId", async (req, res) =>{ 
     const {cartSessionId} = req.params;
     try {
         const response = await models.cartItem.findAll({where: {cartSessionId}, attributes:["cartSessionId","productId","quantity","createdAt"]});

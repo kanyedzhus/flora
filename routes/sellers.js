@@ -39,6 +39,7 @@ router.get("/product", (req, res) => {
 //Get seller by Id
 router.get("/:sellerId", (req, res) => {
 	const { sellerId } = req.params;
+	console.log(sellerId)
 
 	models.seller
 		.findOne({
