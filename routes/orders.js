@@ -13,7 +13,7 @@ router.get("/", async (req, res) =>{
       }
     });
 
-//Get all orders by id
+//Get orders by id
 
 router.get("/:oderId", async (req, res) =>{ 
     const {orderId} = req.params;

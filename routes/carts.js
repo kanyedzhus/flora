@@ -52,7 +52,7 @@ router.post("/", (req, res) =>{
     router.post("/item", (req, res) =>{
         const {cartSessionId, productId, quantity} = req.body;
      
-          models.cartItem.create({cartSessionId, productId, quantity })
+          models.cartItem.create({cartSessionId, productId, quantity})
           .then((data) => res.send(data))
           .catch((error) => {
           res.status(500).send(error);
@@ -60,6 +60,25 @@ router.post("/", (req, res) =>{
       });
 
 //Put cart item by quantity 
+
+router.put("/item/:cartItemId", async (req, res) => {
+    const { cartItemId } = req.params;
+    
+    try {
+      const response = await models.cartItem.findOne({
+        where: {cartItemId},
+        attributes: ["cartItemId ", "cartSessionId", "productId ", "invoiceId","quantity","createdAt","updatedAt"],
+      });
+      console.log(response)
+
+      const { quantity } = req.body;
+      const data = await response.update({quantity: {quantity}});
+  
+      res.send(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
 
 //Delete cart item by id
 router.delete("/item/:cartItemId", async (req, res) => {

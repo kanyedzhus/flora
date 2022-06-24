@@ -151,15 +151,13 @@ router.get("/sellers/:sellerId", (req, res) => {
 
 			attributes: [
 				"productId",
+				"description",
 				"categoryId",
 				"sellerId",
-				"description",
-				"color",
-				"dimensionsCM",
 				"imgURL",
 				"price",
 				"quantity",
-				"careDifficulty",
+				"easyCare",
 				"light",
 				"petFriendly",
 				"airPurifying",
@@ -168,4 +166,63 @@ router.get("/sellers/:sellerId", (req, res) => {
 		.then((seller) => res.send(seller))
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
+
+//Put (edit) product by description, price, quantity
+router.put("/", async (req, res) => {
+    const { productId } = req.params;
+    
+    try {
+      const response = await models.product.findOne({
+        where: { productId},
+        attributes: [	
+		"productId",
+		"description",
+		"categoryId",
+		"sellerId",
+		"imgURL",
+		"price",
+		"quantity",
+		"easyCare",
+		"light",
+		"petFriendly",
+		"airPurifying",],
+      });
+      console.log(response)
+
+      const { description, price, quantity } = req.body;
+      const data = await response.update({description:{description}, price:{price}, quantity: {quantity}});
+  
+      res.send(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+//Delete a product
+router.delete("/", async (req, res) => {
+    const { productId } = req.params;
+    
+    try {
+      const response = await models.product.findOne({
+        where: {productId},
+        attributes: [
+		"productId",
+		"description",
+		"categoryId",
+		"sellerId",
+		"imgURL",
+		"price",
+		"quantity",
+		"easyCare",
+		"light",
+		"petFriendly",
+		"airPurifying",],
+      });
+      const data = await response.destroy();
+      res.send(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+});
+
 module.exports = router;
