@@ -198,28 +198,29 @@ router.put("/", async (req, res) => {
     }
   });
 
-//Delete a product
+//Delete a product by product Id
+// /products/:productId
 router.delete("/", async (req, res) => {
     const { productId } = req.params;
     
     try {
-      const response = await models.product.findOne({
-        where: {productId},
-        attributes: [
-		"productId",
-		"description",
-		"categoryId",
-		"sellerId",
-		"imgURL",
-		"price",
-		"quantity",
-		"easyCare",
-		"light",
-		"petFriendly",
-		"airPurifying",],
-      });
-      const data = await response.destroy();
-      res.send(data);
+    //   const response = await models.product.findOne({
+    //     where: {productId},
+    //     attributes: [
+	// 	"productId",
+	// 	"description",
+	// 	"categoryId",
+	// 	"sellerId",
+	// 	"imgURL",
+	// 	"price",
+	// 	"quantity",
+	// 	"easyCare",
+	// 	"light",
+	// 	"petFriendly",
+	// 	"airPurifying",],
+    //   });
+      const data = await models.product.destroy({where: {productId}});
+      res.status(200).json(data);
     } catch (error) {
       res.status(500).send(error);
     }

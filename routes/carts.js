@@ -3,7 +3,7 @@ var router = express.Router();
 var models = require ("../models")
 
 //Get cart session by id
-
+// /carts/:cartSessionId
 router.get("/:cartSessionId", async (req, res) =>{ 
     const {cartSessionId} = req.params;
     try {
@@ -15,7 +15,7 @@ router.get("/:cartSessionId", async (req, res) =>{
     });
 
 //Get cart session by buyerId
-
+// /carts/buyer/:buyerId
 router.get("/buyer/:buyerId", async (req, res) =>{ 
     const {buyerId} = req.params;
     try {
@@ -27,6 +27,7 @@ router.get("/buyer/:buyerId", async (req, res) =>{
     });
 
 //Post cart session
+// /carts
 router.post("/", (req, res) =>{
     const { total, buyerId } = req.body;
  
@@ -38,6 +39,7 @@ router.post("/", (req, res) =>{
   });
 
   //Get cart item by cart session id
+  // /carts/items/:cartSessionId
   router.get("/item/:cartSessionId", async (req, res) =>{ 
     const {cartSessionId} = req.params;
     try {
@@ -49,6 +51,7 @@ router.post("/", (req, res) =>{
     });
 
 //Post cart Item
+// /carts/item
     router.post("/item", (req, res) =>{
         const {cartSessionId, productId, quantity} = req.body;
      
@@ -60,14 +63,14 @@ router.post("/", (req, res) =>{
       });
 
 //Put cart item by quantity 
-
+// /carts/items/:cartItemId
 router.put("/item/:cartItemId", async (req, res) => {
     const { cartItemId } = req.params;
     
     try {
       const response = await models.cartItem.findOne({
         where: {cartItemId},
-        attributes: ["cartItemId ", "cartSessionId", "productId ", "invoiceId","quantity","createdAt","updatedAt"],
+        attributes: ["cartItemId", "cartSessionId", "productId ", "invoiceId","quantity","createdAt","updatedAt"],
       });
       console.log(response)
 
@@ -81,33 +84,26 @@ router.put("/item/:cartItemId", async (req, res) => {
   });
 
 //Delete cart item by id
-router.delete("/item/:cartItemId", async (req, res) => {
+// carts/item/:cartItemId
+router.delete("/item/:cartItemId", (req, res) => {
     const { cartItemId } = req.params;
-    
-    try {
-      const response = await models.cartItem.findOne({
-        where: {cartItemId},
-        attributes: ["cartItemId ", "cartSessionId", "productId ", "invoiceId","quantity","createdAt","updatedAt"],
-      });
-      const data = await response.destroy();
-      res.send(data);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-});
-
+   
+   models.cartItem.destroy({where: { cartItemId }})
+   .then((data) => res.status(200).json(data))
+  
+   .catch((error) => {
+   res.status(500).send(error);
+   });
+  });
 
 //Delete cart session
-router.delete("/session/:cartSessionId", async (req, res) => {
+// carts/:cartSessionId
+router.delete("/:cartSessionId", async (req, res) => {
     const { cartSessionId } = req.params;
     
     try {
-      const response = await models.cartSession.findOne({
-        where: {cartSessionId},
-        attributes: ["cartSessionId", "total", "buyerId ", "createdAt","updatedAt"],
-      });
-      const data = await response.destroy();
-      res.send(data);
+      const data = await models.cartSession.destroy({where: {cartSessionId}});
+      res.status(200).json(data);
     } catch (error) {
       res.status(500).send(error);
     }

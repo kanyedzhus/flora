@@ -14,7 +14,7 @@ router.get("/", async (req, res) =>{
     });
 
 //Get orders by id
-
+// /orders/orderId
 router.get("/:orderId",  (req, res) =>{ 
     const { orderId } = req.params;
     console.log(orderId)
@@ -42,32 +42,34 @@ router.get("/order/:sellerId",async (req, res) =>{
     });
 
      //Post an order
+     // /orders
      router.post("/", async (req, res) =>{
       const { buyerId, sellerId, invoiceId, status, total } = req.body;
-      console.log(buyerId);
+      //console.log(buyerId);
    try{
         const order = await models.order.create({ buyerId, sellerId, invoiceId, status, total });
         res.send(order)
     } catch(error) {
-      console.log(error);
+     // console.log(error);
         res.status(500).send(error);
     };
     });
 
     //Put (edit) order status by order Id
+    // /orders/:orderId
     router.put("/:orderId", async (req, res) => {
       const { orderId } = req.params;
-      
+      const { status } = req.body;
+      //console.log(orderId, status)
       try {
         const response = await models.order.findOne({
           where: {orderId},
           attributes: ["orderId", "buyerId", "sellerId", "invoiceId","status","total","createdAt"],
         });
-        console.log(response)
+        //console.log(response)
 
-        const { status } = req.body;
-        const data = await response.update({status: {status}});
-    
+        const data = await response.update({status: {status}, where: {orderId}});
+        console.log(data)
         res.send(data);
       } catch (error) {
         res.status(500).send(error);
@@ -75,6 +77,7 @@ router.get("/order/:sellerId",async (req, res) =>{
     });
 
     //Get order item by orderId
+    // /orders/item/:orderId
     router.get("/item/:orderId", async (req, res) =>{ 
       const { orderId } = req.params;
       try {
@@ -87,6 +90,7 @@ router.get("/order/:sellerId",async (req, res) =>{
 
 
     //Post order item
+    // /orders/item
   router.post("/item", async(req,res) =>{
    const { orderId, productId, quantity } = req.body;
    try{
