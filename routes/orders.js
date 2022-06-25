@@ -68,7 +68,7 @@ router.get("/order/:sellerId",async (req, res) =>{
         });
         //console.log(response)
 
-        const data = await response.update({status: {status}, where: {orderId}});
+        const data = await response.update({status});
         console.log(data)
         res.send(data);
       } catch (error) {

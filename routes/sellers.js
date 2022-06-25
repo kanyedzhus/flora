@@ -14,27 +14,6 @@ router.get("/", async (req, res) => {
 	}
 });
 
-//Get all products
-router.get("/product", (req, res) => {
-	models.product
-		.findAll({
-			attributes: [
-				"productId",
-				"categoryId",
-				"sellerId",
-				"description",
-				"imgURL",
-				"price",
-				"quantity",
-				"easyCare",
-				"light",
-				"petFriendly",
-				"airPurifying",
-			],
-		})
-		.then((product) => res.send(product))
-		.catch((err) => res.status(500).send({ error: err.message }));
-});
 
 //Get seller by Id
 router.get("/:sellerId", (req, res) => {

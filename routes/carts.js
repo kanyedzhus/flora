@@ -1,6 +1,6 @@
-var express = require('express');
-var router = express.Router();
-var models = require ("../models")
+const express = require('express');
+const router = express.Router();
+const models = require ("../models")
 
 //Get cart session by id
 // /carts/:cartSessionId
@@ -62,7 +62,7 @@ router.post("/", (req, res) =>{
       });
       });
 
-//Put cart item by quantity 
+//Put (edit) cart item by quantity 
 // /carts/items/:cartItemId
 router.put("/item/:cartItemId", async (req, res) => {
     const { cartItemId } = req.params;
@@ -70,12 +70,12 @@ router.put("/item/:cartItemId", async (req, res) => {
     try {
       const response = await models.cartItem.findOne({
         where: {cartItemId},
-        attributes: ["cartItemId", "cartSessionId", "productId ", "invoiceId","quantity","createdAt","updatedAt"],
+        attributes: ["cartItemId", "cartSessionId", "productId","quantity","createdAt","updatedAt"],
       });
       console.log(response)
 
       const { quantity } = req.body;
-      const data = await response.update({quantity: {quantity}});
+      const data = await response.update({quantity});
   
       res.send(data);
     } catch (error) {
