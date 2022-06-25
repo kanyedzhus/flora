@@ -90,6 +90,29 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 	}
 });
 
+//Get all products
+// /products
+router.get("/", (req, res) => {
+	models.product
+		.findAll({
+			attributes: [
+				"productId",
+				"categoryId",
+				"sellerId",
+				"description",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		})
+		.then((product) => res.send(product))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
 // Get products by category Id
 // /products/:categoryId
 router.get("/category/:categoryId", (req, res) => {
@@ -117,6 +140,8 @@ router.get("/category/:categoryId", (req, res) => {
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
 
+//Get product by product Id
+// /products/:productId
 router.get("/:productId", (req, res) => {
 	const { productId } = req.params;
 	// console.log(models)
@@ -143,6 +168,7 @@ router.get("/:productId", (req, res) => {
 });
 
 // Get products by seller Id
+// /products/sellers/:sellerId
 router.get("/sellers/:sellerId", (req, res) => {
 	const { sellerId } = req.params;
 	models.sellers
@@ -151,15 +177,13 @@ router.get("/sellers/:sellerId", (req, res) => {
 
 			attributes: [
 				"productId",
+				"description",
 				"categoryId",
 				"sellerId",
-				"description",
-				"color",
-				"dimensionsCM",
 				"imgURL",
 				"price",
 				"quantity",
-				"careDifficulty",
+				"easyCare",
 				"light",
 				"petFriendly",
 				"airPurifying",
@@ -168,4 +192,50 @@ router.get("/sellers/:sellerId", (req, res) => {
 		.then((seller) => res.send(seller))
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
+
+//Put (edit) product by description, price, quantity
+// /products/:productId
+router.put("/:productId", async (req, res) => {
+    const { productId } = req.params;
+    
+    try {
+      const response = await models.product.findOne({
+        where: { productId},
+        attributes: [	
+		"productId",
+		"description",
+		"categoryId",
+		"sellerId",
+		"imgURL",
+		"price",
+		"quantity",
+		"easyCare",
+		"light",
+		"petFriendly",
+		"airPurifying",],
+      });
+      console.log(response)
+
+      const { description, price, quantity } = req.body;
+      const data = await response.update({description, price, quantity});
+  
+      res.send(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+
+//Delete a product by product Id
+// /products/:productId
+router.delete("/:productId", async (req, res) => {
+    const { productId } = req.params;
+    
+    try {
+      const data = await models.product.destroy({where: {productId}});
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+});
+
 module.exports = router;
