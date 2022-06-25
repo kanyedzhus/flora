@@ -6,7 +6,7 @@ export default function ProductCard({ extras, product }) {
 	const { productId, imgURL, productName, price, quantity, sellerId } = product;
 	const navigate = useNavigate();
 	return (
-		<div className="">
+		<div className="col">
 			<div
 				className="card shadow-sm  "
 				style={{ cursor: "pointer" }}
@@ -16,7 +16,12 @@ export default function ProductCard({ extras, product }) {
 					navigate(`/product/${productId}`);
 				}}
 			>
-				<img src={imgURL} className="card-img-top h-50" alt="..." />
+				<img
+					src={imgURL}
+					className="card-img-top h-50"
+					style={{ objectFit: "cover", height: "35vh", width: "100%" }}
+					alt="..."
+				/>
 				<div className="card-body h-100">
 					<h5 className="card-title">{productName}</h5>
 					{extras}

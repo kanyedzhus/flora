@@ -87,7 +87,7 @@ export default function ProductsContainer() {
 	];
 
 	return (
-		<div className="row row-cols-4 g-3">
+		<div className="row row-cols-2 row-cols-xl-4 g-3">
 			{/* map out product cards. map function should be different depending on where it's called */}
 			{products.map((product) => {
 				return <ProductCard product={product} />;

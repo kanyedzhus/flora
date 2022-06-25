@@ -4,20 +4,25 @@ export default function CartItem({ product }) {
 	const { imgURL, productName, price, quantity, sellerId } = product;
 	return (
 		<div className=" border ">
-			<div className="row p-3">
+			<div className="row justify-content-center p-3">
 				<div className="col-3 ">
 					{" "}
-					<img className="img-fluid " src={imgURL} alt="product" />
+					<img
+						className=""
+						style={{ objectFit: "contain", height: "15vh", width: "100%" }}
+						src={imgURL}
+						alt="product"
+					/>
 				</div>
 
-				<div className="col-5">
+				<div className="col-auto">
 					<h4>{productName}</h4>
 					<p className="mb-0">${price}</p>
 					<p className="mb-0 mt-5">{`Quantity: ${quantity}`}</p>
 					<p className="mb-0">{`Sold by ${sellerId}`}</p>
 				</div>
 
-				<div className="col d-flex align-items-center">
+				<div className="col-3 d-flex flex-nowrap align-items-center gap-3">
 					<button
 						className="btn btn-outline"
 						// onClick={() =>  increase(product)}
