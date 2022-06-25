@@ -88,6 +88,7 @@ export default function SellerRegistrationForm() {
 
 		newProduct.set("productName", productDetails.productName);
 		newProduct.set("description", productDetails.description);
+		newProduct.set("categoryId", productDetails.categoryId);
 		newProduct.set("imgURL", productDetails.imgURL);
 		newProduct.set("price", productDetails.price);
 		newProduct.set("quantity", productDetails.quantity);
@@ -119,8 +120,8 @@ export default function SellerRegistrationForm() {
 	};
 
 	const style = {
-		width: "100%",
-		maxWidth: "50%",
+		minWidth: "25%",
+		maxWidth: "25%",
 		padding: "15px",
 		margin: "auto",
 	};

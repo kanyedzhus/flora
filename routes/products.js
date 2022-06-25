@@ -35,7 +35,6 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 	// might not need sellerid from req.body as user will be logged in. maybe a default value in create statement?
 	const {
 		categoryId,
-		sellerId,
 		description,
 		productName,
 		price,
