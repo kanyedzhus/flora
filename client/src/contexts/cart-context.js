@@ -3,6 +3,7 @@ import { fetchFromAPI } from "../../src/helpers";
 export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
+	// *ADD TO CART
 	const addToCart = async (productId, price, stripePriceId) => {
 		const newCartItem = {
 			productId,
@@ -16,11 +17,31 @@ export default function CartContextProvider({ children }) {
 				body: newCartItem,
 			});
 			getCartItems();
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// *INCREASE BY CARTITEM BY 1
+	const increaseQty = async (cartItemId) => {
+		console.log({ cartItemId });
+		try {
+			const response = await fetchFromAPI(`cartitems/item/${cartItemId}/edit`, {
+				method: "PUT",
+			});
+			if (response.ok) {
+				getCartItems();
+			} else {
+				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const [contextValues, setContextValues] = useState({
-		addToCart,
+		addToCartFn: addToCart,
+		increaseQtyFn: increaseQty,
 		cartItems: [],
 	});
 	const getCartItems = async () => {

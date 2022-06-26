@@ -5,7 +5,7 @@ import { CartContext } from "../contexts/cart-context";
 
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
-	const { addToCart, cartItems } = useContext(CartContext);
+	const { addToCartFn, cartItems } = useContext(CartContext);
 	console.log(cartItems);
 	// *PRODUCT.QUANTITY IS THE STOCK **NOT** QUANTITY IN CART TO PURCHASE
 	const {
@@ -45,7 +45,7 @@ export default function ProductCard({ extras, product }) {
 							className="btn btn-primary"
 							onClick={(event) => {
 								event.preventDefault();
-								addToCart(productId, price, stripePriceId);
+								addToCartFn(productId, price, stripePriceId);
 							}}
 						>
 							Add to cart
