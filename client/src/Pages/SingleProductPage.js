@@ -1,8 +1,14 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
+import Layout from "../components/Layout";
+import { useParams, useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 
-export default function ProductsContainer() {
-	// const { products } = useContext(ProductsContext);
+export default function SingleProductView() {
+	const navigate = useNavigate();
+	// this will come out as a string
+	const { productId } = useParams();
+
+	const [product, setProduct] = useState(null);
 	const products = [
 		{
 			productId: 1,
@@ -86,12 +92,38 @@ export default function ProductsContainer() {
 		},
 	];
 
+	// on load check if the product id from params is found in the products list.
+	useEffect(() => {
+		// use the id from the URL to find the product in products.
+		const selectedProduct = products.find((product) => {
+			console.log(product.productId, Number(productId));
+			// turn productId string to number
+			return product.productId === Number(productId);
+		});
+		// if product does not exist redirect to shop page
+		if (!selectedProduct) {
+			navigate("/");
+		}
+
+		setProduct(selectedProduct);
+		console.log(selectedProduct);
+	}, []);
+
+	// handling the case where product is null right when component loads for first time.
+	if (!product) {
+		return null;
+	}
+	// this needs to be the last thing executed
+	// const { imageUrl, title, price, description } = product;
+
 	return (
-		<div className="row row-cols-2 row-cols-xl-4 g-3">
-			{/* map out product cards. map function should be different depending on where it's called */}
-			{products.map((product) => {
-				return <ProductCard product={product} />;
-			})}
-		</div>
+		<Layout>
+			<div className="container w-75 h-75">
+				<ProductCard
+					product={product}
+					extras={<p>Sold by {product.sellerId}</p>}
+				/>
+			</div>
+		</Layout>
 	);
 }

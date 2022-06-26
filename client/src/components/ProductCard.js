@@ -1,16 +1,31 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function ProductCard() {
+// accept extra elements that don't always appear
+export default function ProductCard({ extras, product }) {
+	const { productId, imgURL, productName, price, quantity, sellerId } = product;
+	const navigate = useNavigate();
 	return (
 		<div className="col">
-			<div className="card shadow-sm">
+			<div
+				className="card shadow-sm  "
+				style={{ cursor: "pointer" }}
+				onClick={() => {
+					// this navigates to the singleProduct view. here the id that will be found in the url and used in the singleProduct component is set
+					// must set the / infront of the path or else this path will be appended to existing one.
+					navigate(`/product/${productId}`);
+				}}
+			>
 				<img
-					src="https://cdn.pixabay.com/photo/2016/11/20/08/03/cactus-1842095_960_720.jpg"
-					className="card-img-top"
+					src={imgURL}
+					className="card-img-top h-50"
+					style={{ objectFit: "cover", height: "35vh", width: "100%" }}
 					alt="..."
 				/>
-				<div className="card-body">
-					<h5 className="card-title">Card title</h5>
+				<div className="card-body h-100">
+					<h5 className="card-title">{productName}</h5>
+					{extras}
+					<h5>€ {price}</h5>
 					<p className="card-text">
 						Some quick example text to build on the card title and make up the
 						bulk of the card's content.

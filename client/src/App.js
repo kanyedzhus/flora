@@ -14,9 +14,11 @@ import NotFound from "./Pages/NotFound";
 import SignInPage from "./Pages/SignInPage";
 import SellerRegistrationPage from "./Pages/SellerRegistrationPage";
 import BuyerRegistrationPage from "./Pages/BuyerRegistrationPage";
+import CartPage from "./Pages/CartPage";
 import SellerProfile from "./components/SellerProfile";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SingleProductPage from "./Pages/SingleProductPage";
 
 function App() {
 	return (
@@ -32,10 +34,12 @@ function App() {
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
+				<Route path="/product/:productId" element={<SingleProductPage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
 				<Route path="/seller/profile" element={<SellerProfile />} />
+				<Route path="/cart" element={<CartPage />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>
