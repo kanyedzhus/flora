@@ -39,11 +39,10 @@ router.post("/", async (req, res) => {
 	try {
 		const session = await models.cartSession.create({ total, buyerId });
 
-		const buyerIdFromSession = session.buyerId;
 		// make a second call to the db to get the stripe customer id
 		const stripeCustomerId = await models.buyer.findOne({
 			attributes: ["stripeId"],
-			where: { buyerId: buyerIdFromSession },
+			where: { buyerId },
 		});
 
 		res.send({ session, stripeCustomerId });
@@ -69,15 +68,25 @@ router.get("/item/:cartSessionId", async (req, res) => {
 
 //Post cart Item
 // /carts/item
-router.post("/item", (req, res) => {
+router.post("/item", async (req, res) => {
 	const { cartSessionId, productId, quantity } = req.body;
 
-	models.cartItem
-		.create({ cartSessionId, productId, quantity })
-		.then((data) => res.send(data))
-		.catch((error) => {
-			res.status(500).send(error);
+	try {
+		const cartItem = await models.cartItem.create({
+			cartSessionId,
+			productId,
+			quantity,
 		});
+
+		// make a second call to get the stripe price and prod id of the prod in the cart
+		const stripeIds = await models.product.findOne({
+			attributes: ["stripeProductId", "stripePriceId"],
+			where: { productId },
+		});
+		res.send({ cartItem, stripeIds });
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 //Put (edit) cart item by quantity

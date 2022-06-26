@@ -127,7 +127,7 @@ export default function SellerRegistrationForm() {
 	};
 
 	return (
-		<div style={style}>
+		<div>
 			<form
 				onSubmit={handleSubmit}
 				action="/products"
@@ -212,7 +212,7 @@ export default function SellerRegistrationForm() {
 					</select>
 				</div>
 
-				<div className="d-flex justify-content-between">
+				<div className="d-flex gap-3">
 					<div className="form-group mb-3">
 						{" "}
 						<label className="fw-bold mb-1" htmlFor="price">
