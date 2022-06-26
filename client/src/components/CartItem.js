@@ -18,11 +18,11 @@ export default function CartItem({ product }) {
 				<div className="col-auto">
 					<h4>{productName}</h4>
 					<p className="mb-0">${price}</p>
-					<p className="mb-0 mt-5">{`Quantity: ${quantity}`}</p>
+					<p className="mb-0">{`Quantity: ${quantity}`}</p>
 					<p className="mb-0">{`Sold by ${sellerId}`}</p>
 				</div>
 
-				<div className="col-3 d-flex flex-nowrap align-items-center gap-3">
+				<div className="col-auto d-flex flex-sm-column flex-md-row align-items-center gap-1">
 					<button
 						className="btn btn-outline"
 						// onClick={() =>  increase(product)}

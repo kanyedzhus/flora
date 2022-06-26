@@ -5,35 +5,34 @@ import { CartContext } from "../contexts/cart-context";
 
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
-	const { addToCart } = useContext(CartContext);
-
+	const { addToCart, cartItems } = useContext(CartContext);
+	console.log(cartItems);
+	// *PRODUCT.QUANTITY IS THE STOCK **NOT** QUANTITY IN CART TO PURCHASE
 	const {
 		productId,
 		imgURL,
 		productName,
 		description,
 		price,
-		quantity,
 		sellerId,
 		stripePriceId,
 	} = product;
+
 	const navigate = useNavigate();
+
 	return (
 		<div className="col">
-			<div
-				className="card shadow-sm  "
-				style={{ cursor: "pointer" }}
-				onClick={() => {
-					// this navigates to the singleProduct view. here the id that will be found in the url and used in the singleProduct component is set
-					// must set the / infront of the path or else this path will be appended to existing one.
-					navigate(`/product/${productId}`);
-				}}
-			>
+			<div className="card shadow-sm  " style={{ cursor: "pointer" }}>
 				<img
 					src={imgURL}
 					className="card-img-top"
 					style={{ objectFit: "cover", height: "35vh", width: "100%" }}
 					alt="..."
+					onClick={() => {
+						// this navigates to the singleProduct view. here the id that will be found in the url and used in the singleProduct component is set
+						// must set the / infront of the path or else this path will be appended to existing one.
+						navigate(`/product/${productId}`);
+					}}
 				/>
 				<div className="card-body h-100">
 					<h5 className="card-title">{productName}</h5>
@@ -44,15 +43,9 @@ export default function ProductCard({ extras, product }) {
 						<a
 							href="#"
 							className="btn btn-primary"
-							onClick={() => {
-								addToCart(
-									productId,
-									productName,
-									price,
-									quantity,
-									sellerId,
-									stripePriceId
-								);
+							onClick={(event) => {
+								event.preventDefault();
+								addToCart(productId, price, stripePriceId);
 							}}
 						>
 							Add to cart

@@ -1,6 +1,7 @@
 import { event } from "jquery";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import StripeCheckout from "./Stripe/StripeCheckout";
 
 export default function Total() {
 	const navigate = useNavigate();
@@ -21,12 +22,7 @@ export default function Total() {
 				<h5 className="">{`Total: $${total}`}</h5>
 			</div>
 			<div className="d-flex gap-3">
-				<button
-					className="btn btn-primary"
-					onClick={() => navigate("/checkout")}
-				>
-					CHECKOUT
-				</button>
+				<StripeCheckout />
 				<button
 					className="btn btn-outline"
 					// onClick={() => {

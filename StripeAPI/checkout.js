@@ -1,15 +1,22 @@
-const stripeAPI = require("../stripe");
+const express = require("express");
+const router = express.Router();
+const models = require("../models");
+const stripeAPI = require("../StripeAPI/stripe");
+const path = require("path");
+// define the path to the dotenv
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 
 const createCheckoutSession = async (req, res) => {
 	// need a domain url because cs will be redirected to stripe hosted checkout page. the domain url is needed for stripe to get back to your site
 	// this will be the url the application is deployed to. for now it's the reactapp url
 	const domainUrl = process.env.WEB_APP_URL;
+	console.log(domainUrl);
 	console.log(req.body);
 	// these are what we are sending to the stripeAPI
-	const { line_items, customer_email } = req.body;
+	const { line_items, customer } = req.body;
 
 	// make sure reqbody contains lineitems and email orelse we can't create the checkoutsession with stripe
-	if (!line_items || !customer_email) {
+	if (!line_items) {
 		return res
 			.status(400)
 			.send({ error: "missing required session parameters" });
@@ -23,7 +30,7 @@ const createCheckoutSession = async (req, res) => {
 			mode: "payment",
 			// these are destructured from reqbody and using es6 computed property name syntax
 			line_items,
-			customer_email,
+			customer,
 			// need these routes in front end. customer will be redirected to /success on successful payment. query params used from ?. this is for customization.
 			success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
 			cancel_url: `${domainUrl}/canceled`,

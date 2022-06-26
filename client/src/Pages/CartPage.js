@@ -36,7 +36,7 @@ export default function CartPage() {
 					<h4>Your Cart is Empty.</h4>
 				</div>
 				) : (
-				<div className="container ">
+				<div className="container-lg ">
 					<div className="row justify-content-center">
 						<div className="col-8">
 							{cartItems.map((product) => (

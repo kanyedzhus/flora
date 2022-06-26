@@ -3,24 +3,20 @@ import { fetchFromAPI } from "../../src/helpers";
 export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
-	const addToCart = async (
-		productId,
-
-		price,
-		quantity,
-		,
-		stripePriceId
-	) => {
+	const addToCart = async (productId, price, stripePriceId) => {
 		const newCartItem = {
 			productId,
-			productName,
 			price,
-			quantity,
-			sellerId,
 			stripePriceId,
+			quantity: 1,
 		};
 
-		const addItem = await fetchFromAPI("cartitems/item", { body: newCartItem });
+		try {
+			const addItem = await fetchFromAPI("cartitems/item", {
+				body: newCartItem,
+			});
+			getCartItems();
+		} catch (error) {}
 	};
 
 	const [contextValues, setContextValues] = useState({
@@ -34,7 +30,7 @@ export default function CartContextProvider({ children }) {
 			});
 			setContextValues({
 				...contextValues,
-				cartItems: [...cartItems, cartItem],
+				cartItems: [...cartItems],
 			});
 		} catch (error) {
 			console.log(error);

@@ -22,7 +22,14 @@ router.get("/items/:cartSessionId", async (req, res) => {
 router.get("/all-items", async (req, res) => {
 	try {
 		const cartItems = await models.cartItem.findAll({
-			attributes: ["cartSessionId", "productId", "quantity", "createdAt"],
+			attributes: [
+				"cartSessionId",
+				"productId",
+				"price",
+				"stripePriceId",
+				"quantity",
+				"createdAt",
+			],
 		});
 
 		res.send(cartItems);
@@ -32,14 +39,15 @@ router.get("/all-items", async (req, res) => {
 //Post cart Item - ADD ITEM TO CARTITEMS TABLE
 // /cartitems/item
 router.post("/item", async (req, res) => {
-	const { productId, price, quantity, stripePriceId } = req.body;
+	const { cartSessionId, productId, price, quantity, stripePriceId } = req.body;
 
 	try {
 		// how to get the cartsession id?
 		const cartItem = await models.cartItem.create({
-			cartSessionId: 5,
+			cartSessionId,
 			productId,
 			price,
+			stripePriceId: "price_1LEreGGbLCDl0eiJyOfaZvUo",
 			quantity,
 		});
 
