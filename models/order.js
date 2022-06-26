@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      order.belongsToMany(models.seller, {through:"sellerId"})
       order.belongsToMany(models.buyer, {through:"buyerId"})
+      order.belongsToMany(models.seller, {through:"sellerId"})
       order.hasMany(models.orderItem)
     }
   }
   order.init({
-    orderyId: {
+    orderId: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
