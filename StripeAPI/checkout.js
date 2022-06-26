@@ -12,7 +12,7 @@ const createCheckoutSession = async (req, res) => {
 	if (!line_items || !customer_email) {
 		return res
 			.status(400)
-			.json({ error: "missing required session parameters" });
+			.send({ error: "missing required session parameters" });
 	}
 
 	// creating session
@@ -27,12 +27,12 @@ const createCheckoutSession = async (req, res) => {
 			// need these routes in front end. customer will be redirected to /success on successful payment. query params used from ?. this is for customization.
 			success_url: `${domainUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
 			cancel_url: `${domainUrl}/canceled`,
-			shipping_address_collection: { allowed_countries: ["NL", "US"] },
+			shipping_address_collection: { allowed_countries: ["NL", "GB", "ES"] },
 		});
 
 		console.log(session);
 		// only the sessionID is needed on frontend to redirect buyer to success page. don't send back the entire session object for security reasons. this is for customization
-		res.status(200).json({ sessionId: session.id });
+		res.status(200).send({ sessionId: session.id });
 		// if successful, i'll get this obj from stripe:
 		// {
 		// 	"sessionId": "cs_test_a1XEkjG...."
@@ -41,7 +41,7 @@ const createCheckoutSession = async (req, res) => {
 		console.log(error);
 		res
 			.status(400)
-			.json({ error: "An error occured. Unable to create session." });
+			.send({ error: "An error occured. Unable to create session." });
 	}
 };
 

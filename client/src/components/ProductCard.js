@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { CartContext } from "../contexts/cart-context";
 
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
-	const { productId, imgURL, productName, price, quantity, sellerId } = product;
+	const { addToCart } = useContext(CartContext);
+
+	const {
+		productId,
+		imgURL,
+		productName,
+		description,
+		price,
+		quantity,
+		sellerId,
+		stripePriceId,
+	} = product;
 	const navigate = useNavigate();
 	return (
 		<div className="col">
@@ -18,7 +31,7 @@ export default function ProductCard({ extras, product }) {
 			>
 				<img
 					src={imgURL}
-					className="card-img-top h-50"
+					className="card-img-top"
 					style={{ objectFit: "cover", height: "35vh", width: "100%" }}
 					alt="..."
 				/>
@@ -26,15 +39,24 @@ export default function ProductCard({ extras, product }) {
 					<h5 className="card-title">{productName}</h5>
 					{extras}
 					<h5>€ {price}</h5>
-					<p className="card-text">
-						Some quick example text to build on the card title and make up the
-						bulk of the card's content.
-					</p>
+					<p className="card-text">{description}</p>
 					<div className="d-flex justify-content-between align-items-center">
-						<a href="#" className="btn btn-primary">
+						<a
+							href="#"
+							className="btn btn-primary"
+							onClick={() => {
+								addToCart(
+									productId,
+									productName,
+									price,
+									quantity,
+									sellerId,
+									stripePriceId
+								);
+							}}
+						>
 							Add to cart
 						</a>
-
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="16"

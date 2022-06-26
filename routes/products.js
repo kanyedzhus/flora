@@ -65,7 +65,8 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		// get the stripe price id automatically created with the product. use this in db
 		const stripePriceId = stripeProduct.default_price;
 		console.log(stripePriceId);
-		// sellerId is hard coded for test. Needs to change. Same for categoryId
+
+		//* sellerId is hard coded for test. Needs to change. Same for categoryId
 		const newProduct = await models.product.create({
 			categoryId,
 			sellerId: 1,
@@ -195,46 +196,47 @@ router.get("/sellers/:sellerId", (req, res) => {
 //Put (edit) product by description, price, quantity
 // /products/:productId
 router.put("/:productId", async (req, res) => {
-    const { productId } = req.params;
-    
-    try {
-      const response = await models.product.findOne({
-        where: { productId},
-        attributes: [	
-		"productId",
-		"description",
-		"categoryId",
-		"sellerId",
-		"imgURL",
-		"price",
-		"quantity",
-		"easyCare",
-		"light",
-		"petFriendly",
-		"airPurifying",],
-      });
-      console.log(response)
+	const { productId } = req.params;
 
-      const { description, price, quantity } = req.body;
-      const data = await response.update({description, price, quantity});
-  
-      res.send(data);
-    } catch (error) {
-      res.status(500).send(error);
-    }
-  });
+	try {
+		const response = await models.product.findOne({
+			where: { productId },
+			attributes: [
+				"productId",
+				"description",
+				"categoryId",
+				"sellerId",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+			],
+		});
+		console.log(response);
+
+		const { description, price, quantity } = req.body;
+		const data = await response.update({ description, price, quantity });
+
+		res.send(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
 
 //Delete a product by product Id
 // /products/:productId
 router.delete("/:productId", async (req, res) => {
-    const { productId } = req.params;
-    
-    try {
-      const data = await models.product.destroy({where: {productId}});
-      res.status(200).json(data);
-    } catch (error) {
-      res.status(500).send(error);
-    }
+	const { productId } = req.params;
+
+	try {
+		const data = await models.product.destroy({ where: { productId } });
+		res.status(200).json(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 module.exports = router;
