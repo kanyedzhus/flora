@@ -1,6 +1,7 @@
-require("dotenv").config();
-const stripeAPI = require("stripe")(
-	"sk_test_51LAYVvGbLCDl0eiJCUUeUedrG6c08fCAYq3MeGULJMpEwvJ2kqMKfiF7pataktaaPUjo06zPUJpUAf8gu9SSMd5l00p8xGzlsk"
-);
+const path = require("path");
+// define the path to the dotenv
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
+const stripeAPI = require("stripe")(process.env.STRIPE_SECRET_KEY);
+console.log("key", process.env.STRIPE_SECRET_KEY);
 
 module.exports = stripeAPI;

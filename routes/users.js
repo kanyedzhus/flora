@@ -32,6 +32,7 @@ router.get("/buyers", async (req, res) => {
 router.post("/buyers", async (req, res) => {
 	const { userName, email, hashedPassword, firstName, lastName, imgUrl, role } =
 		req.body;
+	console.log(req.body);
 	try {
 		// create customer on Stripe
 		const stripeCustomer = await stripeAPI.customers.create({
