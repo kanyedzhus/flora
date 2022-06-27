@@ -11,6 +11,8 @@ export default function CartPage() {
 		decreaseQtyFn,
 		removeFromCartFn,
 		clearCartFn,
+		updateTotalFn,
+		cartTotal,
 	} = useContext(CartContext);
 	console.log(cartItems);
 	return (
@@ -37,9 +39,10 @@ export default function CartPage() {
 								))}
 							</div>
 							<Total
-								// total={total}
+								updateTotalFn={updateTotalFn}
 								cartItems={cartItems}
 								clearCartFn={clearCartFn}
+								cartTotal={cartTotal}
 							/>
 						</div>
 					</div>

@@ -96,6 +96,7 @@ export default function CartContextProvider({ children }) {
 		clearCartFn: clearCart,
 		cartItems: [],
 	});
+
 	const getCartItems = async () => {
 		try {
 			const cartItems = await fetchFromAPI("cartitems/all-items", {

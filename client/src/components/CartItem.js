@@ -34,26 +34,24 @@ export default function CartItem({
 
 				<div className="col-4">
 					<h4>{productInCart.productName}</h4>
-					<p className="mb-0">${price}</p>
-					<p className="mb-0">{`Quantity: ${quantity}`}</p>
+					<p className="mb-0">€{price * quantity}</p>
+					<p className="mb-0">{`Qty: ${quantity}`}</p>
 					<p className="mb-0">{`Sold by ${productInCart.sellerId}`}</p>
 				</div>
 
 				<div className="col-auto d-flex flex-sm-column flex-md-row align-items-center gap-1">
 					<button
 						className="btn btn-outline"
+						onClick={() => decreaseQtyFn(cartItemId, quantity)}
+					>
+						<AiOutlineMinus />
+					</button>{" "}
+					<button
+						className="btn btn-outline"
 						onClick={() => increaseQtyFn(cartItemId, quantity)}
 					>
 						<AiOutlinePlus />
 					</button>
-
-					<button
-						className="btn btn-outline"
-						onClick={() => decreaseQtyFn(cartItemId, quantity)}
-					>
-						<AiOutlineMinus />
-					</button>
-
 					<button
 						className="btn btn-outline"
 						onClick={() => {

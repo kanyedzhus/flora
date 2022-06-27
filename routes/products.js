@@ -66,7 +66,7 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 		const stripePriceId = stripeProduct.default_price;
 		console.log(stripePriceId);
 
-		//* sellerId is hard coded for test. Needs to change. Same for categoryId
+		//* sellerId is hard coded for test. Needs to change
 		const newProduct = await models.product.create({
 			categoryId,
 			sellerId: 1,

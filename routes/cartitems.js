@@ -49,7 +49,7 @@ router.post("/item", async (req, res) => {
 			cartSessionId,
 			productId,
 			price,
-			stripePriceId: "price_1LEreGGbLCDl0eiJyOfaZvUo",
+			stripePriceId,
 			quantity,
 		});
 

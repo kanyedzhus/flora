@@ -52,6 +52,24 @@ router.post("/", async (req, res) => {
 	}
 });
 
+//* Edit total - /cartsessions/total/:cartSessionId/edit
+router.put("/total/:cartSessionId/edit", async (req, res) => {
+	const { total } = req.body;
+	const { cartSessionId } = req.params;
+	try {
+		const response = await models.cartSession.findOne({
+			where: { cartSessionId },
+			attributes: ["cartSessionId", "buyerId", "total"],
+		});
+		console.log(req.body);
+		const data = await response.update({ total });
+		console.log(data);
+		res.send(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 //Delete cart session
 // cartsession/:cartSessionId/delete
 router.delete("/:cartSessionId/delete", async (req, res) => {
