@@ -88,6 +88,7 @@ export default function SellerRegistrationForm() {
 
 		newProduct.set("productName", productDetails.productName);
 		newProduct.set("description", productDetails.description);
+		newProduct.set("categoryId", productDetails.categoryId);
 		newProduct.set("imgURL", productDetails.imgURL);
 		newProduct.set("price", productDetails.price);
 		newProduct.set("quantity", productDetails.quantity);
@@ -119,14 +120,14 @@ export default function SellerRegistrationForm() {
 	};
 
 	const style = {
-		width: "100%",
-		maxWidth: "50%",
+		minWidth: "25%",
+		maxWidth: "25%",
 		padding: "15px",
 		margin: "auto",
 	};
 
 	return (
-		<div style={style}>
+		<div>
 			<form
 				onSubmit={handleSubmit}
 				action="/products"
@@ -211,7 +212,7 @@ export default function SellerRegistrationForm() {
 					</select>
 				</div>
 
-				<div className="d-flex justify-content-between">
+				<div className="d-flex gap-3">
 					<div className="form-group mb-3">
 						{" "}
 						<label className="fw-bold mb-1" htmlFor="price">

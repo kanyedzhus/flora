@@ -1,38 +1,52 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
-export default function CartItem({ product }) {
-	const { imgURL, productName, price, quantity, sellerId } = product;
+import { ProductsContext } from "../contexts/products-context";
+
+export default function CartItem({ item, increaseQtyFn, decreaseQtyFn }) {
+	const { cartItemId, productId, price, quantity, sellerId } = item;
+	const { products } = useContext(ProductsContext);
+	// if (!products) {
+	// 	products = [];
+	// }
+	// const productInCart = products.find(
+	// 	(product) => product.productId === productId
+	// );
+	// console.log(productInCart);
+	const productInCart = {};
 	return (
 		<div className=" border ">
-			<div className="row p-3">
+			<div className="row justify-content-center p-3">
 				<div className="col-3 ">
 					{" "}
-					<img className="img-fluid " src={imgURL} alt="product" />
+					<img
+						className=""
+						style={{ objectFit: "contain", height: "15vh", width: "100%" }}
+						src={productInCart.imgURL}
+						alt="product"
+					/>
 				</div>
 
-				<div className="col-5">
-					<h4>{productName}</h4>
+				<div className="col-auto">
+					<h4>{productInCart.productName}</h4>
 					<p className="mb-0">${price}</p>
-					<p className="mb-0 mt-5">{`Quantity: ${quantity}`}</p>
-					<p className="mb-0">{`Sold by ${sellerId}`}</p>
+					<p className="mb-0">{`Quantity: ${quantity}`}</p>
+					<p className="mb-0">{`Sold by ${productInCart.sellerId}`}</p>
 				</div>
 
-				<div className="col d-flex align-items-center">
+				<div className="col-auto d-flex flex-sm-column flex-md-row align-items-center gap-1">
 					<button
 						className="btn btn-outline"
-						// onClick={() =>  increase(product)}
+						onClick={() => increaseQtyFn(cartItemId, quantity)}
 					>
 						<AiOutlinePlus />
 					</button>
 
-					{quantity > 1 && (
-						<button
-							className="btn btn-outline"
-							// onClick={() => decrease(product)}
-						>
-							<AiOutlineMinus />
-						</button>
-					)}
+					<button
+						className="btn btn-outline"
+						onClick={() => decreaseQtyFn(cartItemId, quantity)}
+					>
+						<AiOutlineMinus />
+					</button>
 
 					<button
 						className="btn btn-outline"

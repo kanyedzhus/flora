@@ -1,31 +1,38 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
-const stripeAPI = require("../StripeApi/stripe");
+const stripeAPI = require("../StripeAPI/stripe");
 
 /* GET users listing. */
 //  router.get('/', function(req, res, next) {
 //   res.send('respond with a resource');
 //  });
 
-
 // Get all users / buyer
-router.get("/buyers", async (req, res) =>{ 
-  try {
-      const response = await models.user.findAll({attributes:["userId","userName","email","firstName","lastName","role"]});
-      res.send(response);
-    } catch (err) {
-      res.status(400).send({ message: err.message });
-    }
-  
+router.get("/buyers", async (req, res) => {
+	try {
+		const response = await models.user.findAll({
+			attributes: [
+				"userId",
+				"userName",
+				"email",
+				"firstName",
+				"lastName",
+				"role",
+			],
+		});
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
 });
-
 
 //Post user - buyer
 // route: "/users/buyers"
 router.post("/buyers", async (req, res) => {
 	const { userName, email, hashedPassword, firstName, lastName, imgUrl, role } =
 		req.body;
+	console.log(req.body);
 	try {
 		// create customer on Stripe
 		const stripeCustomer = await stripeAPI.customers.create({
@@ -135,7 +142,6 @@ router.get("/address", async (req, res) => {
 	}
 });
 
-
 // // post address by user id
 // router.post("/address/:userId", (req, res) =>{
 //   const {userId} = req.params;
@@ -148,6 +154,5 @@ router.get("/address", async (req, res) => {
 
 // post addresse by user id
 router.post("/address/:userId");
-
 
 module.exports = router;

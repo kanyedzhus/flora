@@ -1,10 +1,94 @@
-import React, { createContext } from "react";
-
+import React, { createContext, useEffect, useState } from "react";
+import { fetchFromAPI } from "../../src/helpers";
 export const CartContext = createContext();
 
-// these values will be the state of the cart and any functions we need to perform on cartitems.
-const contextValues = {};
 export default function CartContextProvider({ children }) {
+	// *ADD TO CART
+	const addToCart = async (productId, price, stripePriceId) => {
+		const newCartItem = {
+			productId,
+			price,
+			stripePriceId,
+			quantity: 1,
+		};
+
+		try {
+			const addItem = await fetchFromAPI("cartitems/item", {
+				body: newCartItem,
+			});
+			getCartItems();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// *INCREASE BY CARTITEM BY 1
+	const increaseQty = async (cartItemId, quantity) => {
+		console.log({ cartItemId });
+		const increasedQty = quantity + 1;
+		try {
+			const response = await fetchFromAPI(`cartitems/item/${cartItemId}/edit`, {
+				method: "PUT",
+				body: { quantity: increasedQty },
+			});
+			console.log(quantity);
+
+			console.log(response);
+
+			if (response.ok) {
+				getCartItems();
+			} else {
+				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// *DECREASE BY CARTITEM BY 1
+	const decreaseQty = async (cartItemId, quantity) => {
+		const decreasedQty = quantity - 1;
+
+		try {
+			const response = await fetchFromAPI(`cartitems/item/${cartItemId}/edit`, {
+				method: "PUT",
+				body: { quantity: decreasedQty },
+			});
+			console.log(quantity);
+			if (response.ok) {
+				getCartItems();
+			} else {
+				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const [contextValues, setContextValues] = useState({
+		addToCartFn: addToCart,
+		increaseQtyFn: increaseQty,
+		decreaseQtyFn: decreaseQty,
+		cartItems: [],
+	});
+	const getCartItems = async () => {
+		try {
+			const cartItems = await fetchFromAPI("cartitems/all-items", {
+				method: "GET",
+			});
+			setContextValues({
+				...contextValues,
+				cartItems: [...cartItems],
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getCartItems();
+	}, []);
+
 	return (
 		<CartContext.Provider value={contextValues}>
 			{children}
