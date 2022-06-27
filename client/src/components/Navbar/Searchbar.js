@@ -1,34 +1,38 @@
 import React, {useState} from "react";
+import { ProductsContext } from "../contexts/products-context";
 import "./Navbar.css";
 
+
 function Searchbar(){
-const [input, setInput] = useState("");
+const [inputProductName, setInputProductName] = useState("");
 const [searchResponse, setSearchResponse] = useState ([]);
+let { products } = useState(ProductsContext);
+if (!products) {
+    products = [];
+}
 
 
 const handleChange =(event) => { 
 const value = event.target.value;
-setInput(value)
-console.log(input)
+setInputProductName(value)
+console.log(inputProductName)
 
 }
-
-const handleSearch = (productName) =>{
-    console.log(productName)
-    // event.preventDefault();
-    // getSearch()
+console.log(inputProductName)
+const handleSearch = (event, inputProductName) =>{
+    event.preventDefault();
+    getSearch(inputProductName)
 }
-
-const getSearch =(productName) =>{
-    // console.log(productName)
-//  fetch(`/products/name/${productName}`)
-//  .then(res => res.json())
-//  .then( response => {
-//     setSearchResponse(response);
-//     console.log(searchResponse)
+console.log(searchResponse)
+const getSearch =(inputProductName) =>{
+ fetch(`/products/name/${inputProductName}`)
+ .then(res => res.json())
+ .then( response => {
+    setSearchResponse(response);
     
-// })
-// .catch(e => console.log(e));
+    
+})
+.catch(e => console.log(e));
  }
 
     return (<form className="d-flex mx-auto w-50 " role="search">
@@ -37,12 +41,12 @@ const getSearch =(productName) =>{
         type="search"
         placeholder="Search"
         aria-label="Search"
-        value={input}
+        value={inputProductName}
         onChange={handleChange}
         
     />
     {/* <Suggestions results={input}/> */}
-    <button className="btn btn-outline-success" type="submit" onClick={() => handleSearch(input)}>
+    <button className="btn btn-outline-success" type="submit" onClick={(event) => handleSearch(event, inputProductName)}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -54,6 +58,15 @@ const getSearch =(productName) =>{
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
     </button>
+    <div className="dropdown">
+        {products.filter((item) => {
+            const searchTerm = inputProductName.toLowerCase();
+            const productName = item.productName.toLowerCase();
+            return(
+                searchTerm && productName.startsWith(searchTerm)
+            )
+        })}
+    </div>
 </form>)
 }
 
