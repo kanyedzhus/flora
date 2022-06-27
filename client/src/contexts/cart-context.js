@@ -18,6 +18,7 @@ export default function CartContextProvider({ children }) {
 			const addItem = await fetchFromAPI("cartitems/item", {
 				body: newCartItem,
 			});
+			console.log(addItem);
 			getCartItems();
 		} catch (error) {
 			console.log(error);
@@ -35,7 +36,7 @@ export default function CartContextProvider({ children }) {
 			});
 			console.log(quantity);
 
-			console.log(response);
+			console.log({ response });
 
 			getCartItems();
 		} catch (error) {
@@ -74,11 +75,25 @@ export default function CartContextProvider({ children }) {
 			console.log(error);
 		}
 	};
+
+	// *CLEAR ENTIRE CART
+	const clearCart = async () => {
+		try {
+			const respose = await fetchFromAPI("cartitems/delete-all", {
+				method: "DELETE",
+			});
+			getCartItems();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	const [contextValues, setContextValues] = useState({
 		addToCartFn: addToCart,
 		increaseQtyFn: increaseQty,
 		decreaseQtyFn: decreaseQty,
 		removeFromCartFn: removeFromCart,
+		clearCartFn: clearCart,
 		cartItems: [],
 	});
 	const getCartItems = async () => {

@@ -2,12 +2,8 @@ import React, { useContext } from "react";
 import { CartContext } from "../contexts/cart-context";
 import StripeCheckout from "./Stripe/StripeCheckout";
 
-export default function Total() {
-	const { cartItems } = useContext(CartContext);
+export default function Total({ cartItems, clearCartFn }) {
 	const items = cartItems.length === 1 ? "item" : "items";
-	const handleStripeCheckout = async (event) => {
-		event.preventDefault();
-	};
 
 	return (
 		<div className="col-4 d-flex flex-column align-items-center ">
@@ -21,9 +17,9 @@ export default function Total() {
 				<StripeCheckout />
 				<button
 					className="btn btn-outline"
-					// onClick={() => {
-					// 	clearCart();
-					// }}
+					onClick={() => {
+						clearCartFn();
+					}}
 				>
 					CLEAR
 				</button>

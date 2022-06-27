@@ -5,8 +5,13 @@ import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
 
 export default function CartPage() {
-	const { cartItems, increaseQtyFn, decreaseQtyFn, removeFromCartFn } =
-		useContext(CartContext);
+	const {
+		cartItems,
+		increaseQtyFn,
+		decreaseQtyFn,
+		removeFromCartFn,
+		clearCartFn,
+	} = useContext(CartContext);
 	console.log(cartItems);
 	return (
 		<Layout>
@@ -32,9 +37,9 @@ export default function CartPage() {
 								))}
 							</div>
 							<Total
-							// itemCount={itemCount}
-							// total={total}
-							// clearCart={clearCart}
+								// total={total}
+								cartItems={cartItems}
+								clearCartFn={clearCartFn}
 							/>
 						</div>
 					</div>
