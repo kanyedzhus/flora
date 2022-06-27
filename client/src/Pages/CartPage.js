@@ -5,7 +5,8 @@ import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
 
 export default function CartPage() {
-	const { cartItems, increaseQtyFn, decreaseQtyFn } = useContext(CartContext);
+	const { cartItems, increaseQtyFn, decreaseQtyFn, removeFromCartFn } =
+		useContext(CartContext);
 	console.log(cartItems);
 	return (
 		<Layout>
@@ -25,7 +26,7 @@ export default function CartPage() {
 										item={item}
 										increaseQtyFn={increaseQtyFn}
 										decreaseQtyFn={decreaseQtyFn}
-										// removeProduct={removeProduct}
+										removeFromCartFn={removeFromCartFn}
 										key={item.cartItemId}
 									/>
 								))}

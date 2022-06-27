@@ -1,18 +1,24 @@
 import React, { useContext } from "react";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { ProductsContext } from "../contexts/products-context";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
-export default function CartItem({ item, increaseQtyFn, decreaseQtyFn }) {
+export default function CartItem({
+	item,
+	increaseQtyFn,
+	decreaseQtyFn,
+	removeFromCartFn,
+}) {
 	const { cartItemId, productId, price, quantity, sellerId } = item;
-	const { products } = useContext(ProductsContext);
-	// if (!products) {
-	// 	products = [];
-	// }
-	// const productInCart = products.find(
-	// 	(product) => product.productId === productId
-	// );
-	// console.log(productInCart);
-	const productInCart = {};
+	let { products } = useContext(ProductsContext);
+	if (!products) {
+		products = [];
+	}
+	const productInCart =
+		products.find((product) => product.productId === productId) || {};
+	console.log(productInCart);
+
 	return (
 		<div className=" border ">
 			<div className="row justify-content-center p-3">
@@ -26,7 +32,7 @@ export default function CartItem({ item, increaseQtyFn, decreaseQtyFn }) {
 					/>
 				</div>
 
-				<div className="col-auto">
+				<div className="col-4">
 					<h4>{productInCart.productName}</h4>
 					<p className="mb-0">${price}</p>
 					<p className="mb-0">{`Quantity: ${quantity}`}</p>
@@ -51,7 +57,7 @@ export default function CartItem({ item, increaseQtyFn, decreaseQtyFn }) {
 					<button
 						className="btn btn-outline"
 						onClick={() => {
-							// removeProduct(product);
+							removeFromCartFn(cartItemId);
 						}}
 					>
 						<AiOutlineDelete />
