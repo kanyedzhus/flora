@@ -112,7 +112,7 @@ router.get("/", (req, res) => {
 				"stripeProductId",
 			],
 		})
-		.then((product) => res.send(product))
+		.then((products) => res.send(products))
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
 

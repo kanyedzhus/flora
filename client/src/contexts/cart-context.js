@@ -79,7 +79,7 @@ export default function CartContextProvider({ children }) {
 	// *CLEAR ENTIRE CART
 	const clearCart = async () => {
 		try {
-			const respose = await fetchFromAPI("cartitems/delete-all", {
+			const response = await fetchFromAPI("cartitems/delete-all", {
 				method: "DELETE",
 			});
 			getCartItems();
