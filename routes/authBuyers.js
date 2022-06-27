@@ -12,6 +12,7 @@ router.post("/buyer/register", async (req, res) => {
   const { userName, email, password, firstName, lastName, imgUrl, role } =
     req.body;
 
+  let buyerRole = "buyer";
   let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
   try {
@@ -36,7 +37,7 @@ router.post("/buyer/register", async (req, res) => {
       firstName,
       lastName,
       imgUrl,
-      role,
+      role: buyerRole,
     });
 
     console.log({ customer });
