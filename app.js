@@ -16,6 +16,10 @@ const cartItemsRouter = require("./routes/cartitems");
 
 const createCheckoutSession = require("./StripeAPI/checkout");
 
+const authSellersRouter = require("./routes/authSellers");
+const authBuyersRouter = require("./routes/authBuyers");
+const cartRouter = require("./routes/carts");
+const cors = require("cors");
 const app = express();
 app.use(cors());
 
@@ -37,26 +41,29 @@ app.use("/cartsessions", cartSessionsRouter);
 app.use("/cartitems", cartItemsRouter);
 
 app.post("/create-checkout-session", createCheckoutSession);
+app.use("/auth", authSellersRouter);
+app.use("/auth", authBuyersRouter);
+app.use("/carts", cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-	next(createError(404));
+  next(createError(404));
 });
 
 // shows up if route incorrectly typed
 app.use((req, res, next) => {
-	const error = new Error("Not found");
-	error.status = 404;
-	next(error);
+  const error = new Error("Not found");
+  error.status = 404;
+  next(error);
 });
 
 app.use((error, req, res, next) => {
-	res.status(error.status || 500);
-	res.json({
-		error: {
-			message: error.message,
-		},
-	});
+  res.status(error.status || 500);
+  res.json({
+    error: {
+      message: error.message,
+    },
+  });
 });
 
 module.exports = app;
