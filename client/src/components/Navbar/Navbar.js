@@ -4,6 +4,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import { CartContext } from "../../contexts/cart-context";
+import SubNavbar from "./SubNavbar";
 
 function Navbar() {
 	const { cartItems } = useContext(CartContext);
@@ -159,7 +160,7 @@ function Navbar() {
 			</nav>
 			<header className="bg-light border-bottom py-2">
 				{" "}
-				Categories and Subcategories will go here
+				<SubNavbar/>
 			</header>
 		</>
 	);

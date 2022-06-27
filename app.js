@@ -18,8 +18,8 @@ const createCheckoutSession = require("./StripeAPI/checkout");
 
 const authSellersRouter = require("./routes/authSellers");
 const authBuyersRouter = require("./routes/authBuyers");
-const cartRouter = require("./routes/carts");
-const cors = require("cors");
+//const cartRouter = require("./routes/carts");
+
 const app = express();
 app.use(cors());
 
@@ -43,7 +43,7 @@ app.use("/cartitems", cartItemsRouter);
 app.post("/create-checkout-session", createCheckoutSession);
 app.use("/auth", authSellersRouter);
 app.use("/auth", authBuyersRouter);
-app.use("/carts", cartRouter);
+//app.use("/carts", cartRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
