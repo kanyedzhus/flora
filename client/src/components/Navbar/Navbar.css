@@ -1,3 +1,10 @@
 nav a:hover {
 	background-color: rgb(233, 237, 233);
 }
+
+.cart-count {
+	position: absolute;
+	top: -6px;
+	left: 17px;
+	font-weight: bold;
+}

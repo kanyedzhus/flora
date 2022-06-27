@@ -5,7 +5,7 @@ import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
 
 export default function CartPage() {
-	const { cartItems, increaseQtyFn } = useContext(CartContext);
+	const { cartItems, increaseQtyFn, decreaseQtyFn } = useContext(CartContext);
 	console.log(cartItems);
 	return (
 		<Layout>
@@ -23,7 +23,9 @@ export default function CartPage() {
 								{cartItems.map((item) => (
 									<CartItem
 										item={item}
-										increaseQtyFn={increaseQtyFn} // decrease={decrease} // removeProduct={removeProduct}
+										increaseQtyFn={increaseQtyFn}
+										decreaseQtyFn={decreaseQtyFn}
+										// removeProduct={removeProduct}
 										key={item.cartItemId}
 									/>
 								))}

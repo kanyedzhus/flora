@@ -23,12 +23,38 @@ export default function CartContextProvider({ children }) {
 	};
 
 	// *INCREASE BY CARTITEM BY 1
-	const increaseQty = async (cartItemId) => {
+	const increaseQty = async (cartItemId, quantity) => {
 		console.log({ cartItemId });
+		const increasedQty = quantity + 1;
 		try {
 			const response = await fetchFromAPI(`cartitems/item/${cartItemId}/edit`, {
 				method: "PUT",
+				body: { quantity: increasedQty },
 			});
+			console.log(quantity);
+
+			console.log(response);
+
+			if (response.ok) {
+				getCartItems();
+			} else {
+				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	// *DECREASE BY CARTITEM BY 1
+	const decreaseQty = async (cartItemId, quantity) => {
+		const decreasedQty = quantity - 1;
+
+		try {
+			const response = await fetchFromAPI(`cartitems/item/${cartItemId}/edit`, {
+				method: "PUT",
+				body: { quantity: decreasedQty },
+			});
+			console.log(quantity);
 			if (response.ok) {
 				getCartItems();
 			} else {
@@ -42,6 +68,7 @@ export default function CartContextProvider({ children }) {
 	const [contextValues, setContextValues] = useState({
 		addToCartFn: addToCart,
 		increaseQtyFn: increaseQty,
+		decreaseQtyFn: decreaseQty,
 		cartItems: [],
 	});
 	const getCartItems = async () => {

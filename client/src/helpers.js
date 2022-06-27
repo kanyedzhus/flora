@@ -11,6 +11,6 @@ export const fetchFromAPI = async (endpoint, options) => {
 			"Content-Type": "application/json",
 		},
 	});
-
+	console.log(options);
 	return response.json();
 };

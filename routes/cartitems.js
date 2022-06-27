@@ -69,7 +69,8 @@ router.post("/item", async (req, res) => {
 // /cartitems/item/:cartItemId/edit
 router.put("/item/:cartItemId/edit", async (req, res) => {
 	const { cartItemId } = req.params;
-	console.log(req.params);
+	const { quantity } = req.body;
+	console.log(req.body);
 	try {
 		const response = await models.cartItem.findOne({
 			where: { cartItemId },
@@ -84,10 +85,8 @@ router.put("/item/:cartItemId/edit", async (req, res) => {
 				"updatedAt",
 			],
 		});
-		console.log({ response });
-		const oldQuantity = response.quantity;
-
-		const data = await response.update({ quantity: oldQuantity + 1 });
+		console.log(quantity);
+		const data = await response.update({ quantity });
 
 		res.send(data);
 	} catch (error) {

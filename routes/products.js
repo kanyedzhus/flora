@@ -97,6 +97,7 @@ router.get("/", (req, res) => {
 		.findAll({
 			attributes: [
 				"productId",
+				"productName",
 				"categoryId",
 				"sellerId",
 				"description",
@@ -107,6 +108,8 @@ router.get("/", (req, res) => {
 				"light",
 				"petFriendly",
 				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
 			],
 		})
 		.then((product) => res.send(product))
@@ -124,9 +127,10 @@ router.get("/category/:categoryId", (req, res) => {
 
 			attributes: [
 				"productId",
-				"description",
+				"productName",
 				"categoryId",
 				"sellerId",
+				"description",
 				"imgURL",
 				"price",
 				"quantity",
@@ -134,6 +138,8 @@ router.get("/category/:categoryId", (req, res) => {
 				"light",
 				"petFriendly",
 				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
 			],
 		})
 		.then((seller) => res.send(seller))
@@ -151,9 +157,10 @@ router.get("/:productId", (req, res) => {
 
 			attributes: [
 				"productId",
-				"description",
+				"productName",
 				"categoryId",
 				"sellerId",
+				"description",
 				"imgURL",
 				"price",
 				"quantity",
@@ -161,6 +168,8 @@ router.get("/:productId", (req, res) => {
 				"light",
 				"petFriendly",
 				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
 			],
 		})
 		.then((seller) => res.send(seller))
@@ -177,9 +186,10 @@ router.get("/sellers/:sellerId", (req, res) => {
 
 			attributes: [
 				"productId",
-				"description",
+				"productName",
 				"categoryId",
 				"sellerId",
+				"description",
 				"imgURL",
 				"price",
 				"quantity",
@@ -187,6 +197,8 @@ router.get("/sellers/:sellerId", (req, res) => {
 				"light",
 				"petFriendly",
 				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
 			],
 		})
 		.then((seller) => res.send(seller))
@@ -203,9 +215,10 @@ router.put("/:productId", async (req, res) => {
 			where: { productId },
 			attributes: [
 				"productId",
-				"description",
+				"productName",
 				"categoryId",
 				"sellerId",
+				"description",
 				"imgURL",
 				"price",
 				"quantity",
@@ -213,6 +226,8 @@ router.put("/:productId", async (req, res) => {
 				"light",
 				"petFriendly",
 				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
 			],
 		});
 		console.log(response);

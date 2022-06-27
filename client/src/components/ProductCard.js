@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import { CartContext } from "../contexts/cart-context";
 
 // accept extra elements that don't always appear
@@ -19,6 +20,15 @@ export default function ProductCard({ extras, product }) {
 	} = product;
 
 	const navigate = useNavigate();
+
+	const handleAddToCart = (productId, price, stripePriceId) => {
+		// check if item is already in cart
+		if (!cartItems.find((item) => item.productId === productId)) {
+			addToCartFn(productId, price, stripePriceId);
+		} else {
+			toast.info("This item is already in your cart.");
+		}
+	};
 
 	return (
 		<div className="col">
@@ -45,7 +55,7 @@ export default function ProductCard({ extras, product }) {
 							className="btn btn-primary"
 							onClick={(event) => {
 								event.preventDefault();
-								addToCartFn(productId, price, stripePriceId);
+								handleAddToCart(productId, price, stripePriceId);
 							}}
 						>
 							Add to cart

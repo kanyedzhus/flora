@@ -2,17 +2,17 @@ import React, { useContext } from "react";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import { ProductsContext } from "../contexts/products-context";
 
-export default function CartItem({ item, increaseQtyFn }) {
+export default function CartItem({ item, increaseQtyFn, decreaseQtyFn }) {
 	const { cartItemId, productId, price, quantity, sellerId } = item;
 	const { products } = useContext(ProductsContext);
 	// if (!products) {
 	// 	products = [];
 	// }
-	const productInCart = products.find(
-		(product) => product.productId === productId
-	);
-	console.log(productInCart);
-
+	// const productInCart = products.find(
+	// 	(product) => product.productId === productId
+	// );
+	// console.log(productInCart);
+	const productInCart = {};
 	return (
 		<div className=" border ">
 			<div className="row justify-content-center p-3">
@@ -36,14 +36,14 @@ export default function CartItem({ item, increaseQtyFn }) {
 				<div className="col-auto d-flex flex-sm-column flex-md-row align-items-center gap-1">
 					<button
 						className="btn btn-outline"
-						onClick={() => increaseQtyFn(cartItemId)}
+						onClick={() => increaseQtyFn(cartItemId, quantity)}
 					>
 						<AiOutlinePlus />
 					</button>
 
 					<button
 						className="btn btn-outline"
-						// onClick={() => decrease(product)}
+						onClick={() => decreaseQtyFn(cartItemId, quantity)}
 					>
 						<AiOutlineMinus />
 					</button>
