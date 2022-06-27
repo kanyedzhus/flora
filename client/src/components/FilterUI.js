@@ -16,6 +16,7 @@ export default function FilterUI() {
 								placeholder="$0"
 								type="number"
 							/>
+							
 						</div>
 						<div className="form-group text-right col-md-6">
 							<label>Max</label>

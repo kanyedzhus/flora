@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 
 import "./Navbar.css";
 
@@ -12,10 +12,10 @@ function SubNavbar(){
 					</select> */}
                     <ul className="navbar-nav"> 
                     <li className="nav-item dropdown">
-                    <a className="nav-link dropdown-toggle" href="#">Outdoor Plants</a>
+                    <a className="nav-link dropdown-toggle" href="/search">Outdoor Plants</a>
         <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Climbing Plants</a>
-          <a className="dropdown-item" href="#">Trees</a>
+          <a className="dropdown-item" href="/search">Climbing Plants</a>
+          <a className="dropdown-item" href="/search">Trees</a>
         </div>
                  </li> 
              <li className="nav-item dropdown">
