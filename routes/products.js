@@ -146,6 +146,36 @@ router.get("/category/:categoryId", (req, res) => {
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
 
+//Get product by plant name
+// /products/name/:productName
+router.get("/name/:productName", (req, res) => {
+	const { productName } = req.params;
+	// console.log(models)
+	models.product
+		.findAll({
+			where: { productName },
+
+			attributes: [
+				"productId",
+				"productName",
+				"categoryId",
+				"sellerId",
+				"description",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
+			],
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
 //Get product by product Id
 // /products/:productId
 router.get("/:productId", (req, res) => {

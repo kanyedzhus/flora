@@ -22,7 +22,7 @@ export default function ProductsContextProvider({ children }) {
 	useEffect(() => {
 		getAllProducts();
 	}, []);
-	console.log(contextValues);
+	//console.log(contextValues);
 	const value = {
 		products: contextValues,
 	};

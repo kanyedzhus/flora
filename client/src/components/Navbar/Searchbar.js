@@ -1,16 +1,48 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Navbar.css";
 
 function Searchbar(){
+const [input, setInput] = useState("");
+const [searchResponse, setSearchResponse] = useState ([]);
+
+
+const handleChange =(event) => { 
+const value = event.target.value;
+setInput(value)
+console.log(input)
+
+}
+
+const handleSearch = (productName) =>{
+    console.log(productName)
+    // event.preventDefault();
+    // getSearch()
+}
+
+const getSearch =(productName) =>{
+    // console.log(productName)
+//  fetch(`/products/name/${productName}`)
+//  .then(res => res.json())
+//  .then( response => {
+//     setSearchResponse(response);
+//     console.log(searchResponse)
+    
+// })
+// .catch(e => console.log(e));
+ }
+
     return (<form className="d-flex mx-auto w-50 " role="search">
     <input
         className="form-control me-2"
         type="search"
         placeholder="Search"
         aria-label="Search"
+        value={input}
+        onChange={handleChange}
         
     />
-    <button className="btn btn-outline-success" type="submit">
+    {/* <Suggestions results={input}/> */}
+    <button className="btn btn-outline-success" type="submit" onClick={() => handleSearch(input)}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

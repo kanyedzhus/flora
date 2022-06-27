@@ -4,7 +4,7 @@ import { ProductsContext } from "../contexts/products-context";
 
 export default function ProductsContainer() {
 	let { products } = useContext(ProductsContext);
-	console.log(products);
+	//console.log(products);
 	if (!products) {
 		products = [];
 	}
