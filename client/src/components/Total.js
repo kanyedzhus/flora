@@ -5,27 +5,31 @@ import StripeCheckout from "./Stripe/StripeCheckout";
 
 export default function Total({
 	cartItems,
-	cartSession,
+
 	clearCartFn,
 	cartTotal,
+	buyer,
 }) {
+	console.log({ buyer });
+
 	const items = cartItems.length === 1 ? "item" : "items";
 
 	console.log({ cartSession });
 
-	const cartSessionId = cartSession.cartSessionId;
-	console.log({ cartSessionId });
+	// const cartSessionId = cartSession.cartSessionId;
+	// console.log({ cartSessionId });
 
-	const postCartSessionTotal = async (cartTotal) => {
+	const createCartSession = async (cartTotal, buyerId) => {
 		try {
-			await fetchFromAPI(`cartsessions/total/${cartSessionId}/edit`, {
-				method: "PUT",
-				body: { total: cartTotal },
+			await fetchFromAPI("cartsessions/create-session", {
+				body: { total: cartTotal, buyerId },
 			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	useEffect(() => {});
 	return (
 		<div className="col-4 d-flex flex-column align-items-center ">
 			<div className="p-3 text-center fw-semibold">
@@ -38,6 +42,7 @@ export default function Total({
 				<StripeCheckout
 					cartTotal={cartTotal}
 					postCartSessionTotal={postCartSessionTotal}
+					buyer={buyer}
 				/>
 				<button
 					className="btn btn-outline"

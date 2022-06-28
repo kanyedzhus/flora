@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./App.css";
 import "jquery";
 import "popper.js/dist/umd/popper";
@@ -20,8 +20,10 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SingleProductPage from "./Pages/SingleProductPage";
 import { fetchFromAPI } from "./helpers";
+import { CartContext } from "./contexts/cart-context";
 
 function App() {
+	const { cartSession } = useContext(CartContext);
 	const [user, setUser] = useState({});
 	const [buyer, setBuyer] = useState({});
 
@@ -31,7 +33,6 @@ function App() {
 			: {};
 
 		setUser(user);
-
 		if (user) {
 			getBuyer(user.userId);
 		}
@@ -52,7 +53,7 @@ function App() {
 		getUserFromLocalStorage();
 	}, []);
 
-	console.log(buyer);
+	console.log({ buyer });
 	return (
 		<div className="App">
 			{" "}
@@ -71,7 +72,7 @@ function App() {
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
 				<Route path="/seller/profile" element={<SellerProfile />} />
-				<Route path="/cart" element={<CartPage />} />
+				<Route path="/cart" element={<CartPage buyer={buyer} />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>

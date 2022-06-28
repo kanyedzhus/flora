@@ -7,7 +7,7 @@ export const CartContext = createContext();
 export default function CartContextProvider({ children }) {
 	useEffect(() => {
 		getCartItems();
-		getCartSession();
+		// getCartSession();
 	}, []);
 
 	// *ADD TO CART
@@ -98,6 +98,7 @@ export default function CartContextProvider({ children }) {
 		decreaseQtyFn: decreaseQty,
 		removeFromCartFn: removeFromCart,
 		clearCartFn: clearCart,
+
 		cartSession: {},
 		cartItems: [],
 		cartTotal: "",
@@ -130,8 +131,8 @@ export default function CartContextProvider({ children }) {
 			const cartSession = await fetchFromAPI("cartsessions", {
 				method: "GET",
 			});
-			console.log(cartSession);
-			const cartSessionObj = cartSession[0];
+			console.log({ cartSession });
+
 			// setContextValues({
 			// 	...contextValues,
 			// 	cartSession: { ...cartSessionObj },
@@ -139,7 +140,7 @@ export default function CartContextProvider({ children }) {
 
 			setContextValues((oldState) => ({
 				...oldState,
-				cartSession: cartSessionObj,
+				cartSession: cartSession[0],
 			}));
 		} catch (error) {
 			console.log(error);

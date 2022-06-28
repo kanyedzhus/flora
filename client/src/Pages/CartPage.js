@@ -4,7 +4,7 @@ import Layout from "../components/Layout";
 import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
 
-export default function CartPage() {
+export default function CartPage({ buyer }) {
 	const {
 		cartItems,
 		increaseQtyFn,
@@ -39,6 +39,7 @@ export default function CartPage() {
 								))}
 							</div>
 							<Total
+								buyer={buyer}
 								cartSession={cartSession}
 								cartItems={cartItems}
 								clearCartFn={clearCartFn}
