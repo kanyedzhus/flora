@@ -128,6 +128,12 @@ export default function CartContextProvider({ children }) {
 			console.log(error);
 		}
 	};
+
+	const deleteCartSession = async () => {
+		try {
+		} catch (error) {}
+	};
+
 	const [contextValues, setContextValues] = useState({
 		addToCartFn: addToCart,
 		increaseQtyFn: increaseQty,

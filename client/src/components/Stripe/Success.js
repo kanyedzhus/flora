@@ -5,16 +5,16 @@ import { CartContext } from "../../contexts/cart-context";
 
 export default function Success() {
 	const navigate = useNavigate();
-	const { clearCart } = useContext(CartContext);
+	const { clearCartFn } = useContext(CartContext);
 
 	// clear cart if payment successful
 	useEffect(() => {
-		clearCart();
+		clearCartFn();
 	}, []);
 
 	return (
 		<Layout>
-			<div className="mx-auto text-center">
+			<div className="mx-auto text-center my-5">
 				<h1>Thank you for your order</h1>
 				<p>
 					We are currently processing your order and will send you a

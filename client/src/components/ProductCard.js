@@ -11,6 +11,7 @@ import {
 } from "react-icons/bs";
 import { IoPawOutline } from "react-icons/io5";
 import { TbWindmill } from "react-icons/tb";
+import { fetchFromAPI, isInCart } from "../helpers";
 
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
@@ -42,6 +43,16 @@ export default function ProductCard({ extras, product }) {
 		}
 	};
 
+	const createShoppingSession = async () => {
+		if (cartItems.length === 0) {
+			try {
+				await fetchFromAPI("/", {
+					body: {},
+				});
+			} catch (error) {}
+		}
+	};
+
 	return (
 		<div className="col">
 			<div className="card shadow-sm  " style={{ cursor: "pointer" }}>
@@ -53,7 +64,7 @@ export default function ProductCard({ extras, product }) {
 					onClick={() => {
 						// this navigates to the singleProduct view. here the id that will be found in the url and used in the singleProduct component is set
 						// must set the / infront of the path or else this path will be appended to existing one.
-						navigate(`/product/${productId}`);
+						navigate(`/${productId}`);
 					}}
 				/>
 				<div className="card-body h-100">

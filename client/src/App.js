@@ -34,7 +34,7 @@ function App() {
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
-				<Route path="/product/:productId" element={<SingleProductPage />} />
+				<Route path="/:productId" element={<SingleProductPage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
