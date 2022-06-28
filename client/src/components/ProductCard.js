@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
@@ -11,12 +11,12 @@ import {
 } from "react-icons/bs";
 import { IoPawOutline } from "react-icons/io5";
 import { TbWindmill } from "react-icons/tb";
-import { fetchFromAPI, isInCart } from "../helpers";
+import { fetchFromAPI } from "../helpers";
 
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
-	const { addToCartFn, cartItems } = useContext(CartContext);
-	console.log(cartItems);
+	const { addToCartFn, cartItems, cartTotal } = useContext(CartContext);
+	console.log({ cartItems }, { cartTotal });
 	// *PRODUCT.QUANTITY IS THE STOCK **NOT** QUANTITY IN CART TO PURCHASE
 	const {
 		productId,
@@ -40,16 +40,6 @@ export default function ProductCard({ extras, product }) {
 			addToCartFn(productId, price, stripePriceId);
 		} else {
 			toast.info("This item is already in your cart.");
-		}
-	};
-
-	const createShoppingSession = async () => {
-		if (cartItems.length === 0) {
-			try {
-				await fetchFromAPI("/", {
-					body: {},
-				});
-			} catch (error) {}
 		}
 	};
 
@@ -78,6 +68,7 @@ export default function ProductCard({ extras, product }) {
 							className="btn btn-primary"
 							onClick={(event) => {
 								event.preventDefault();
+
 								handleAddToCart(productId, price, stripePriceId);
 							}}
 						>

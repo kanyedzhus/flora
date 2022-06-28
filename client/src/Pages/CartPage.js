@@ -12,6 +12,7 @@ export default function CartPage() {
 		removeFromCartFn,
 		clearCartFn,
 		cartSession,
+		cartTotal,
 	} = useContext(CartContext);
 	console.log(cartSession);
 	return (
@@ -41,6 +42,7 @@ export default function CartPage() {
 								cartSession={cartSession}
 								cartItems={cartItems}
 								clearCartFn={clearCartFn}
+								cartTotal={cartTotal}
 							/>
 						</div>
 					</div>

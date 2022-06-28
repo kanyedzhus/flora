@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import "jquery";
 import "popper.js/dist/umd/popper";
@@ -19,8 +19,40 @@ import SellerProfile from "./components/SellerProfile";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SingleProductPage from "./Pages/SingleProductPage";
+import { fetchFromAPI } from "./helpers";
 
 function App() {
+	const [user, setUser] = useState({});
+	const [buyer, setBuyer] = useState({});
+
+	const getUserFromLocalStorage = () => {
+		const user = localStorage.getItem("user")
+			? JSON.parse(localStorage.getItem("user"))
+			: {};
+
+		setUser(user);
+
+		if (user) {
+			getBuyer(user.userId);
+		}
+	};
+
+	const getBuyer = async (userId) => {
+		try {
+			const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+				method: "GET",
+			});
+			setBuyer(buyer);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getUserFromLocalStorage();
+	}, []);
+
+	console.log(buyer);
 	return (
 		<div className="App">
 			{" "}

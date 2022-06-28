@@ -92,6 +92,23 @@ export default function CartContextProvider({ children }) {
 			console.log(error);
 		}
 	};
+	const [contextValues, setContextValues] = useState({
+		addToCartFn: addToCart,
+		increaseQtyFn: increaseQty,
+		decreaseQtyFn: decreaseQty,
+		removeFromCartFn: removeFromCart,
+		clearCartFn: clearCart,
+		cartSession: {},
+		cartItems: [],
+		cartTotal: "",
+	});
+
+	useEffect(() => {
+		const total = contextValues.cartItems.reduce((total, item) => {
+			return total + item.price * item.quantity;
+		}, 0);
+		setContextValues((oldState) => ({ ...oldState, cartTotal: total }));
+	}, [contextValues.cartItems]);
 
 	const getCartItems = async () => {
 		try {
@@ -134,15 +151,6 @@ export default function CartContextProvider({ children }) {
 		} catch (error) {}
 	};
 
-	const [contextValues, setContextValues] = useState({
-		addToCartFn: addToCart,
-		increaseQtyFn: increaseQty,
-		decreaseQtyFn: decreaseQty,
-		removeFromCartFn: removeFromCart,
-		clearCartFn: clearCart,
-		cartSession: {},
-		cartItems: [],
-	});
 	console.log(contextValues);
 
 	return (

@@ -49,8 +49,10 @@ router.get("/buyer/:buyerId", async (req, res) => {
 
 //Post cart session
 // /cartsessions
-router.post("/", async (req, res) => {
-	const { total, buyerId } = req.body;
+// if user is not logged in buyer should be null
+router.post("/create-session", async (req, res) => {
+	const { total, buyerId = null } = req.body;
+	console.log(req.body);
 	try {
 		const session = await models.cartSession.create({ total, buyerId });
 
