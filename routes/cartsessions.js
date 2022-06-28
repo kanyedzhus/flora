@@ -18,6 +18,20 @@ router.get("/:cartSessionId", async (req, res) => {
 	}
 });
 
+//*Get cart session
+// /cartsessions
+router.get("/", async (req, res) => {
+	try {
+		const response = await models.cartSession.findAll({
+			attributes: ["cartSessionId", "total", "buyerId", "createdAt"],
+		});
+
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
+});
+
 //Get cart session by buyerId
 // /cartsessions/buyer/:buyerId
 router.get("/buyer/:buyerId", async (req, res) => {
@@ -54,16 +68,18 @@ router.post("/", async (req, res) => {
 
 //* Edit total - /cartsessions/total/:cartSessionId/edit
 router.put("/total/:cartSessionId/edit", async (req, res) => {
-	const { total } = req.body;
 	const { cartSessionId } = req.params;
+	const { total } = req.body;
+	console.log(req.body);
 	try {
 		const response = await models.cartSession.findOne({
 			where: { cartSessionId },
-			attributes: ["cartSessionId", "buyerId", "total"],
+			attributes: ["cartSessionId", "total", "buyerId"],
 		});
-		console.log(req.body);
+
+		console.log({ total });
 		const data = await response.update({ total });
-		console.log(data);
+
 		res.send(data);
 	} catch (error) {
 		res.status(500).send(error);

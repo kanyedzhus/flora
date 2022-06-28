@@ -5,6 +5,11 @@ import { toast } from "react-toastify";
 export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
+	useEffect(() => {
+		getCartItems();
+		getCartSession();
+	}, []);
+
 	// *ADD TO CART
 	const addToCart = async (productId, price, stripePriceId) => {
 		const newCartItem = {
@@ -88,32 +93,51 @@ export default function CartContextProvider({ children }) {
 		}
 	};
 
+	const getCartItems = async () => {
+		try {
+			const cartItems = await fetchFromAPI("cartitems/all-items", {
+				method: "GET",
+			});
+			// setContextValues({
+			// 	...contextValues,
+			// 	cartItems: [...cartItems],
+			// });
+			setContextValues((oldState) => ({ ...oldState, cartItems: cartItems }));
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getCartSession = async () => {
+		try {
+			const cartSession = await fetchFromAPI("cartsessions", {
+				method: "GET",
+			});
+			console.log(cartSession);
+			const cartSessionObj = cartSession[0];
+			// setContextValues({
+			// 	...contextValues,
+			// 	cartSession: { ...cartSessionObj },
+			// });
+
+			setContextValues((oldState) => ({
+				...oldState,
+				cartSession: cartSessionObj,
+			}));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const [contextValues, setContextValues] = useState({
 		addToCartFn: addToCart,
 		increaseQtyFn: increaseQty,
 		decreaseQtyFn: decreaseQty,
 		removeFromCartFn: removeFromCart,
 		clearCartFn: clearCart,
+		cartSession: {},
 		cartItems: [],
 	});
-
-	const getCartItems = async () => {
-		try {
-			const cartItems = await fetchFromAPI("cartitems/all-items", {
-				method: "GET",
-			});
-			setContextValues({
-				...contextValues,
-				cartItems: [...cartItems],
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	useEffect(() => {
-		getCartItems();
-	}, []);
+	console.log(contextValues);
 
 	return (
 		<CartContext.Provider value={contextValues}>

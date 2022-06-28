@@ -11,10 +11,9 @@ export default function CartPage() {
 		decreaseQtyFn,
 		removeFromCartFn,
 		clearCartFn,
-		updateTotalFn,
-		cartTotal,
+		cartSession,
 	} = useContext(CartContext);
-	console.log(cartItems);
+	console.log(cartSession);
 	return (
 		<Layout>
 			<div className="p-3">
@@ -39,10 +38,9 @@ export default function CartPage() {
 								))}
 							</div>
 							<Total
-								updateTotalFn={updateTotalFn}
+								cartSession={cartSession}
 								cartItems={cartItems}
 								clearCartFn={clearCartFn}
-								cartTotal={cartTotal}
 							/>
 						</div>
 					</div>

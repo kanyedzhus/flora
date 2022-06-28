@@ -4,7 +4,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { CartContext } from "../../contexts/cart-context";
 import { fetchFromAPI } from "../../helpers";
 
-export default function StripeCheckout() {
+export default function StripeCheckout({ cartTotal, postCartSessionTotal }) {
 	const stripe = useStripe();
 	const { cartItems } = useContext(CartContext);
 	console.log(cartItems);
@@ -49,6 +49,7 @@ export default function StripeCheckout() {
 			className="btn btn-primary"
 			onClick={(event) => {
 				handleCheckout(event);
+				postCartSessionTotal(cartTotal);
 			}}
 		>
 			CHECKOUT
