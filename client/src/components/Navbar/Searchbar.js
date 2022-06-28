@@ -1,34 +1,36 @@
-import React, {useState} from "react";
-import { ProductsContext } from "../contexts/products-context";
+import React, {useContext, useState} from "react";
+import { ProductsContext } from "../../contexts/products-context";
+import SearchProductsContainer from "../SearchProductContainer";
 import "./Navbar.css";
 
 
 function Searchbar(){
 const [inputProductName, setInputProductName] = useState("");
 const [searchResponse, setSearchResponse] = useState ([]);
-let { products } = useState(ProductsContext);
+let { products } = useContext(ProductsContext);
+//console.log(products)
 if (!products) {
     products = [];
 }
 
-
 const handleChange =(event) => { 
 const value = event.target.value;
 setInputProductName(value)
-console.log(inputProductName)
+//console.log(inputProductName)
 
 }
-console.log(inputProductName)
+//console.log(inputProductName)
 const handleSearch = (event, inputProductName) =>{
     event.preventDefault();
     getSearch(inputProductName)
 }
-console.log(searchResponse)
+//console.log(searchResponse)
 const getSearch =(inputProductName) =>{
  fetch(`/products/name/${inputProductName}`)
  .then(res => res.json())
  .then( response => {
     setSearchResponse(response);
+   // <SearchProductsContainer productName = {searchResponse}/>
     
     
 })
@@ -45,7 +47,7 @@ const getSearch =(inputProductName) =>{
         onChange={handleChange}
         
     />
-    {/* <Suggestions results={input}/> */}
+   
     <button className="btn btn-outline-success" type="submit" onClick={(event) => handleSearch(event, inputProductName)}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -63,10 +65,14 @@ const getSearch =(inputProductName) =>{
             const searchTerm = inputProductName.toLowerCase();
             const productName = item.productName.toLowerCase();
             return(
-                searchTerm && productName.startsWith(searchTerm)
+                searchTerm && productName.startsWith(searchTerm) 
             )
-        })}
+        }
+        ).map((item =>
+        {return item.productName}
+        ))}
     </div>
+
 </form>)
 }
 
