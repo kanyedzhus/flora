@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import ProductCard from "../components/ProductCard";
-//import { ProductsContext } from "../contexts/products-context";
+import { ProductsContext } from "../contexts/products-context";
 
-export default function SearchProductsContainer({productName}) {
-	// let { products } = useState(ProductsContext);
+export default function SearchProductsContainer({}) {
+	let { products } = useContext(ProductsContext);
 	
-	// if (!products) {
-	// 	products = [];
-	// }
-    console.log(productName)
-    if (productName !== undefined){
-	return (
+	if (!products) {
+		products = [];
+	}
+    
+   return(
 		<div className="row row-cols-2 row-cols-xl-4 g-3">
 			
-			{productName.map((product) => {
+			{products.map((product) => {
 				return <ProductCard key={product.productId} product={product} />;
 			})}
-		</div>
-	);} else{
-        return null
-    }
-}
+		</div>)
+	;
+        }
+

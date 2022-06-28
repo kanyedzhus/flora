@@ -1,6 +1,6 @@
 import React from "react";
 import FilterUI from "../components/FilterUI";
-import SearchProductsContainer from "../components/SearchProductContainer";
+import ProductsContainer from "../components/ProductsContainer";
 
 import Layout from "../components/Layout";
 
@@ -10,7 +10,7 @@ export default function SearchPage() {
 			<div className="container my-3">
 				<div className="row">
 					<FilterUI />
-					<SearchProductsContainer />
+					<ProductsContainer />
 				</div>
 			</div>
 		</Layout>
