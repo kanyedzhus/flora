@@ -8,13 +8,16 @@ export default function SearchProductsContainer({productName}) {
 	// if (!products) {
 	// 	products = [];
 	// }
-    // console.log(productName)
+    console.log(productName)
+    if (productName !== undefined){
 	return (
 		<div className="row row-cols-2 row-cols-xl-4 g-3">
 			
-			{/* {productName.map((product) => {
+			{productName.map((product) => {
 				return <ProductCard key={product.productId} product={product} />;
-			})} */}
+			})}
 		</div>
-	);
+	);} else{
+        return null
+    }
 }

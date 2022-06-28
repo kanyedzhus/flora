@@ -4,31 +4,29 @@ import "./Navbar.css";
 
 function SubNavbar(){
     return(
-     <div className=" navbar-collapse">
-                  
-                    <div className="nav-item dropdown-nav">
-                    <a className="nav-link dropdown-toggle" href="/search">Outdoor Plants</a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="/search">Climbing Plants</a>
-          <a className="dropdown-item" href="/search">Trees</a>
-        </div>
-                 </div> 
-             <div className="nav-item dropdown-nav">
-                <a className="nav-link dropdown-toggle" href="#">Indoor Plants</a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Potted Plants</a>
-          <a className="dropdown-item" href="#">Cacti and Succulents</a>
-        </div>
-            </div>
-            <div className="nav-item dropdown-nav">
-                <a className="nav-link dropdown-toggle" href="#">Flowers</a>
-        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a className="dropdown-item" href="#">Bouquet</a>
-          <a className="dropdown-item" href="#">Dried Flowers</a>
-        </div>
-            </div>
-      
-        </div>
+    <div className="navbar-collapse ">
+    <div className=" ">
+
+    <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Outdoor Plants </button>
+    <div className="dropdown-menu">
+      <a href="" className="dropdown-item">Clibing Plants</a>
+      <a href="" className="dropdown-item">Trees</a>
+    </div>
+
+    <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Inddoor Plants </button>
+    <div className="dropdown-menu">
+      <a href="" className="dropdown-item">Potted Plants</a>
+      <a href="" className="dropdown-item">Cacti and succulents</a>
+    </div>
+    
+    <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Flowers </button>
+    <div className="dropdown-menu">
+      <a href="" className="dropdown-item">Bouquet</a>
+      <a href="" className="dropdown-item">Dried Flowers</a>
+    </div>
+
+    </div> 
+    </div>
     );
 
 }

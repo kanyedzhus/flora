@@ -30,14 +30,13 @@ const getSearch =(inputProductName) =>{
  .then(res => res.json())
  .then( response => {
     setSearchResponse(response);
-   // <SearchProductsContainer productName = {searchResponse}/>
-    
-    
 })
 .catch(e => console.log(e));
  }
 
-    return (<form className="d-flex mx-auto w-50 " role="search">
+    return (
+   <div>
+    <form className="d-flex mx-auto w-50 " role="search">
     <input
         className="form-control me-2"
         type="search"
@@ -69,11 +68,17 @@ const getSearch =(inputProductName) =>{
             )
         }
         ).map((item =>
-        {return item.productName}
+            ( <div key={item.productId} onclick={()=>handleSearch(item.productName)}>
+                {item.productName}
+            </div>
+        // {return item.productName}
+        )
         ))}
     </div>
-
-</form>)
+</form>
+<SearchProductsContainer productName={searchResponse}/>
+</div>
+)
 }
 
 export default Searchbar;
