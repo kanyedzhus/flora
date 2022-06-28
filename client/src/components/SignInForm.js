@@ -1,47 +1,111 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function SignInForm() {
-	const style = {
-		width: "100%",
-		maxWidth: "330px",
-		padding: "15px",
-		margin: "auto",
-	};
-	return (
-		<div style={style}>
-			<form>
-				<h2 className="h3 mb-3 fw-normal text-center">Please sign in</h2>
+  const style = {
+    width: "100%",
+    maxWidth: "330px",
+    padding: "15px",
+    margin: "auto",
+  };
 
-				<div className="form-group mb-3">
-					<label htmlFor="email">Email address</label>
-					<input type="email" className="form-control py-1" id="email" />
-				</div>
-				<div className="form-group mb-3">
-					{" "}
-					<label htmlFor="password">Password</label>
-					<input type="password" className="form-control" id="password" />
-				</div>
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
 
-				<button className="w-100 btn btn-md btn-outline-primary" type="submit">
-					Sign in
-				</button>
-			</form>
+  //   const { username, password } = credentials;
 
-			<p className="mt-3">
-				Not a member?{" "}
-				<Link className="text-decoration-none" to="/register">
-					{" "}
-					Register{" "}
-				</Link>
-			</p>
-			<p className="mt-3">
-				Need a seller account?{" "}
-				<Link className="text-decoration-none" to="/seller/register">
-					{" "}
-					Register here
-				</Link>
-			</p>
-		</div>
-	);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials({ ...credentials, [name]: value });
+  };
+
+  const login = async () => {
+    try {
+      const { data } = await axios("/auth/users/login", {
+        method: "POST",
+        data: credentials,
+      });
+      console.log("Login is succsessful");
+      //store it locally
+      localStorage.setItem("token", data.token);
+      console.log(data.message, data.token);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //   const logout = () => {
+  //     localStorage.removeItem("token");
+  //   };
+
+  const requestData = async () => {
+    try {
+      const { data } = await axios("/users/profile", {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
+
+      console.log(data.message);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <div style={style}>
+      <form>
+        <h2 className="h3 mb-3 fw-normal text-center">Please sign in</h2>
+
+        <div className="form-group mb-3">
+          <label htmlFor="email">Email address</label>
+          <input
+            value={credentials.email}
+            name="email"
+            onChange={handleChange}
+            type="email"
+            className="form-control py-1"
+            id="email"
+          />
+        </div>
+        <div className="form-group mb-3">
+          {" "}
+          <label htmlFor="password">Password</label>
+          <input
+            value={credentials.password}
+            name="password"
+            onChange={handleChange}
+            type="password"
+            className="form-control"
+            id="password"
+          />
+        </div>
+
+        <button
+          className="w-100 btn btn-md btn-outline-primary"
+          onClick={login}
+        >
+          Sign in
+        </button>
+      </form>
+
+      <p className="mt-3">
+        Not a member?{" "}
+        <Link className="text-decoration-none" to="/register">
+          {" "}
+          Register{" "}
+        </Link>
+      </p>
+      <p className="mt-3">
+        Need a seller account?{" "}
+        <Link className="text-decoration-none" to="/seller/register">
+          {" "}
+          Register here
+        </Link>
+      </p>
+    </div>
+  );
 }
