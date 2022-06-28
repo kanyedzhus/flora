@@ -101,4 +101,17 @@ router.delete("/:cartSessionId/delete", async (req, res) => {
 	}
 });
 
+// delete all
+router.delete("/delete-all", async (req, res) => {
+	try {
+		const data = await models.cartSession.destroy({
+			where: {},
+			truncate: true,
+		});
+		res.status(200).json(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 module.exports = router;

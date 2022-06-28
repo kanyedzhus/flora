@@ -17,7 +17,7 @@ export default function StripeCheckout({
 	const handleCheckout = async (event) => {
 		event.preventDefault();
 
-		const customer = "cus_LwtmAtpYHMFkWH";
+		const customer = buyer.stripeId;
 		// build line items. stripe customer id above can come from user context
 
 		try {

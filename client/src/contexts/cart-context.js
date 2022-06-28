@@ -149,7 +149,13 @@ export default function CartContextProvider({ children }) {
 
 	const deleteCartSession = async () => {
 		try {
-		} catch (error) {}
+			const response = await fetchFromAPI("cartsessions/delete-all", {
+				method: "DELETE",
+			});
+			getCartSession();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	console.log(contextValues);

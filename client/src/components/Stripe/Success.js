@@ -12,6 +12,11 @@ export default function Success() {
 		clearCartFn();
 	}, []);
 
+	const deleteSession = async () => {
+		try {
+		} catch (error) {}
+	};
+
 	return (
 		<Layout>
 			<div className="mx-auto text-center my-5">

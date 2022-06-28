@@ -63,17 +63,26 @@ export default function ProductCard({ extras, product }) {
 					<h5>€ {price}</h5>
 					<p className="card-text">{description}</p>
 					<div className="d-flex justify-content-between align-items-center">
-						<a
-							href="#"
-							className="btn btn-primary"
-							onClick={(event) => {
-								event.preventDefault();
+						{/* check for item in cart */}
+						{cartItems.find((item) => item.productId === productId) ? (
+							<button
+								className="btn btn-outline-primary"
+								onClick={() => navigate("/cart")}
+							>
+								View In Cart
+							</button>
+						) : (
+							<button
+								className="btn btn-primary"
+								onClick={(event) => {
+									event.preventDefault();
 
-								handleAddToCart(productId, price, stripePriceId);
-							}}
-						>
-							Add to cart
-						</a>
+									handleAddToCart(productId, price, stripePriceId);
+								}}
+							>
+								Add to cart
+							</button>
+						)}
 						<div className="h3 d-flex gap-1 justify-content-center ">
 							{light === "high" && <BsBrightnessHigh />}
 							{light === "medium" && <BsBrightnessLow />}

@@ -33,6 +33,7 @@ function App() {
 			: {};
 
 		setUser(user);
+		console.log({ user });
 		if (user) {
 			getBuyer(user.userId);
 		}

@@ -14,8 +14,6 @@ export default function Total({
 
 	const items = cartItems.length === 1 ? "item" : "items";
 
-	console.log({ cartSession });
-
 	// const cartSessionId = cartSession.cartSessionId;
 	// console.log({ cartSessionId });
 
@@ -41,7 +39,7 @@ export default function Total({
 			<div className="d-flex gap-3">
 				<StripeCheckout
 					cartTotal={cartTotal}
-					postCartSessionTotal={postCartSessionTotal}
+					// postCartSessionTotal={postCartSessionTotal}
 					buyer={buyer}
 				/>
 				<button
