@@ -102,7 +102,7 @@ router.delete("/:cartSessionId/delete", async (req, res) => {
 });
 
 // delete all
-router.delete("/delete-all", async (req, res) => {
+router.delete("/delete-all/logout", async (req, res) => {
 	try {
 		const data = await models.cartSession.destroy({
 			where: {},

@@ -92,13 +92,27 @@ export default function CartContextProvider({ children }) {
 			console.log(error);
 		}
 	};
+	const getCartSession = async () => {
+		try {
+			const cartSession = await fetchFromAPI("cartsessions", {
+				method: "GET",
+			});
+			console.log({ cartSession });
+			setContextValues((oldState) => ({
+				...oldState,
+				cartSession: cartSession[0],
+			}));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 	const [contextValues, setContextValues] = useState({
 		addToCartFn: addToCart,
 		increaseQtyFn: increaseQty,
 		decreaseQtyFn: decreaseQty,
 		removeFromCartFn: removeFromCart,
 		clearCartFn: clearCart,
-
+		getCartSessionFn: getCartSession,
 		cartSession: {},
 		cartItems: [],
 		cartTotal: "",
@@ -121,27 +135,6 @@ export default function CartContextProvider({ children }) {
 			// 	cartItems: [...cartItems],
 			// });
 			setContextValues((oldState) => ({ ...oldState, cartItems: cartItems }));
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
-	const getCartSession = async () => {
-		try {
-			const cartSession = await fetchFromAPI("cartsessions", {
-				method: "GET",
-			});
-			console.log({ cartSession });
-
-			// setContextValues({
-			// 	...contextValues,
-			// 	cartSession: { ...cartSessionObj },
-			// });
-
-			setContextValues((oldState) => ({
-				...oldState,
-				cartSession: cartSession[0],
-			}));
 		} catch (error) {
 			console.log(error);
 		}

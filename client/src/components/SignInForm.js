@@ -3,15 +3,17 @@ import axios from "axios";
 import { Link, Navigate } from "react-router-dom";
 import { fetchFromAPI } from "../helpers";
 import { CartContext } from "../contexts/cart-context";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
-export default function SignInForm({ user, buyer, getBuyer }) {
+export default function SignInForm({ user, buyer, setBuyer }) {
 	const style = {
 		width: "100%",
 		maxWidth: "330px",
 		padding: "15px",
 		margin: "auto",
 	};
-	const { cartTotal } = useContext(CartContext);
+	const { cartTotal, getCartSessionFn } = useContext(CartContext);
 	const [credentials, setCredentials] = useState({
 		email: "",
 		password: "",
@@ -30,16 +32,16 @@ export default function SignInForm({ user, buyer, getBuyer }) {
 	// 	}
 	// };
 
-	// const getBuyer = async (userId) => {
-	// 	try {
-	// 		const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
-	// 			method: "GET",
-	// 		});
-	// 		setBuyer(buyer);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
+	const getBuyer = async (userId) => {
+		try {
+			const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+				method: "GET",
+			});
+			setBuyer(buyer);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
@@ -64,14 +66,17 @@ export default function SignInForm({ user, buyer, getBuyer }) {
 					buyerId,
 				},
 			});
-		} catch (error) {}
+			getCartSessionFn();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const login = async (event) => {
 		event.preventDefault();
 
 		try {
-			const { data } = await axios("/auth/users/login", {
+			const { data } = await axios("http://localhost:5000/auth/users/login", {
 				method: "POST",
 				data: credentials,
 			});
@@ -82,6 +87,7 @@ export default function SignInForm({ user, buyer, getBuyer }) {
 				localStorage.setItem("token", data.token);
 				localStorage.setItem("user", JSON.stringify(data.user));
 				const user = JSON.parse(localStorage.getItem("user"));
+				console.log({ user });
 				getBuyer(user.userId);
 				console.log(buyer.buyerId);
 				createCartSession(buyer.buyerId);
@@ -91,6 +97,13 @@ export default function SignInForm({ user, buyer, getBuyer }) {
 			}
 		} catch (error) {
 			console.log(error);
+			if (error.request.status === 404) {
+				toast.error(
+					error.response.data.message + " " + "Please register for an account."
+				);
+			} else {
+				toast.error("Incorrect credentials. Please try again.");
+			}
 		}
 	};
 

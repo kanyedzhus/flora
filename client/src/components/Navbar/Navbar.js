@@ -7,12 +7,13 @@ import { CartContext } from "../../contexts/cart-context";
 import { fetchFromAPI } from "../../helpers";
 
 function Navbar() {
-	const { cartItems, cartSession } = useContext(CartContext);
+	const { cartItems, cartSession, getCartSessionFn } = useContext(CartContext);
 	const navigate = useNavigate();
-
+	const cartSessionId = cartSession?.cartSessionId;
+	console.log({ cartSessionId });
 	const deleteCartSession = async (cartSessionId) => {
 		try {
-			await fetchFromAPI("cartsessions/delete-all", {
+			await fetchFromAPI(`cartsessions/${cartSessionId}/delete`, {
 				method: "DELETE",
 			});
 		} catch (error) {
@@ -23,7 +24,8 @@ function Navbar() {
 	const handleSignOut = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		deleteCartSession();
+		deleteCartSession(cartSessionId);
+		getCartSessionFn();
 		navigate("/");
 	};
 	return (

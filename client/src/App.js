@@ -23,7 +23,7 @@ import { fetchFromAPI } from "./helpers";
 import { CartContext } from "./contexts/cart-context";
 
 function App() {
-	const { cartSession } = useContext(CartContext);
+	const { cartSession, getCartSessionFn } = useContext(CartContext);
 	const [user, setUser] = useState({});
 	const [buyer, setBuyer] = useState({});
 
@@ -54,6 +54,11 @@ function App() {
 		getUserFromLocalStorage();
 	}, []);
 
+	useEffect(() => {
+		getBuyer();
+		getCartSessionFn();
+	}, [user]);
+
 	console.log({ buyer });
 	return (
 		<div className="App">
@@ -71,7 +76,14 @@ function App() {
 				<Route path="/:productId" element={<SingleProductPage />} />
 				<Route
 					path="/signin"
-					element={<SignInPage buyer={buyer} user={user} getBuyer={getBuyer} />}
+					element={
+						<SignInPage
+							buyer={buyer}
+							user={user}
+							getBuyer={getBuyer}
+							setBuyer={setBuyer}
+						/>
+					}
 				/>
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
