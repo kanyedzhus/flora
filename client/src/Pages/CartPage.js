@@ -3,6 +3,7 @@ import CartItem from "../components/CartItem";
 import Layout from "../components/Layout";
 import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
+import { fetchFromAPI } from "../helpers";
 
 export default function CartPage({ buyer }) {
 	const {
@@ -15,6 +16,7 @@ export default function CartPage({ buyer }) {
 		cartTotal,
 	} = useContext(CartContext);
 	console.log(cartSession);
+
 	return (
 		<Layout>
 			<div className="p-3">

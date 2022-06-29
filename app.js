@@ -16,17 +16,25 @@ const categoriesRouter = require("./routes/categories");
 const cartSessionsRouter = require("./routes/cartsessions");
 const cartItemsRouter = require("./routes/cartitems");
 
-const createCheckoutSession = require("./StripeAPI/checkout");
-
 const authSellersRouter = require("./routes/authSellers");
 const authBuyersRouter = require("./routes/authBuyers");
 const cartRouter = require("./routes/carts");
+
+const createCheckoutSession = require("./StripeAPI/checkout");
+const webhook = require("./StripeAPI/webhook");
 
 const app = express();
 app.use(cors());
 
 app.use(logger("dev"));
-app.use(express.json());
+// app.use(express.json());
+app.use((req, res, next) => {
+	if (req.originalUrl === "/webhook") {
+		next();
+	} else {
+		express.json()(req, res, next);
+	}
+});
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
@@ -42,11 +50,12 @@ app.use("/orderitems", orderitemsRouter);
 app.use("/categories", categoriesRouter);
 app.use("/cartsessions", cartSessionsRouter);
 app.use("/cartitems", cartItemsRouter);
-
-app.post("/create-checkout-session", createCheckoutSession);
 app.use("/auth", authSellersRouter);
 app.use("/auth", authBuyersRouter);
 app.use("/carts", cartRouter);
+
+app.post("/create-checkout-session", createCheckoutSession);
+app.post("/webhook", express.raw({ type: "application/json" }), webhook);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

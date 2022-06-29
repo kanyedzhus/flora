@@ -9,14 +9,7 @@ const { sequelize } = require("../models");
 router.get("/", async (req, res) => {
 	try {
 		const response = await models.order.findAll({
-			attributes: [
-				"orderId",
-				"buyerId",
-				"sellerId",
-				"invoiceId",
-				"status",
-				"createdAt",
-			],
+			attributes: ["orderId", "buyerId", "status", "createdAt"],
 		});
 		res.send(response);
 	} catch (err) {
@@ -32,14 +25,7 @@ router.get("/:orderId", (req, res) => {
 
 	models.order
 		.findOne({
-			attributes: [
-				"orderId",
-				"buyerId",
-				"sellerId",
-				"invoiceId",
-				"status",
-				"createdAt",
-			],
+			attributes: ["orderId", "buyerId", "status", "createdAt"],
 			where: { orderId },
 		})
 		.then((seller) => res.send(seller))
@@ -53,14 +39,7 @@ router.get("/order/:sellerId", async (req, res) => {
 	try {
 		const response = await models.order.findAll({
 			where: { sellerId },
-			attributes: [
-				"orderId",
-				"buyerId",
-				"sellerId",
-				"invoiceId",
-				"status",
-				"createdAt",
-			],
+			attributes: ["orderId", "buyerId", "status", "createdAt"],
 		});
 		res.send(response);
 	} catch (err) {
@@ -97,15 +76,7 @@ router.put("/:orderId", async (req, res) => {
 	try {
 		const response = await models.order.findOne({
 			where: { orderId },
-			attributes: [
-				"orderId",
-				"buyerId",
-				"sellerId",
-				"invoiceId",
-				"status",
-				"total",
-				"createdAt",
-			],
+			attributes: ["orderId", "buyerId", "status", "total", "createdAt"],
 		});
 		//console.log(response)
 

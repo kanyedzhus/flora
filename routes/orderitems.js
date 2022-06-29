@@ -25,7 +25,7 @@ router.get("/item/:orderId", async (req, res) => {
 	}
 });
 
-//Post all items in a session from cartitems to orderitems
+//*Post all items in a session from cartitems to orderitems
 // /orderitems/item
 router.post("/post/:cartSessionId/", async (req, res) => {
 	const { cartSessionId } = req.params;

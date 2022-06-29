@@ -1,21 +1,43 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../Layout";
 import { CartContext } from "../../contexts/cart-context";
+import { fetchFromAPI } from "../../helpers";
 
 export default function Success() {
 	const navigate = useNavigate();
-	const { clearCartFn } = useContext(CartContext);
-
-	// clear cart if payment successful
-	useEffect(() => {
-		clearCartFn();
-	}, []);
-
+	const { clearCartFn, cartSession } = useContext(CartContext);
 	const deleteCartSession = async () => {
 		try {
 		} catch (error) {}
 	};
+	const postToOrderItems = async () => {
+		try {
+			const response = await fetchFromAPI(
+				`orderitems/post/${cartSession.cartSessionId}`
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const postToOrders = async () => {
+		try {
+			const response = await fetchFromAPI(
+				`orders/post/${cartSession.cartSessionId}`
+			);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		postToOrders(cartSession.cartSessionId);
+		// clear cart if payment successful
+		postToOrderItems(cartSession.cartSessionId);
+		// clearCartFn();
+		console.log(cartSession);
+	}, []);
 
 	return (
 		<Layout>

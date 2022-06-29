@@ -36,7 +36,7 @@ export default function CartItem({
 					<h4>{productInCart.productName}</h4>
 					<p className="mb-0">€{(price * quantity).toFixed(2)}</p>
 					<p className="mb-0">{`Qty: ${quantity}`}</p>
-					<p className="mb-0">{`Sold by ${productInCart.sellerId}`}</p>
+					<p className="mb-0">{`Sold by ${productInCart.storeName}`}</p>
 				</div>
 
 				<div className="col-auto d-flex flex-sm-column flex-md-row align-items-center gap-1">

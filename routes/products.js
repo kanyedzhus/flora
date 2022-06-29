@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 const stripeAPI = require("../StripeApi/stripe");
+const { QueryTypes } = require("sequelize");
+const { sequelize } = require("../models");
 
 // this package allows us to handle FormData (different content type) - both text and files
 const multer = require("multer");
@@ -92,28 +94,19 @@ router.post("/", upload.single("imgURL"), async (req, res, next) => {
 
 //Get all products
 // /products
-router.get("/", (req, res) => {
-	models.product
-		.findAll({
-			attributes: [
-				"productId",
-				"productName",
-				"categoryId",
-				"sellerId",
-				"description",
-				"imgURL",
-				"price",
-				"quantity",
-				"easyCare",
-				"light",
-				"petFriendly",
-				"airPurifying",
-				"stripePriceId",
-				"stripeProductId",
-			],
-		})
-		.then((products) => res.send(products))
-		.catch((err) => res.status(500).send({ error: err.message }));
+router.get("/", async (req, res) => {
+	try {
+		const response = await sequelize.query(
+			"select * from products, sellers where products.sellerId=sellers.sellerId;",
+			{
+				type: QueryTypes.SELECT,
+			}
+		);
+		console.log(response);
+		res.send(response);
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 // Get products by category Id
