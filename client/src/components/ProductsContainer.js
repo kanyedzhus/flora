@@ -11,7 +11,7 @@ export default function ProductsContainer() {
 		getAllProducts();
 		console.log(products);
 
-	}, [searchQuery]);
+	}, []);
 	
 	console.log(searchQuery)
 	return (

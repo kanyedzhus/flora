@@ -1,11 +1,12 @@
 import React, {useContext, useState} from "react";
 import { ProductsContext } from "../../contexts/products-context";
-
+import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
 
 function Searchbar(){
  const [inputProductName, setInputProductName] = useState("");
+ const navigate = useNavigate();
 
 let { products, searchQuery, changeSearchQuery } = useContext(ProductsContext);
 //console.log(products)
@@ -34,7 +35,8 @@ const handleSearch = (event) =>{
 
     return (
   
-    <form className="d-flex mx-auto w-50 " role="search" onSubmit={(e) => handleSearch(e)} >
+    <form className="d-flex mx-auto w-50 position-relative " role="search" onSubmit={(e) => {handleSearch(e) 
+    navigate("/search")}} >
     <input
         className="form-control me-2"
         type="search"
@@ -57,7 +59,7 @@ const handleSearch = (event) =>{
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
         </svg>
     </button>
-    {/* <div className="dropdown">
+    <div className="searchBar position-absolute mt-5">
         {products.filter((item) => {
             const searchTerm = inputProductName.toLowerCase();
             const productName = item.productName.toLowerCase();
@@ -72,7 +74,7 @@ const handleSearch = (event) =>{
         // {return item.productName}
         )
         ))}
-    </div> */}
+    </div>
 </form>
 
 

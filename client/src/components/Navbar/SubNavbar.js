@@ -1,45 +1,47 @@
 import React, { useContext, useState} from "react";
 import { ProductsContext } from "../../contexts/products-context";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 import "./Navbar.css";
+import DropdownItem from "react-bootstrap/esm/DropdownItem";
 
 function SubNavbar(){
 let { categoryId, setCategoryId } = useContext(ProductsContext);
 
 
-const handleCategories=(e, number)=>{
+const handleCategories=(e)=>{
     e.preventDefault();
-    console.log(number)
-    setCategoryId(number)
-}
-console.log(categoryId)
-    return(
-    <div className="navbar-collapse ">
-            <div className=" ">
-
-            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onClick={(e)=>handleCategories(e)}> Outdoor Plants </button>
-            <div className="dropdown-menu">
-              <a href="" className="dropdown-item">Clibing Plants</a>
-              <a href="" className="dropdown-item">Trees</a>
-            </div>
-        
-            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Inddoor Plants </button>
-            <div className="dropdown-menu">
-              <a href="" className="dropdown-item">Potted Plants</a>
-              <a href="" className="dropdown-item">Cacti and succulents</a>
-            </div>
-            
-            <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Flowers </button>
-            <div className="dropdown-menu">
-              <a href="" className="dropdown-item">Bouquet</a>
-              <a href="" className="dropdown-item">Dried Flowers</a>
-            </div>
-        
-            </div> 
-        
     
+    // setCategoryId(number)
+}
+
+    return(
    
-    </div>
+   <div>        
+            <DropdownButton title="Outdoor Plants">
+
+            
+            
+              <DropdownItem href="" className="dropdown-item">Clibing Plants</DropdownItem>
+              <DropdownItem href="" className="dropdown-item">Trees</DropdownItem>
+           
+            </DropdownButton> 
+            <DropdownButton title="Indoor Plants">
+    
+           
+              <DropdownItem href="" className="dropdown-item">Potted Plants</DropdownItem>
+              <DropdownItem href="" className="dropdown-item">Cacti and succulents</DropdownItem>
+          
+            </DropdownButton>
+            <DropdownButton title="Flower">
+        
+           
+              <DropdownItem href="" className="dropdown-item">Bouquet</DropdownItem>
+              <DropdownItem href="" className="dropdown-item">Dried Flowers</DropdownItem>
+          
+            </DropdownButton>
+            </div> 
     
     ); 
 }

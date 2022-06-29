@@ -9,7 +9,23 @@ nav a:hover {
 	font-weight: bold;
 }
 
-
+.searchBar {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	border: 1px solid gray;
+  }
+  
+  .searchBar:empty {
+	border: none;
+  }
+  
+  .searchBar-row {
+	cursor: pointer;
+	text-align: start;
+	margin: 2px 0;
+  }
+  
 
   
 
