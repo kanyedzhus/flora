@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // returns a reference to the stripe instance/promise passed down in Elements wrapper in index.js. Use this to redirect to checkout
 import { useStripe } from "@stripe/react-stripe-js";
 import { CartContext } from "../../contexts/cart-context";
@@ -6,13 +6,16 @@ import { fetchFromAPI } from "../../helpers";
 
 export default function StripeCheckout({
 	cartTotal,
-	postCartSessionTotal,
 
 	buyer,
 }) {
 	const stripe = useStripe();
+	const [cartItemIds, setCartItemIds] = useState([]);
 	const { cartItems } = useContext(CartContext);
 	console.log(cartItems);
+
+	const { cartSession } = useContext(CartContext);
+	console.log({ cartSession });
 
 	const handleCheckout = async (event) => {
 		event.preventDefault();
@@ -49,15 +52,55 @@ export default function StripeCheckout({
 		}
 	};
 
+	console.log({ cartTotal }, { buyer });
+
+	const postCartSessionTotal = async (cartTotal, cartSessionId) => {
+		try {
+			await fetchFromAPI(`cartsessions/total/${cartSessionId}/edit`, {
+				method: "PUT",
+				body: { total: cartTotal },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const getCartItemIds = (carItems) => {
+		const ids = cartItems.map((item) => item.cartItemId);
+		console.log(ids);
+		setCartItemIds(ids);
+	};
+	useEffect(() => {
+		getCartItemIds();
+		console.log({ cartItemIds });
+	}, []);
+	const attachCartSessionToItems = async (cartItemIds) => {
+		try {
+			await fetchFromAPI("cartitems/cartsession/edit", {
+				method: "PUT",
+				body: { cartItemIds, cartSession },
+			});
+		} catch (error) {}
+	};
+
 	return (
-		<button
-			className="btn btn-primary"
-			onClick={(event) => {
-				handleCheckout(event);
-				postCartSessionTotal(cartTotal, buyer.buyerId);
-			}}
-		>
-			CHECKOUT
-		</button>
+		<>
+			<button
+				className="btn btn-primary"
+				onClick={(event) => {
+					handleCheckout(event);
+					postCartSessionTotal(cartTotal, cartSession.cartSessionId);
+				}}
+			>
+				CHECKOUT
+			</button>
+			<button
+				onClick={() => {
+					postCartSessionTotal(cartTotal, cartSession.cartSessionId);
+					attachCartSessionToItems(cartItemIds);
+				}}
+			>
+				test
+			</button>
+		</>
 	);
 }

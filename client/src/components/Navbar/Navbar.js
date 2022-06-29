@@ -24,7 +24,7 @@ function Navbar() {
 	const handleSignOut = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		deleteCartSession(cartSessionId);
+		// deleteCartSession(cartSessionId);
 		getCartSessionFn();
 		navigate("/");
 	};
