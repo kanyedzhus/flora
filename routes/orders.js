@@ -74,14 +74,14 @@ router.post("/post/:cartSessionId", async (req, res) => {
 	const { cartSessionId } = req.params;
 	//console.log(buyerId);
 	try {
-		const order = await models.order.create({
-			buyerId,
-			sellerId,
-			invoiceId,
-			status,
-			total,
-		});
-		res.send(order);
+		const response = await sequelize.query(
+			`insert into orders (buyerId,total, createdAt, updatedAt) select buyerId, total, now(), now() from cartsessions where cartSessionId=${cartSessionId}`,
+			{
+				type: QueryTypes.INSERT,
+			}
+		);
+		console.log(response);
+		res.send(response);
 	} catch (error) {
 		// console.log(error);
 		res.status(500).send(error);
