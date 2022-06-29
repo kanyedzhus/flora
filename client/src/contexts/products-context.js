@@ -1,3 +1,4 @@
+import { get } from "jquery";
 import React, { createContext, useState, useEffect } from "react";
 import { fetchFromAPI } from "../helpers";
 
@@ -40,7 +41,9 @@ const [categoryID, setCategoryID] = useState("")
 		products: contextValues, 
        searchQuery: searchQuery,
 	   changeSearchQuery: changeSearchQuery,
-	   categoryId: categoryID
+	   categoryId: categoryID,
+	   setCategoryID: setCategoryID,
+	   getAllProducts: getAllProducts,
 	};
 	
 	

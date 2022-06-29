@@ -3,11 +3,12 @@ import ProductCard from "../components/ProductCard";
 import { ProductsContext } from "../contexts/products-context";
 
 export default function ProductsContainer() {
-	let { products, searchQuery } = useContext(ProductsContext);
+	let { products, searchQuery, getAllProducts, categoryId } = useContext(ProductsContext);
 
 	console.log(products);
 
 	useEffect(() => {
+		getAllProducts();
 		console.log(products);
 
 	}, [searchQuery]);
