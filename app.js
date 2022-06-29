@@ -18,7 +18,7 @@ const cartItemsRouter = require("./routes/cartitems");
 
 const authSellersRouter = require("./routes/authSellers");
 const authBuyersRouter = require("./routes/authBuyers");
-const cartRouter = require("./routes/carts");
+//const cartRouter = require("./routes/carts");
 
 const createCheckoutSession = require("./StripeAPI/checkout");
 const webhook = require("./StripeAPI/webhook");
@@ -52,7 +52,7 @@ app.use("/cartsessions", cartSessionsRouter);
 app.use("/cartitems", cartItemsRouter);
 app.use("/auth", authSellersRouter);
 app.use("/auth", authBuyersRouter);
-app.use("/carts", cartRouter);
+//app.use("/carts", cartRouter);
 
 app.post("/create-checkout-session", createCheckoutSession);
 app.post("/webhook", express.raw({ type: "application/json" }), webhook);
