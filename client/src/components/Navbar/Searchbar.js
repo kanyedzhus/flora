@@ -6,7 +6,7 @@ import "./Navbar.css";
 
 function Searchbar(){
  const [inputProductName, setInputProductName] = useState("");
-const [searchResponse, setSearchResponse] = useState ([]);
+
 let { products, searchQuery, changeSearchQuery } = useContext(ProductsContext);
 //console.log(products)
 if (!products) {
@@ -20,25 +20,17 @@ const handleChange =(event) => {
     const value = event.target.value;
     setInputProductName(value)
     
-    console.log(value)
-    //console.log(inputProductName)
+    //console.log(value)
+    
     
 }
-//console.log(inputProductName)
+
 const handleSearch = (event) =>{
     event.preventDefault();
     changeSearchQuery(inputProductName)
-    // getSearch(inputProductName)
+    
 }
-//console.log(searchResponse)
-// const getSearch =(inputProductName) =>{
-//  fetch(`/products/name/${inputProductName}`)
-//  .then(res => res.json())
-//  .then( response => {
-//     setSearchResponse(response);
-// })
-// .catch(e => console.log(e));
-//  }
+
 
     return (
   
