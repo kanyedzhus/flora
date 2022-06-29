@@ -1,19 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import { ProductsContext } from "../contexts/products-context";
 
 export default function ProductsContainer() {
-	let { products } = useContext(ProductsContext);
+	let { products, searchQuery, getAllProducts, categoryId } = useContext(ProductsContext);
+
 	console.log(products);
-	if (!products) {
-		products = [];
-	}
+
+	useEffect(() => {
+		getAllProducts();
+		console.log(products);
+
+	}, []);
+	
+	console.log(searchQuery)
 	return (
-		<div className="row row-cols-2 row-cols-xl-4 g-3">
+	<div>	
+		{products  
+	    ?
+        <div className="row row-cols-2 row-cols-xl-4 g-3">
 			{/* map out product cards. map function should be different depending on where it's called */}
-			{products.map((product) => {
+			{products.filter((product)=> product.productName.includes(searchQuery)).map((product) => {
 				return <ProductCard key={product.productId} product={product} />;
 			})}
+		</div>
+		:
+		<p>Products loading...</p>
+		}
 		</div>
 	);
 }
