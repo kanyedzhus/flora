@@ -89,17 +89,10 @@ export default function StripeCheckout({
 				onClick={(event) => {
 					handleCheckout(event);
 					postCartSessionTotal(cartTotal, cartSession.cartSessionId);
-				}}
-			>
-				CHECKOUT
-			</button>
-			<button
-				onClick={() => {
-					postCartSessionTotal(cartTotal, cartSession.cartSessionId);
 					attachCartSessionToItems(cartItemIds);
 				}}
 			>
-				test
+				CHECKOUT
 			</button>
 		</>
 	);
