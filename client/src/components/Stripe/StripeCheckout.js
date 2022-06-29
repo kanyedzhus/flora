@@ -4,7 +4,12 @@ import { useStripe } from "@stripe/react-stripe-js";
 import { CartContext } from "../../contexts/cart-context";
 import { fetchFromAPI } from "../../helpers";
 
-export default function StripeCheckout() {
+export default function StripeCheckout({
+	cartTotal,
+	postCartSessionTotal,
+
+	buyer,
+}) {
 	const stripe = useStripe();
 	const { cartItems } = useContext(CartContext);
 	console.log(cartItems);
@@ -12,7 +17,7 @@ export default function StripeCheckout() {
 	const handleCheckout = async (event) => {
 		event.preventDefault();
 
-		const customer = "cus_LwtmAtpYHMFkWH";
+		const customer = buyer.stripeId;
 		// build line items. stripe customer id above can come from user context
 
 		try {
@@ -49,6 +54,7 @@ export default function StripeCheckout() {
 			className="btn btn-primary"
 			onClick={(event) => {
 				handleCheckout(event);
+				postCartSessionTotal(cartTotal, buyer.buyerId);
 			}}
 		>
 			CHECKOUT

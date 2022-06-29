@@ -1,14 +1,35 @@
 import React, { useContext } from "react";
 import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { CartContext } from "../../contexts/cart-context";
 import SubNavbar from "./SubNavbar";
 import Searchbar from "./Searchbar";
+import { fetchFromAPI } from "../../helpers";
 
 function Navbar() {
-	const { cartItems } = useContext(CartContext);
+	const { cartItems, cartSession, getCartSessionFn } = useContext(CartContext);
+	const navigate = useNavigate();
+	const cartSessionId = cartSession?.cartSessionId;
+	console.log({ cartSessionId });
+	const deleteCartSession = async (cartSessionId) => {
+		try {
+			await fetchFromAPI(`cartsessions/${cartSessionId}/delete`, {
+				method: "DELETE",
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleSignOut = () => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
+		deleteCartSession(cartSessionId);
+		getCartSessionFn();
+		navigate("/");
+	};
 	return (
 		<>
 			<nav className="navbar navbar-expand bg-light border-bottom ">
@@ -37,14 +58,25 @@ function Navbar() {
 						{/********* END SEARCH BAR *******/}
 						<ul className="navbar-nav mb-2 mb-lg-0 py-3 ">
 							<li className="nav-item">
-								<Link
-									to="/signin"
-									className="nav-link active"
-									aria-current="page"
-									href="#"
-								>
-									Sign in
-								</Link>
+								{localStorage.getItem("user") ? (
+									<button
+										className="btn"
+										aria-current="page"
+										onClick={() => {
+											handleSignOut();
+										}}
+									>
+										Sign Out
+									</button>
+								) : (
+									<Link
+										to="/signin"
+										className="nav-link active"
+										aria-current="page"
+									>
+										Sign in
+									</Link>
+								)}
 							</li>
 							<li className="nav-item">
 								<OverlayTrigger
@@ -79,9 +111,7 @@ function Navbar() {
 							<li className="nav-item">
 								<OverlayTrigger
 									delay={{ hide: 400, show: 300 }}
-									overlay={(props) => (
-										<Tooltip {...props}>Cart </Tooltip>
-									)}
+									overlay={(props) => <Tooltip {...props}>Cart </Tooltip>}
 									placement="bottom"
 								>
 									<Link

@@ -19,6 +19,8 @@ router.post("/seller/register", async (req, res) => {
     storeName,
     storeDescription,
   } = req.body;
+
+  let sellerRole = "seller";
   let hashedPassword = await bcrypt.hash(password, BCRYPT_WORK_FACTOR);
 
   try {
@@ -33,7 +35,7 @@ router.post("/seller/register", async (req, res) => {
       firstName,
       lastName,
       imgUrl,
-      role,
+      role: sellerRole,
     });
 
     console.log({ vendor });
@@ -57,14 +59,14 @@ router.post("/seller/register", async (req, res) => {
 // Login a seller with POST
 //route auth/seller/login
 
-router.post("/seller/login", async (req, res) => {
-  const { userName, password } = req.body;
+router.post("/users/login", async (req, res) => {
+  const { email, password } = req.body;
 
   try {
     const results = await models.user
       .findOne({
         where: {
-          userName: userName,
+          email: email,
         },
       })
       .then((user) => {

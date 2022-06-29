@@ -18,6 +18,20 @@ router.get("/:cartSessionId", async (req, res) => {
 	}
 });
 
+//*Get cart session
+// /cartsessions
+router.get("/", async (req, res) => {
+	try {
+		const response = await models.cartSession.findAll({
+			attributes: ["cartSessionId", "total", "buyerId", "createdAt"],
+		});
+
+		res.send(response);
+	} catch (err) {
+		res.status(400).send({ message: err.message });
+	}
+});
+
 //Get cart session by buyerId
 // /cartsessions/buyer/:buyerId
 router.get("/buyer/:buyerId", async (req, res) => {
@@ -35,8 +49,10 @@ router.get("/buyer/:buyerId", async (req, res) => {
 
 //Post cart session
 // /cartsessions
-router.post("/", async (req, res) => {
+
+router.post("/create-session", async (req, res) => {
 	const { total, buyerId } = req.body;
+	console.log(req.body);
 	try {
 		const session = await models.cartSession.create({ total, buyerId });
 
@@ -52,6 +68,26 @@ router.post("/", async (req, res) => {
 	}
 });
 
+//* Edit total - /cartsessions/total/:cartSessionId/edit
+router.put("/total/:cartSessionId/edit", async (req, res) => {
+	const { cartSessionId } = req.params;
+	const { total } = req.body;
+	console.log(req.body);
+	try {
+		const response = await models.cartSession.findOne({
+			where: { cartSessionId },
+			attributes: ["cartSessionId", "total", "buyerId"],
+		});
+
+		console.log({ total });
+		const data = await response.update({ total });
+
+		res.send(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 //Delete cart session
 // cartsession/:cartSessionId/delete
 router.delete("/:cartSessionId/delete", async (req, res) => {
@@ -59,6 +95,19 @@ router.delete("/:cartSessionId/delete", async (req, res) => {
 
 	try {
 		const data = await models.cartSession.destroy({ where: { cartSessionId } });
+		res.status(200).json(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
+// delete all
+router.delete("/delete-all/logout", async (req, res) => {
+	try {
+		const data = await models.cartSession.destroy({
+			where: {},
+			truncate: true,
+		});
 		res.status(200).json(data);
 	} catch (error) {
 		res.status(500).send(error);

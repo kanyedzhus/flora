@@ -4,9 +4,17 @@ import Layout from "../components/Layout";
 import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
 
-export default function CartPage() {
-	const { cartItems, increaseQtyFn, decreaseQtyFn } = useContext(CartContext);
-	console.log(cartItems);
+export default function CartPage({ buyer }) {
+	const {
+		cartItems,
+		increaseQtyFn,
+		decreaseQtyFn,
+		removeFromCartFn,
+		clearCartFn,
+		cartSession,
+		cartTotal,
+	} = useContext(CartContext);
+	console.log(cartSession);
 	return (
 		<Layout>
 			<div className="p-3">
@@ -25,15 +33,17 @@ export default function CartPage() {
 										item={item}
 										increaseQtyFn={increaseQtyFn}
 										decreaseQtyFn={decreaseQtyFn}
-										// removeProduct={removeProduct}
+										removeFromCartFn={removeFromCartFn}
 										key={item.cartItemId}
 									/>
 								))}
 							</div>
 							<Total
-							// itemCount={itemCount}
-							// total={total}
-							// clearCart={clearCart}
+								buyer={buyer}
+								cartSession={cartSession}
+								cartItems={cartItems}
+								clearCartFn={clearCartFn}
+								cartTotal={cartTotal}
 							/>
 						</div>
 					</div>

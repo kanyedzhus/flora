@@ -49,7 +49,7 @@ router.post("/item", async (req, res) => {
 			cartSessionId,
 			productId,
 			price,
-			stripePriceId: "price_1LEreGGbLCDl0eiJyOfaZvUo",
+			stripePriceId,
 			quantity,
 		});
 
@@ -59,7 +59,7 @@ router.post("/item", async (req, res) => {
 			where: { productId },
 		});
 
-		res.send({ cartItem, stripeIds });
+		res.status(200).send({ cartItem, stripeIds });
 	} catch (error) {
 		res.status(500).send(error);
 	}
@@ -96,16 +96,26 @@ router.put("/item/:cartItemId/edit", async (req, res) => {
 
 //Delete cart item by id
 // cartsitems/:cartItemId/delete
-router.delete("/item/:cartItemId/delete", (req, res) => {
+router.delete("/item/:cartItemId/delete", async (req, res) => {
 	const { cartItemId } = req.params;
+	try {
+		models.cartItem
+			.destroy({ where: { cartItemId } })
+			.then((data) => res.status(200).json(data));
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
 
-	models.cartItem
-		.destroy({ where: { cartItemId } })
-		.then((data) => res.status(200).json(data))
-
-		.catch((error) => {
-			res.status(500).send(error);
-		});
+// delete all in cart
+router.delete("/delete-all", (req, res) => {
+	try {
+		models.cartItem
+			.destroy({ where: {}, truncate: true })
+			.then((data) => res.status(200).json(data));
+	} catch (error) {
+		res.status(500).send(error);
+	}
 });
 
 module.exports = router;

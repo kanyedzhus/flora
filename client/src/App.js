@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./App.css";
 import "jquery";
 import "popper.js/dist/umd/popper";
@@ -19,8 +19,47 @@ import SellerProfile from "./components/SellerProfile";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SingleProductPage from "./Pages/SingleProductPage";
+import { fetchFromAPI } from "./helpers";
+import { CartContext } from "./contexts/cart-context";
 
 function App() {
+	const { cartSession, getCartSessionFn } = useContext(CartContext);
+	const [user, setUser] = useState({});
+	const [buyer, setBuyer] = useState({});
+
+	const getUserFromLocalStorage = () => {
+		const user = localStorage.getItem("user")
+			? JSON.parse(localStorage.getItem("user"))
+			: {};
+
+		setUser(user);
+		console.log({ user });
+		if (user) {
+			getBuyer(user.userId);
+		}
+	};
+
+	const getBuyer = async (userId) => {
+		try {
+			const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+				method: "GET",
+			});
+			setBuyer(buyer);
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	useEffect(() => {
+		getUserFromLocalStorage();
+	}, []);
+
+	useEffect(() => {
+		getBuyer();
+		getCartSessionFn();
+	}, [user]);
+
+	console.log({ buyer });
 	return (
 		<div className="App">
 			{" "}
@@ -34,12 +73,22 @@ function App() {
 				<Route path="/success" element={<Success />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
-				<Route path="/product/:productId" element={<SingleProductPage />} />
-				<Route path="/signin" element={<SignInPage />} />
+				<Route path="/:productId" element={<SingleProductPage />} />
+				<Route
+					path="/signin"
+					element={
+						<SignInPage
+							buyer={buyer}
+							user={user}
+							getBuyer={getBuyer}
+							setBuyer={setBuyer}
+						/>
+					}
+				/>
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
 				<Route path="/seller/profile" element={<SellerProfile />} />
-				<Route path="/cart" element={<CartPage />} />
+				<Route path="/cart" element={<CartPage buyer={buyer} />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />
 			</Routes>

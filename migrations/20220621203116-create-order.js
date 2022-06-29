@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       total: {
-        type: Sequelize.DECIMAL
+        type: Sequelize.DECIMAL(10,2)
       },
       createdAt: {
         allowNull: false,

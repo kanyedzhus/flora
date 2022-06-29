@@ -8,8 +8,22 @@ const stripeAPI = require("../StripeAPI/stripe");
 //   res.send('respond with a resource');
 //  });
 
-// Get all users / buyer
-router.get("/buyers", async (req, res) => {
+// get buyer by id - users/buyers
+router.get("/buyer/:userId", (req, res) => {
+	const { userId } = req.params;
+	console.log(userId);
+
+	models.buyer
+		.findOne({
+			attributes: ["buyerId", "stripeId"],
+			where: { userId },
+		})
+		.then((buyer) => res.send(buyer))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
+// Get all users
+router.get("/", async (req, res) => {
 	try {
 		const response = await models.user.findAll({
 			attributes: [

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
@@ -15,8 +15,16 @@ export default function SellerRegistrationForm() {
 		petFriendly: false,
 		airPurifying: false,
 	});
+
 	const [parentId, setParentId] = useState();
 	const [subcategoryOptions, setSubcategoryOptions] = useState([]);
+	// useref hook is needed to set the value property of the file input to an empty string since it can't be managed with state
+	const ref = useRef();
+
+	// creates a ref object. ref.current is the file input since we passed ref to the file input in a prop
+	const resetFileInput = () => {
+		ref.current.value = "";
+	};
 
 	const getSubcategories = async () => {
 		try {
@@ -107,7 +115,7 @@ export default function SellerRegistrationForm() {
 			if (response.ok) {
 				const jsonResponse = await response.json();
 				console.log({ jsonResponse });
-				toast.success("Your product has been successfully added!");
+				toast.success("Your product has been added successfully!");
 			} else {
 				// if response is not ok, then I need to redefine the response object and await it. It will be the object with the error message.
 				const error = await response.json();
@@ -117,6 +125,19 @@ export default function SellerRegistrationForm() {
 		} catch (error) {
 			console.log(error);
 		}
+		// reset form
+		// setProductDetails({
+		// 		productName: "",
+		// 		description: "",
+		// 		categoryId: "",
+		// 		imgURL: null,
+		// 		price: "",
+		// 		quantity: "",
+		// 		light: "",
+		// 		easyCare: false,
+		// 		petFriendly: false,
+		// 		airPurifying: false,
+		// 	})
 	};
 
 	const style = {
@@ -129,7 +150,10 @@ export default function SellerRegistrationForm() {
 	return (
 		<div>
 			<form
-				onSubmit={handleSubmit}
+				onSubmit={(event) => {
+					handleSubmit(event);
+					// resetFileInput();
+				}}
 				action="/products"
 				method="POST"
 				encType="multipart/form-data"
@@ -174,6 +198,7 @@ export default function SellerRegistrationForm() {
 						className="form-control"
 						id="imgURL"
 						onChange={handleFileChange}
+						ref={ref}
 					/>
 				</div>
 
@@ -220,6 +245,7 @@ export default function SellerRegistrationForm() {
 						</label>
 						<input
 							type="number"
+							step="0.01"
 							className="form-control"
 							id="number"
 							name="price"
