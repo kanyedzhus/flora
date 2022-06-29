@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const models = require("../models");
+const { QueryTypes } = require("sequelize");
+const { sequelize } = require("../models");
 
 //Get all orders
 // /orders
@@ -66,10 +68,10 @@ router.get("/order/:sellerId", async (req, res) => {
 	}
 });
 
-//Post an order
+//Post an order by cartsession id. copy cartsession total and buyerId
 // /orders
-router.post("/", async (req, res) => {
-	const { buyerId, sellerId, invoiceId, status, total } = req.body;
+router.post("/post/:cartSessionId", async (req, res) => {
+	const { cartSessionId } = req.params;
 	//console.log(buyerId);
 	try {
 		const order = await models.order.create({

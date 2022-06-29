@@ -18,5 +18,9 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.dropTable('users');
 		 */
+
+		return queryInterface.addColumn("orders", "sellerId", {
+			type: Sequelize.DataTypes.INTEGER,
+		});
 	},
 };
