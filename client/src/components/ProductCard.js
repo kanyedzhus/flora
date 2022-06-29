@@ -86,14 +86,16 @@ export default function ProductCard({ extras, product }) {
 							</button>
 						)}
 						<div className="h4 d-flex gap-1 justify-content-center ">
-							{light === "high" && <BsBrightnessHigh />}
-							{light === "medium" && <BsBrightnessLow />}
-							{light === "low" && <BsBrightnessAltLow />}
-							{petFriendly && <IoPawOutline />}
-							{airPurifying && (
+							{light === "high" ? <BsBrightnessHigh /> : ""}
+							{light === "medium" ? <BsBrightnessLow /> : ""}
+							{light === "low" ? <BsBrightnessAltLow /> : ""}
+							{petFriendly ? <IoPawOutline /> : ""}
+							{airPurifying ? (
 								<TbWindmill strokeWidth="1.5" className="fw-light " />
+							) : (
+								""
 							)}
-							{easyCare && <BsEmojiSmile className="h5" />}
+							{easyCare ? <BsEmojiSmile className="h5" /> : ""}
 						</div>
 					</div>
 				</div>

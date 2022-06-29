@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FilterUI() {
 	return (
-		<aside className="col-md-3">
+		<aside className="col-md-2">
 			<div className="card">
 				<header className="card-header">
 					<h6 className="title">Price</h6>
@@ -16,7 +16,6 @@ export default function FilterUI() {
 								placeholder="$0"
 								type="number"
 							/>
-							
 						</div>
 						<div className="form-group text-right col-md-6">
 							<label>Max</label>
