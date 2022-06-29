@@ -69,7 +69,10 @@ function App() {
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
 				<Route path="/:productId" element={<SingleProductPage />} />
-				<Route path="/signin" element={<SignInPage />} />
+				<Route
+					path="/signin"
+					element={<SignInPage buyer={buyer} user={user} getBuyer={getBuyer} />}
+				/>
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
 				<Route path="/seller/profile" element={<SellerProfile />} />

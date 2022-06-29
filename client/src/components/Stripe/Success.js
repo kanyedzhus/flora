@@ -12,7 +12,7 @@ export default function Success() {
 		clearCartFn();
 	}, []);
 
-	const deleteSession = async () => {
+	const deleteCartSession = async () => {
 		try {
 		} catch (error) {}
 	};

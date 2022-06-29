@@ -4,11 +4,28 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { CartContext } from "../../contexts/cart-context";
+import { fetchFromAPI } from "../../helpers";
 
 function Navbar() {
-	const { cartItems } = useContext(CartContext);
+	const { cartItems, cartSession } = useContext(CartContext);
 	const navigate = useNavigate();
 
+	const deleteCartSession = async (cartSessionId) => {
+		try {
+			await fetchFromAPI("cartsessions/delete-all", {
+				method: "DELETE",
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const handleSignOut = () => {
+		localStorage.removeItem("token");
+		localStorage.removeItem("user");
+		deleteCartSession();
+		navigate("/");
+	};
 	return (
 		<>
 			<nav className="navbar navbar-expand bg-light border-bottom ">
@@ -61,9 +78,7 @@ function Navbar() {
 										className="btn"
 										aria-current="page"
 										onClick={() => {
-											localStorage.removeItem("token");
-											localStorage.removeItem("user");
-											navigate("/");
+											handleSignOut();
 										}}
 									>
 										Sign Out

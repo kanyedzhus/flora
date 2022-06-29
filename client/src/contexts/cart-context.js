@@ -7,7 +7,7 @@ export const CartContext = createContext();
 export default function CartContextProvider({ children }) {
 	useEffect(() => {
 		getCartItems();
-		// getCartSession();
+		getCartSession();
 	}, []);
 
 	// *ADD TO CART

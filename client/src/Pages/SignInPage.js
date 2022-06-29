@@ -2,10 +2,10 @@ import React from "react";
 import Layout from "../components/Layout";
 import SignInForm from "../components/SignInForm";
 
-export default function SignInPage() {
+export default function SignInPage({ buyer, user, getBuyer }) {
 	return (
 		<Layout>
-			<SignInForm />
+			<SignInForm buyer={buyer} user={user} getBuyer={getBuyer} />
 		</Layout>
 	);
 }

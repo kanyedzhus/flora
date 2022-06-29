@@ -1,25 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { fetchFromAPI } from "../helpers";
+import { CartContext } from "../contexts/cart-context";
 
-export default function SignInForm() {
+export default function SignInForm({ user, buyer, getBuyer }) {
 	const style = {
 		width: "100%",
 		maxWidth: "330px",
 		padding: "15px",
 		margin: "auto",
 	};
-
+	const { cartTotal } = useContext(CartContext);
 	const [credentials, setCredentials] = useState({
 		email: "",
 		password: "",
 	});
 
 	//   const { username, password } = credentials;
+	// const getUserFromLocalStorage = () => {
+	// 	const user = localStorage.getItem("user")
+	// 		? JSON.parse(localStorage.getItem("user"))
+	// 		: {};
+
+	// 	setUser(user);
+	// 	console.log({ user });
+	// 	if (user) {
+	// 		getBuyer(user.userId);
+	// 	}
+	// };
+
+	// const getBuyer = async (userId) => {
+	// 	try {
+	// 		const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+	// 			method: "GET",
+	// 		});
+	// 		setBuyer(buyer);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setCredentials({ ...credentials, [name]: value });
+	};
+	// const getBuyer = async (userId) => {
+	// 	try {
+	// 		const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+	// 			method: "GET",
+	// 		});
+	// 		setBuyer(buyer);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+	const createCartSession = async (buyerId) => {
+		try {
+			await fetchFromAPI("cartsessions/create-session", {
+				method: "POST",
+				body: {
+					total: cartTotal,
+					buyerId,
+				},
+			});
+		} catch (error) {}
 	};
 
 	const login = async (event) => {
@@ -36,7 +81,13 @@ export default function SignInForm() {
 				//store it locally
 				localStorage.setItem("token", data.token);
 				localStorage.setItem("user", JSON.stringify(data.user));
+				const user = JSON.parse(localStorage.getItem("user"));
+				getBuyer(user.userId);
+				console.log(buyer.buyerId);
+				createCartSession(buyer.buyerId);
 				console.log(data.message, data.token, data.user);
+
+				// on successful login navigate to profile
 			}
 		} catch (error) {
 			console.log(error);
