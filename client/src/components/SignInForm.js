@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchFromAPI } from "../helpers";
 import { CartContext } from "../contexts/cart-context";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,6 +13,7 @@ export default function SignInForm({ user, buyer, setBuyer }) {
 		padding: "15px",
 		margin: "auto",
 	};
+	const navigate = useNavigate();
 	const { cartTotal, getCartSessionFn } = useContext(CartContext);
 	const [credentials, setCredentials] = useState({
 		email: "",
@@ -88,12 +89,15 @@ export default function SignInForm({ user, buyer, setBuyer }) {
 				localStorage.setItem("user", JSON.stringify(data.user));
 				const user = JSON.parse(localStorage.getItem("user"));
 				console.log({ user });
-				getBuyer(user.userId);
-				console.log(buyer.buyerId);
-				createCartSession(buyer.buyerId);
-				console.log(data.message, data.token, data.user);
+				if (user.role === "buyer") {
+					getBuyer(user.userId);
+					console.log(buyer.buyerId);
+					createCartSession(buyer.buyerId);
+					console.log(data.message, data.token, data.user);
+				}
 
 				// on successful login navigate to profile
+				navigate("/seller/profile");
 			}
 		} catch (error) {
 			console.log(error);

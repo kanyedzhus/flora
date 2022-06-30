@@ -21,6 +21,12 @@ import "react-toastify/dist/ReactToastify.css";
 import SingleProductPage from "./Pages/SingleProductPage";
 import { fetchFromAPI } from "./helpers";
 import { CartContext } from "./contexts/cart-context";
+import PrivateRouteSellers from "./components/PrivateRouteSellers";
+import PrivateRouteBuyers from "./components/PrivateRouteBuyers";
+import SellerAbout from "./components/SellerAbout";
+import NewProductForm from "./components/NewProductForm";
+import SellerProductsDisplay from "./components/SellerProductsDisplay";
+import SellerProfilePage from "./Pages/SellerProfilePage";
 
 function App() {
 	const { cartSession, getCartSessionFn } = useContext(CartContext);
@@ -87,7 +93,40 @@ function App() {
 				/>
 				<Route path="/register" element={<BuyerRegistrationPage />} />
 				<Route path="/seller/register" element={<SellerRegistrationPage />} />
-				<Route path="/seller/profile" element={<SellerProfile />} />
+				<Route
+					path="/seller/profile"
+					element={
+						<PrivateRouteSellers>
+							<SellerProfilePage />
+						</PrivateRouteSellers>
+					}
+				/>
+				<Route
+					path="/seller/profile/aboutus"
+					element={
+						<PrivateRouteSellers>
+							<SellerAbout />
+						</PrivateRouteSellers>
+					}
+				/>
+
+				<Route
+					path="/seller/profile/products"
+					element={
+						<PrivateRouteSellers>
+							<SellerProductsDisplay />
+						</PrivateRouteSellers>
+					}
+				/>
+
+				<Route
+					path="/seller/profile/addproduct"
+					element={
+						<PrivateRouteSellers>
+							<NewProductForm />
+						</PrivateRouteSellers>
+					}
+				/>
 				<Route path="/cart" element={<CartPage buyer={buyer} />} />
 				{/* any route not declared here will lead to the NotFound page */}
 				<Route path="*" element={<NotFound />} />

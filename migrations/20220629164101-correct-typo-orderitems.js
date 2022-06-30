@@ -8,17 +8,11 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
 		 */
-		await queryInterface.addConstraint("orderItems", {
-			fields: ["orderId"],
-			type: "foreign key",
-			name: "orders-order-items-association",
-			references: {
-				table: "orders",
-				field: "orderId",
-			},
-			onUpdate: "CASCADE",
-			onDelete: "CASCADE",
-		});
+		return queryInterface.renameColumn(
+			"orderitems",
+			"oderItemId",
+			"orderItemId"
+		);
 	},
 
 	async down(queryInterface, Sequelize) {
@@ -28,9 +22,10 @@ module.exports = {
 		 * Example:
 		 * await queryInterface.dropTable('users');
 		 */
-		await queryInterface.removeConstraint(
-			"orderItems",
-			"orders-order-items-association"
+		return queryInterface.renameColumn(
+			"orderitems",
+			"orderItemId",
+			"oderItemId"
 		);
 	},
 };

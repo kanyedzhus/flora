@@ -34,6 +34,8 @@ export default function ProductCard({ extras, product }) {
 
 	const navigate = useNavigate();
 
+	// const cartSessionId = cartSession?.cartSessionId;
+	// console.log({ cartSessionId });
 	const handleAddToCart = (productId, price, stripePriceId) => {
 		// check if item is already in cart
 		if (!cartItems.find((item) => item.productId === productId)) {
@@ -83,15 +85,17 @@ export default function ProductCard({ extras, product }) {
 								Add to cart
 							</button>
 						)}
-						<div className="h3 d-flex gap-1 justify-content-center ">
-							{light === "high" && <BsBrightnessHigh />}
-							{light === "medium" && <BsBrightnessLow />}
-							{light === "low" && <BsBrightnessAltLow />}
-							{petFriendly && <IoPawOutline />}
-							{airPurifying && (
+						<div className="h4 d-flex gap-1 justify-content-center ">
+							{light === "high" ? <BsBrightnessHigh /> : ""}
+							{light === "medium" ? <BsBrightnessLow /> : ""}
+							{light === "low" ? <BsBrightnessAltLow /> : ""}
+							{petFriendly ? <IoPawOutline /> : ""}
+							{airPurifying ? (
 								<TbWindmill strokeWidth="1.5" className="fw-light " />
+							) : (
+								""
 							)}
-							{easyCare && <BsEmojiSmile className="h4" />}
+							{easyCare ? <BsEmojiSmile className="h5" /> : ""}
 						</div>
 					</div>
 				</div>

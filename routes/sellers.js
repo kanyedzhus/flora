@@ -30,6 +30,7 @@ router.get("/:sellerId", (req, res) => {
 
 //Get seller by user Id
 router.get("/seller/:userId", (req, res) => {
+  console.log("I am here");
   const { userId } = req.params;
   console.log(userId);
 

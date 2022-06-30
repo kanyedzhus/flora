@@ -14,6 +14,7 @@ export default function CartContextProvider({ children }) {
 	const addToCart = async (productId, price, stripePriceId) => {
 		const newCartItem = {
 			productId,
+
 			price,
 			stripePriceId,
 			quantity: 1,
