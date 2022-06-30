@@ -23,7 +23,7 @@ export default function Hero() {
 
 					<button
 						type="button"
-						className="btn btn-primary btn-lg px-4 me-md-2"
+						className="btn btn-outline-success btn-lg px-4 me-md-2"
 						onClick={() => navigate("/search")}
 					>
 						Start Shopping

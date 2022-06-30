@@ -81,7 +81,10 @@ export default function Success({ buyer }) {
 					confirmation email shortly
 				</p>
 				<div>
-					<button className="btn btn-primary" onClick={() => navigate("/")}>
+					<button
+						className="btn btn-outline-success"
+						onClick={() => navigate("/")}
+					>
 						Continue Shopping
 					</button>
 				</div>
