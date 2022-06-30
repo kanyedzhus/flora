@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const models = require("../models");
 const stripeAPI = require("../StripeApi/stripe");
+const { QueryTypes } = require("sequelize");
+const { sequelize } = require("../models");
 
 // this package allows us to handle FormData (different content type) - both text and files
 const multer = require("multer");
@@ -124,7 +126,80 @@ router.get("/category/:categoryId", (req, res) => {
   models.product
     .findAll({
       where: { categoryId },
+       attributes: [
+        "productId",
+        "productName",
+        "categoryId",
+        "sellerId",
+        "description",
+        "imgURL",
+        "price",
+        "quantity",
+        "easyCare",
+        "light",
+        "petFriendly",
+        "airPurifying",
+        "stripePriceId",
+        "stripeProductId",
+      ],
+    })
+    .then((seller) => res.send(seller))
+    .catch((err) => res.status(500).send({ error: err.message }));
+});
+=======
+router.get("/", async (req, res) => {
+	try {
+		const response = await sequelize.query(
+			"select * from products, sellers where products.sellerId=sellers.sellerId;",
+			{
+				type: QueryTypes.SELECT,
+			}
+		);
+		console.log(response);
+		res.send(response);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
 
+// Get products by category Id
+// /products/:categoryId
+router.get("/category/:categoryId", (req, res) => {
+	const { categoryId } = req.params;
+	// console.log(models)
+	models.product
+		.findAll({
+			where: { categoryId },
+
+			attributes: [
+				"productId",
+				"productName",
+				"categoryId",
+				"sellerId",
+				"description",
+				"imgURL",
+				"price",
+				"quantity",
+				"easyCare",
+				"light",
+				"petFriendly",
+				"airPurifying",
+				"stripePriceId",
+				"stripeProductId",
+			],
+		})
+		.then((seller) => res.send(seller))
+		.catch((err) => res.status(500).send({ error: err.message }));
+});
+
+//Get product by plant name
+// /products/name/:productName
+router.get("/name/:productName", (req, res) => {
+	const { productName } = req.params;
+	// console.log(models)
+	models.product
+		.findAll({
+			where: { productName },
       attributes: [
         "productId",
         "productName",
@@ -145,6 +220,8 @@ router.get("/category/:categoryId", (req, res) => {
     .then((seller) => res.send(seller))
     .catch((err) => res.status(500).send({ error: err.message }));
 });
+
+
 
 //Get product by product Id
 // /products/:productId

@@ -37,11 +37,7 @@ export default function Total({
 				<h5 className="">{`Total: €${cartTotal.toFixed(2)}`}</h5>
 			</div>
 			<div className="d-flex gap-3">
-				<StripeCheckout
-					cartTotal={cartTotal}
-					// postCartSessionTotal={postCartSessionTotal}
-					buyer={buyer}
-				/>
+				<StripeCheckout cartTotal={cartTotal} buyer={buyer} />
 				<button
 					className="btn btn-outline"
 					onClick={() => {

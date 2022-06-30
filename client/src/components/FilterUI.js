@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FilterUI() {
 	return (
-		<aside className="col-md-3">
+		<aside className="col-md-2">
 			<div className="card">
 				<header className="card-header">
 					<h6 className="title">Price</h6>

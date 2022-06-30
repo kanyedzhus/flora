@@ -94,6 +94,41 @@ router.put("/item/:cartItemId/edit", async (req, res) => {
 	}
 });
 
+// edit cartsessionid of items
+router.put("/cartsession/edit", async (req, res) => {
+	// array of primary keys
+	const { cartItemIds, cartSession } = req.body;
+	console.log(req.body);
+	try {
+		// const response = await models.cartItem.findAll({
+		// 	where: { cartItemId: cartItemPrimaryKeys },
+		// 	attributes: [
+		// 		"cartItemId",
+		// 		"cartSessionId",
+		// 		"productId",
+		// 		"price",
+		// 		"stripePriceId",
+		// 		"quantity",
+		// 		"createdAt",
+		// 		"updatedAt",
+		// 	],
+		// });
+		// console.log({ response });
+		const data = await models.cartItem.update(
+			{ cartSessionId: cartSession.cartSessionId },
+			{
+				where: {
+					cartItemId: cartItemIds,
+				},
+			}
+		);
+
+		res.send(data);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 //Delete cart item by id
 // cartsitems/:cartItemId/delete
 router.delete("/item/:cartItemId/delete", async (req, res) => {
