@@ -32,11 +32,31 @@ router.post("/post/:cartSessionId/", async (req, res) => {
 	try {
 		// need to also have orderid here
 		const response = await sequelize.query(
+			`insert into orderitems ( productId, quantity, price, createdAt, updatedAt) select productId, quantity, price, now(), now() from cartitems where cartSessionId=${cartSessionId};`,
+			{ type: QueryTypes.INSERT }
+		);
+
+		console.log(response);
+
+		res.send(response);
+	} catch (error) {
+		res.status(400).send({ message: error.message });
+	}
+});
+
+// edit order items
+router.put("/put/:cartSessionId/", async (req, res) => {
+	const { cartSessionId } = req.params;
+	const { orderId } = req.body;
+	try {
+		// need to also have orderid here
+		const response = await sequelize.query(
 			`insert into orderitems (productId, quantity, price, createdAt, updatedAt) select productId, quantity, price, now(), now() from cartitems where cartSessionId=${cartSessionId};`,
 			{ type: QueryTypes.INSERT }
 		);
 
 		console.log(response);
+
 		res.send(response);
 	} catch (error) {
 		res.status(400).send({ message: error.message });

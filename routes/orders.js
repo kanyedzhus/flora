@@ -34,11 +34,11 @@ router.get("/:orderId", (req, res) => {
 
 //Get all orders by sellerId
 // orders/order/:sellerId
-router.get("/order/:sellerId", async (req, res) => {
-	const { sellerId } = req.params;
+router.get("/order/:buyerId", async (req, res) => {
+	const { buyerId } = req.params;
 	try {
 		const response = await models.order.findAll({
-			where: { sellerId },
+			where: { buyerId },
 			attributes: ["orderId", "buyerId", "status", "createdAt"],
 		});
 		res.send(response);

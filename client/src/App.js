@@ -70,7 +70,7 @@ function App() {
 			/>
 			<Routes>
 				<Route exact path="/" element={<HomePage />} />
-				<Route path="/success" element={<Success />} />
+				<Route path="/success" element={<Success buyer={buyer} />} />
 				<Route path="/canceled" element={<Canceled />} />
 				<Route path="/search" element={<SearchPage />} />
 				<Route path="/:productId" element={<SingleProductPage />} />
