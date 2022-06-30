@@ -23,8 +23,13 @@ const handleChange =(event) => {
     
     //console.log(value)
     
-    
 }
+
+const handleValue = (event, item)=>{
+    event.preventDefault();
+    setInputProductName(item)
+}
+
 
 const handleSearch = (event) =>{
     event.preventDefault();
@@ -68,10 +73,9 @@ const handleSearch = (event) =>{
             )
         }
         ).map((item =>
-            ( <div key={item.productId} onclick={()=>handleSearch(item.productName)}>
+            ( <div key={item.productId} onClick={(e) => {handleValue(e, item.productName) }}>
                 {item.productName}
             </div>
-        // {return item.productName}
         )
         ))}
     </div>
