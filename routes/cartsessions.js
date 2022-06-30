@@ -89,7 +89,7 @@ router.put("/total/:cartSessionId/edit", async (req, res) => {
 });
 
 //Delete cart session
-// cartsession/:cartSessionId/delete
+// cartsessions/:cartSessionId/delete
 router.delete("/:cartSessionId/delete", async (req, res) => {
 	const { cartSessionId } = req.params;
 

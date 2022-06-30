@@ -6,11 +6,14 @@ export default function Canceled() {
 	const navigate = useNavigate();
 	return (
 		<Layout>
-			<div className="mx-auto text-center">
-				<h1>Payment failed</h1>
+			<div className="px-5 text-center">
+				<h1 className="mt-5">Payment failed or was cancelled.</h1>
 				<p>Please try again.</p>
-				<div>
-					<button className="btn btn-primary" onClick={() => navigate("/")}>
+				<div className="mb-5">
+					<button
+						className="btn btn-outline-success"
+						onClick={() => navigate("/")}
+					>
 						Continue Shopping
 					</button>
 				</div>

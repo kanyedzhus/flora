@@ -4,9 +4,43 @@ import SellerAbout from "../components/SellerAbout";
 import SellerProductsDisplay from "../components/SellerProductsDisplay";
 import { Link, useNavigate } from "react-router-dom";
 import NewProductForm from "../components/NewProductForm";
+import { fetchFromAPI } from "../helpers";
 
 export default function SellerProfilePage() {
 	const [storeData, setStoreData] = useState({});
+	const [user, setUser] = useState({});
+	const [seller, setSeller] = useState({});
+
+	// const getUserFromLocalStorage = () => {
+	// 	const user = localStorage.getItem("user")
+	// 		? JSON.parse(localStorage.getItem("user"))
+	// 		: {};
+
+	// 	setUser(user);
+	// 	console.log({ user });
+	// 	if (user) {
+	// 		getSeller(user.userId);
+	// 	}
+	// };
+
+	// const getSeller = async (userId) => {
+	// 	try {
+	// 		const seller = await fetchFromAPI(`sellers/seller/${userId}`, {
+	// 			method: "GET",
+	// 		});
+
+	// 		setSeller(seller);
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 	}
+	// };
+
+	// useEffect(() => {
+	// 	getUserFromLocalStorage();
+	// 	getSeller();
+	// }, []);
+
+	// useEffect(() => {}, []);
 
 	useEffect(() => {
 		let user = JSON.parse(localStorage.getItem("user"));
@@ -83,7 +117,7 @@ export default function SellerProfilePage() {
 				</aside>
 				<SellerAbout />
 				<SellerProductsDisplay />
-				<NewProductForm />
+				<NewProductForm storeData={storeData} />
 			</div>
 		</Layout>
 	);

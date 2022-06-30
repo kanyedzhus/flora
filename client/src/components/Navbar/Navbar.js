@@ -11,11 +11,11 @@ import { fetchFromAPI } from "../../helpers";
 function Navbar() {
 	const { cartItems, cartSession, getCartSessionFn } = useContext(CartContext);
 	const navigate = useNavigate();
-	const cartSessionId = cartSession?.cartSessionId;
-	console.log({ cartSessionId });
+
+	console.log({ cartSession });
 	const deleteCartSession = async (cartSessionId) => {
 		try {
-			await fetchFromAPI(`cartsessions/${cartSessionId}/delete`, {
+			await fetchFromAPI(`cartsessions/${cartSession.cartSessionId}/delete`, {
 				method: "DELETE",
 			});
 		} catch (error) {
@@ -26,8 +26,9 @@ function Navbar() {
 	const handleSignOut = () => {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
-		// deleteCartSession(cartSessionId);
+
 		getCartSessionFn();
+		deleteCartSession(cartSession.cartSessionId);
 		navigate("/");
 	};
 	return (
@@ -172,7 +173,7 @@ function Navbar() {
 			</nav>
 			<header className="bg-light border-bottom py-2">
 				{" "}
-				<SubNavbar/>
+				<SubNavbar />
 			</header>
 		</>
 	);

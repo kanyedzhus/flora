@@ -4,11 +4,12 @@ import { toast } from "react-toastify";
 import Footer from "./Footer";
 import NavbarSeller from "../components/Navbar/NavbarSeller";
 
-export default function SellerRegistrationForm() {
+export default function NewProductForm() {
 	const [productDetails, setProductDetails] = useState({
 		productName: "",
 		description: "",
 		categoryId: "",
+
 		imgURL: null,
 		price: "",
 		quantity: "",
@@ -18,6 +19,32 @@ export default function SellerRegistrationForm() {
 		airPurifying: false,
 	});
 
+	const [seller, setSeller] = useState();
+
+	useEffect(() => {
+		let user = JSON.parse(localStorage.getItem("user"));
+		let userId = user.userId;
+		console.log(user);
+
+		//Here I need to find a sellerID using userID (router is ready and is on the right)
+		// but i just dont know how to do two fetching in on useEffect
+		const fetchData = async () => {
+			// get the data from the api
+			const data = await fetch(
+				`http://localhost:5000/sellers/seller/${userId}`
+			);
+			// convert data to json
+			const seller = await data.json();
+			setSeller(seller);
+			console.log({ seller });
+		};
+
+		// call the function
+		fetchData();
+		// make sure to catch any error
+		// console.log({ allProducts });
+		// setStoreProducts(allProducts);
+	}, []);
 	const [parentId, setParentId] = useState();
 	const [subcategoryOptions, setSubcategoryOptions] = useState([]);
 	// useref hook is needed to set the value property of the file input to an empty string since it can't be managed with state
@@ -90,6 +117,7 @@ export default function SellerRegistrationForm() {
 		});
 	};
 
+	// *submit product!
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		// formdata lets us create a set of key-value pairs to send form data. this will create an empty formdata object.
@@ -99,6 +127,7 @@ export default function SellerRegistrationForm() {
 		newProduct.set("productName", productDetails.productName);
 		newProduct.set("description", productDetails.description);
 		newProduct.set("categoryId", productDetails.categoryId);
+		newProduct.set("sellerId", seller.sellerId);
 		newProduct.set("imgURL", productDetails.imgURL);
 		newProduct.set("price", productDetails.price);
 		newProduct.set("quantity", productDetails.quantity);
@@ -108,11 +137,14 @@ export default function SellerRegistrationForm() {
 		newProduct.set("airPurifying", productDetails.airPurifying);
 
 		try {
-			const response = await fetch("http://localhost:5000/products", {
-				method: "POST",
-				// sending data of type formdata
-				body: newProduct,
-			});
+			const response = await fetch(
+				`http://localhost:5000/products/${seller.sellerId}`,
+				{
+					method: "POST",
+					// sending data of type formdata
+					body: newProduct,
+				}
+			);
 
 			if (response.ok) {
 				const jsonResponse = await response.json();
@@ -129,17 +161,17 @@ export default function SellerRegistrationForm() {
 		}
 		// reset form
 		// setProductDetails({
-		// 		productName: "",
-		// 		description: "",
-		// 		categoryId: "",
-		// 		imgURL: null,
-		// 		price: "",
-		// 		quantity: "",
-		// 		light: "",
-		// 		easyCare: false,
-		// 		petFriendly: false,
-		// 		airPurifying: false,
-		// 	})
+		// 	productName: "",
+		// 	description: "",
+		// 	categoryId: "",
+		// 	imgURL: null,
+		// 	price: "",
+		// 	quantity: "",
+		// 	light: "",
+		// 	easyCare: false,
+		// 	petFriendly: false,
+		// 	airPurifying: false,
+		// });
 	};
 
 	const style = {
@@ -154,7 +186,7 @@ export default function SellerRegistrationForm() {
 			<form
 				onSubmit={(event) => {
 					handleSubmit(event);
-					// resetFileInput();
+					resetFileInput();
 				}}
 				action="/products"
 				method="POST"

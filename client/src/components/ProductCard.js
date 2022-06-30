@@ -47,7 +47,10 @@ export default function ProductCard({ extras, product }) {
 
 	return (
 		<div className="col">
-			<div className="card shadow-sm  " style={{ cursor: "pointer" }}>
+			<div
+				className="card shadow-sm  "
+				style={{ cursor: "pointer", height: "78vh" }}
+			>
 				<img
 					src={imgURL}
 					className="card-img-top"
@@ -75,7 +78,7 @@ export default function ProductCard({ extras, product }) {
 							</button>
 						) : (
 							<button
-								className="btn btn-primary"
+								className="btn btn-primary mt-auto"
 								onClick={(event) => {
 									event.preventDefault();
 

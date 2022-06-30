@@ -9,7 +9,10 @@ export default function NotFound() {
 		<Layout>
 			<div className="d-flex flex-column g-3 align-items-center my-5">
 				<p className="h1"> Oops, there's nothing to see here. </p>
-				<button className="btn btn-primary" onClick={() => navigate("/")}>
+				<button
+					className="btn btn-outline-success"
+					onClick={() => navigate("/")}
+				>
 					{" "}
 					Continue Shopping
 				</button>

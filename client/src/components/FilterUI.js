@@ -21,7 +21,7 @@ export default function FilterUI() {
 							<label>Max</label>
 							<input
 								className="form-control px-2"
-								placeholder="$1,0000"
+								placeholder="$100"
 								type="number"
 							/>
 						</div>

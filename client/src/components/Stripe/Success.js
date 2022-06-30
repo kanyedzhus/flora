@@ -12,7 +12,14 @@ export default function Success({ buyer }) {
 
 	const deleteCartSession = async () => {
 		try {
-		} catch (error) {}
+			const response = await fetchFromAPI(
+				`cartsessions/${cartSession.cartSessionId}/delete`,
+				{ method: "DELETE" }
+			);
+			console.log(response);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 	const postToOrderItems = async () => {
 		try {
@@ -68,7 +75,9 @@ export default function Success({ buyer }) {
 		postToOrderItems(cartSession.cartSessionId);
 		// clear cart if payment successful
 
-		// clearCartFn();
+		clearCartFn();
+
+		deleteCartSession();
 		console.log(cartSession);
 	}, []);
 
