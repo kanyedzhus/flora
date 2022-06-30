@@ -2,7 +2,7 @@
 
 # Project Description
 
-FLORA ia an e-commerce website with multiple vendor, where users are able to sell and buy plants. Users can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
+FLORA ia an e-commerce website with multiple vendors, where users are able to sell and buy plants. Buyers can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
 
 ![Flora]()
 
@@ -37,7 +37,7 @@ FLORA ia an e-commerce website with multiple vendor, where users are able to sel
 
 # API
 
-- Stripe Third party API that accepts online payment
+- Stripe: Third party API that accepts online payment
 
 - Generate and save API key in `.env` file in StripeAPI directory:
 
