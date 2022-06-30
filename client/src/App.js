@@ -21,79 +21,124 @@ import "react-toastify/dist/ReactToastify.css";
 import SingleProductPage from "./Pages/SingleProductPage";
 import { fetchFromAPI } from "./helpers";
 import { CartContext } from "./contexts/cart-context";
+import PrivateRouteSellers from "./components/PrivateRouteSellers";
+import PrivateRouteBuyers from "./components/PrivateRouteBuyers";
+import SellerAbout from "./components/SellerAbout";
+import NewProductForm from "./components/NewProductForm";
+import SellerProductsDisplay from "./components/SellerProductsDisplay";
 
 function App() {
-	const { cartSession, getCartSessionFn } = useContext(CartContext);
-	const [user, setUser] = useState({});
-	const [buyer, setBuyer] = useState({});
+  const { cartSession, getCartSessionFn } = useContext(CartContext);
+  const [user, setUser] = useState({});
+  const [buyer, setBuyer] = useState({});
 
-	const getUserFromLocalStorage = () => {
-		const user = localStorage.getItem("user")
-			? JSON.parse(localStorage.getItem("user"))
-			: {};
+  const getUserFromLocalStorage = () => {
+    const user = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user"))
+      : {};
 
-		setUser(user);
-		console.log({ user });
-		if (user) {
-			getBuyer(user.userId);
-		}
-	};
+    setUser(user);
+    console.log({ user });
+    if (user) {
+      getBuyer(user.userId);
+    }
+  };
 
-	const getBuyer = async (userId) => {
-		try {
-			const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
-				method: "GET",
-			});
-			setBuyer(buyer);
-		} catch (error) {
-			console.log(error);
-		}
-	};
+  const getBuyer = async (userId) => {
+    try {
+      const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
+        method: "GET",
+      });
+      setBuyer(buyer);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-	useEffect(() => {
-		getUserFromLocalStorage();
-	}, []);
+  useEffect(() => {
+    getUserFromLocalStorage();
+  }, []);
 
-	useEffect(() => {
-		getBuyer();
-		getCartSessionFn();
-	}, [user]);
+  useEffect(() => {
+    getBuyer();
+    getCartSessionFn();
+  }, [user]);
 
-	console.log({ buyer });
-	return (
-		<div className="App">
-			{" "}
-			<ToastContainer
-				position="top-center"
-				transition={Slide}
-				autoClose={2500}
-			/>
-			<Routes>
-				<Route exact path="/" element={<HomePage />} />
-				<Route path="/success" element={<Success />} />
-				<Route path="/canceled" element={<Canceled />} />
-				<Route path="/search" element={<SearchPage />} />
-				<Route path="/:productId" element={<SingleProductPage />} />
-				<Route
-					path="/signin"
-					element={
-						<SignInPage
-							buyer={buyer}
-							user={user}
-							getBuyer={getBuyer}
-							setBuyer={setBuyer}
-						/>
-					}
-				/>
-				<Route path="/register" element={<BuyerRegistrationPage />} />
-				<Route path="/seller/register" element={<SellerRegistrationPage />} />
-				<Route path="/seller/profile" element={<SellerProfile />} />
-				<Route path="/cart" element={<CartPage buyer={buyer} />} />
-				{/* any route not declared here will lead to the NotFound page */}
-				<Route path="*" element={<NotFound />} />
-			</Routes>
-		</div>
-	);
+  console.log({ buyer });
+  return (
+    <div className="App">
+      {" "}
+      <ToastContainer
+        position="top-center"
+        transition={Slide}
+        autoClose={2500}
+      />
+      <Routes>
+        <Route exact path="/" element={<HomePage />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/canceled" element={<Canceled />} />
+        <Route path="/search" element={<SearchPage />} />
+        <Route path="/:productId" element={<SingleProductPage />} />
+        <Route
+          path="/signin"
+          element={
+            <SignInPage
+              buyer={buyer}
+              user={user}
+              getBuyer={getBuyer}
+              setBuyer={setBuyer}
+            />
+          }
+        />
+        <Route path="/register" element={<BuyerRegistrationPage />} />
+        <Route path="/seller/register" element={<SellerRegistrationPage />} />
+        <Route
+          path="/seller/profile"
+          element={
+            <PrivateRouteSellers>
+              <SellerProfile />
+            </PrivateRouteSellers>
+          }
+        />
+        <Route
+          path="/seller/profile/aboutus"
+          element={
+            <PrivateRouteSellers>
+              <SellerAbout />
+            </PrivateRouteSellers>
+          }
+        />
+
+        <Route
+          path="/seller/profile/products"
+          element={
+            <PrivateRouteSellers>
+              <SellerProductsDisplay />
+            </PrivateRouteSellers>
+          }
+        />
+
+        <Route
+          path="/seller/profile/addproduct"
+          element={
+            <PrivateRouteSellers>
+              <NewProductForm />
+            </PrivateRouteSellers>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PrivateRouteBuyers>
+              <CartPage buyer={buyer} />
+            </PrivateRouteBuyers>
+          }
+        />
+        {/* any route not declared here will lead to the NotFound page */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
