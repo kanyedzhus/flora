@@ -2,9 +2,8 @@
 
 # Project Description
 
-FLORA ia an e-commerce website with multiple vendors, where users are able to sell and buy plants. Buyers can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
+FLORA ia an e-commerce website with multiple vendors feature stripe integration, where users are able to sell and buy plants. Buyers can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
 
-![Flora]()
 
 ## Project Setup 
 
@@ -47,9 +46,25 @@ FLORA ia an e-commerce website with multiple vendors, where users are able to se
 _Resourses : https://stripe.com/docs/financial-services_
 _https://stripe.com/docs/api_
 
+## Technologies and dependencies
+
+# Frontend
+- React
+- Bootstrap
+_ React tostify
+
+# Backend
+- Express.js
+- Node.js
+- Sequelize
+- Bcrypt
+- JWT
+- Multer
+
 # Database Schema
 
 ![DB Schema](image/FloraDataBase.png)
+_Resourses : https://dbdiagram.io/d/62a44bd29921fe2a96e2de5a_
 
 ## User Flow
 
