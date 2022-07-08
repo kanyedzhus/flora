@@ -93,15 +93,15 @@ export default function CartContextProvider({ children }) {
 			console.log(error);
 		}
 	};
-	const getCartSession = async () => {
+	const getCartSession = async (buyerId) => {
 		try {
-			const cartSession = await fetchFromAPI("cartsessions", {
+			const cartSession = await fetchFromAPI(`cartsessions/buyer/${buyerId}`, {
 				method: "GET",
 			});
 			console.log({ cartSession });
 			setContextValues((oldState) => ({
 				...oldState,
-				cartSession: cartSession[0],
+				cartSession: cartSession,
 			}));
 		} catch (error) {
 			console.log(error);

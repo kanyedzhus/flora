@@ -3,10 +3,11 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchFromAPI } from "../helpers";
 import { CartContext } from "../contexts/cart-context";
+import { BuyerContext } from "../contexts/buyer-context";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
-export default function SignInForm({ user, buyer, setBuyer }) {
+export default function SignInForm() {
 	const style = {
 		width: "100%",
 		maxWidth: "330px",
@@ -15,59 +16,27 @@ export default function SignInForm({ user, buyer, setBuyer }) {
 	};
 	const navigate = useNavigate();
 	const { cartTotal, getCartSessionFn } = useContext(CartContext);
+	const { buyer, getBuyerFn } = useContext(BuyerContext);
 	const [credentials, setCredentials] = useState({
 		email: "",
 		password: "",
 	});
 
-	//   const { username, password } = credentials;
-	// const getUserFromLocalStorage = () => {
-	// 	const user = localStorage.getItem("user")
-	// 		? JSON.parse(localStorage.getItem("user"))
-	// 		: {};
-
-	// 	setUser(user);
-	// 	console.log({ user });
-	// 	if (user) {
-	// 		getBuyer(user.userId);
-	// 	}
-	// };
-
-	const getBuyer = async (userId) => {
-		try {
-			const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
-				method: "GET",
-			});
-			setBuyer(buyer);
-		} catch (error) {
-			console.log(error);
-		}
-	};
-
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setCredentials({ ...credentials, [name]: value });
 	};
-	// const getBuyer = async (userId) => {
-	// 	try {
-	// 		const buyer = await fetchFromAPI(`users/buyer/${userId}`, {
-	// 			method: "GET",
-	// 		});
-	// 		setBuyer(buyer);
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 	}
-	// };
+
 	const createCartSession = async (buyerId) => {
 		try {
 			await fetchFromAPI("cartsessions/create-session", {
 				method: "POST",
 				body: {
 					total: cartTotal,
-					buyerId,
+					buyerId: buyer.buyerId,
 				},
 			});
-			getCartSessionFn();
+			getCartSessionFn(buyer.buyerId);
 		} catch (error) {
 			console.log(error);
 		}
@@ -90,8 +59,9 @@ export default function SignInForm({ user, buyer, setBuyer }) {
 				const user = JSON.parse(localStorage.getItem("user"));
 				console.log({ user });
 				if (user.role === "buyer") {
-					getBuyer(user.userId);
+					getBuyerFn(user.userId);
 					console.log(buyer.buyerId);
+					navigate("/");
 					createCartSession(buyer.buyerId);
 					console.log(data.message, data.token, data.user);
 				}

@@ -8,11 +8,12 @@ import SubNavbar from "./SubNavbar";
 import Searchbar from "./Searchbar";
 import { fetchFromAPI } from "../../helpers";
 
-function Navbar() {
+function Navbar({ buyer }) {
 	const { cartItems, cartSession, getCartSessionFn } = useContext(CartContext);
 	const navigate = useNavigate();
 
 	console.log({ cartSession });
+	// delete cart session created on login
 	const deleteCartSession = async (cartSessionId) => {
 		try {
 			await fetchFromAPI(`cartsessions/${cartSession.cartSessionId}/delete`, {
@@ -27,7 +28,7 @@ function Navbar() {
 		localStorage.removeItem("token");
 		localStorage.removeItem("user");
 
-		getCartSessionFn();
+		getCartSessionFn(buyer.buyerId);
 		deleteCartSession(cartSession.cartSessionId);
 		navigate("/");
 	};

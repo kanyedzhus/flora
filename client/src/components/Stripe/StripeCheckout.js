@@ -64,6 +64,8 @@ export default function StripeCheckout({
 			console.log(error);
 		}
 	};
+
+	// get the ids of the items in the cart. save them in state
 	const getCartItemIds = (carItems) => {
 		const ids = cartItems.map((item) => item.cartItemId);
 		console.log(ids);
@@ -73,13 +75,18 @@ export default function StripeCheckout({
 		getCartItemIds();
 		console.log({ cartItemIds });
 	}, []);
+
+	// update the cartsession of those specific ids
+	// what's a better way to do this?
 	const attachCartSessionToItems = async (cartItemIds) => {
 		try {
 			await fetchFromAPI("cartitems/cartsession/edit", {
 				method: "PUT",
 				body: { cartItemIds, cartSession },
 			});
-		} catch (error) {}
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	return (

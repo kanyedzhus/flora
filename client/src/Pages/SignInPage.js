@@ -2,15 +2,10 @@ import React from "react";
 import Layout from "../components/Layout";
 import SignInForm from "../components/SignInForm";
 
-export default function SignInPage({ buyer, user, getBuyer, setBuyer }) {
+export default function SignInPage() {
 	return (
 		<Layout>
-			<SignInForm
-				buyer={buyer}
-				user={user}
-				getBuyer={getBuyer}
-				setBuyer={setBuyer}
-			/>
+			<SignInForm />
 		</Layout>
 	);
 }

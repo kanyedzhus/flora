@@ -95,7 +95,7 @@ router.post("/:sellerId", upload.single("imgURL"), async (req, res, next) => {
 
 //Get all products
 // /products
-router.get("/", (req, res) => {
+router.get("/all", (req, res) => {
 	models.product
 		.findAll({
 			attributes: [
@@ -148,6 +148,7 @@ router.get("/category/:categoryId", (req, res) => {
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
 
+// get joined products and seller
 router.get("/", async (req, res) => {
 	try {
 		const response = await sequelize.query(

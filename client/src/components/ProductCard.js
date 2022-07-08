@@ -48,7 +48,7 @@ export default function ProductCard({ extras, product }) {
 	return (
 		<div className="col">
 			<div
-				className="card shadow-sm  "
+				className="card shadow-sm h-100 "
 				style={{ cursor: "pointer", height: "78vh" }}
 			>
 				<img

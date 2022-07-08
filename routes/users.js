@@ -15,7 +15,7 @@ router.get("/buyer/:userId", (req, res) => {
 
 	models.buyer
 		.findOne({
-			attributes: ["buyerId", "stripeId"],
+			attributes: ["buyerId", "userId", "stripeId"],
 			where: { userId },
 		})
 		.then((buyer) => res.send(buyer))

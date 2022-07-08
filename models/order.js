@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 			order.belongsToMany(models.buyer, { through: "buyerId" });
-			order.belongsToMany(models.seller, { through: "sellerId" });
+
 			order.hasMany(models.orderItem);
 		}
 	}
@@ -22,8 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 				type: DataTypes.INTEGER,
 			},
 			buyerId: DataTypes.INTEGER,
-			sellerId: DataTypes.INTEGER,
-			invoiceId: DataTypes.INTEGER,
+
 			status: DataTypes.STRING,
 			total: DataTypes.DECIMAL(10, 2),
 		},
