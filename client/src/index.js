@@ -9,6 +9,7 @@ import ProductsContextProvider from "./contexts/products-context";
 import { Elements } from "@stripe/react-stripe-js";
 // helper function to load stripe js
 import { loadStripe } from "@stripe/stripe-js";
+import BuyerContextProvider from "./contexts/buyer-context";
 // accepts a publishable key and returns a promise
 const stripePromise = loadStripe(
 	"pk_test_51LAYVvGbLCDl0eiJEzT9xpggaROyBJ0LwQJ2Mh9902UyAE1IoYfPQdzczFYQkF17nKp99WXHqvgDAYnLwrL3yiC000AywInfzE"
@@ -17,13 +18,15 @@ const stripePromise = loadStripe(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 	<BrowserRouter>
-		<ProductsContextProvider>
-			<CartContextProvider>
-				<Elements stripe={stripePromise}>
-					<App />
-				</Elements>
-			</CartContextProvider>
-		</ProductsContextProvider>
+		<BuyerContextProvider>
+			<ProductsContextProvider>
+				<CartContextProvider>
+					<Elements stripe={stripePromise}>
+						<App />
+					</Elements>
+				</CartContextProvider>
+			</ProductsContextProvider>
+		</BuyerContextProvider>
 	</BrowserRouter>
 );
 

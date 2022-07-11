@@ -3,9 +3,10 @@ import CartItem from "../components/CartItem";
 import Layout from "../components/Layout";
 import Total from "../components/Total";
 import { CartContext } from "../contexts/cart-context";
+import { BuyerContext } from "../contexts/buyer-context";
 import { fetchFromAPI } from "../helpers";
 
-export default function CartPage({ buyer }) {
+export default function CartPage() {
 	const {
 		cartItems,
 		increaseQtyFn,
@@ -16,7 +17,7 @@ export default function CartPage({ buyer }) {
 		cartTotal,
 	} = useContext(CartContext);
 	console.log(cartSession);
-
+	const { buyer } = useContext(BuyerContext);
 	return (
 		<Layout>
 			<div className="p-3">

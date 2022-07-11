@@ -17,7 +17,7 @@ export default function CartItem({
 	}
 	const productInCart =
 		products.find((product) => product.productId === productId) || {};
-	console.log(productInCart);
+	console.log({ productInCart });
 
 	return (
 		<div className=" border ">

@@ -51,7 +51,7 @@ router.put("/put/:cartSessionId/", async (req, res) => {
 	try {
 		// need to also have orderid here
 		const response = await sequelize.query(
-			`insert into orderitems (productId, quantity, price, createdAt, updatedAt) select productId, quantity, price, now(), now() from cartitems where cartSessionId=${cartSessionId};`,
+			`insert into orderitems (orderId, productId, quantity, price, createdAt, updatedAt) select ${orderId}, productId, quantity, price, now(), now() from cartitems where cartSessionId=${cartSessionId};`,
 			{ type: QueryTypes.INSERT }
 		);
 

@@ -32,13 +32,16 @@ router.get("/:orderId", (req, res) => {
 		.catch((err) => res.status(500).send({ error: err.message }));
 });
 
-//Get all orders by sellerId
-// orders/order/:sellerId
-router.get("/order/:buyerId", async (req, res) => {
+//Get most recent order of a specific buyer
+// orders/order/:buyerId
+router.get("/order/:buyerId/most-recent", async (req, res) => {
 	const { buyerId } = req.params;
 	try {
-		const response = await models.order.findAll({
-			where: { buyerId },
+		const response = await models.order.findOne({
+			where: {
+				buyerId,
+			},
+			order: [["createdAt", "DESC"]],
 			attributes: ["orderId", "buyerId", "status", "createdAt"],
 		});
 		res.send(response);
@@ -54,7 +57,7 @@ router.post("/post/:cartSessionId", async (req, res) => {
 	//console.log(buyerId);
 	try {
 		const response = await sequelize.query(
-			`insert into orders (buyerId,total, createdAt, updatedAt) select buyerId, total, now(), now() from cartsessions where cartSessionId=${cartSessionId}`,
+			`insert into orders (buyerId, total, createdAt, updatedAt) select buyerId, total, now(), now() from cartsessions where cartSessionId=${cartSessionId}`,
 			{
 				type: QueryTypes.INSERT,
 			}
