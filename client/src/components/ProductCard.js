@@ -16,7 +16,7 @@ import { fetchFromAPI } from "../helpers";
 // accept extra elements that don't always appear
 export default function ProductCard({ extras, product }) {
 	const { addToCartFn, cartItems, cartTotal } = useContext(CartContext);
-	console.log({ cartItems }, { cartTotal });
+//	console.log({ cartItems }, { cartTotal });
 	// *PRODUCT.QUANTITY IS THE STOCK **NOT** QUANTITY IN CART TO PURCHASE
 	const {
 		productId,
