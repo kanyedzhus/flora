@@ -10,7 +10,7 @@ export default function CartContextProvider({ children }) {
 	useEffect(() => {
 		getCartItems();
 		getCartSession(buyer.buyerId);
-	}, []);
+	}, [buyer.buyerId]);
 
 	// *ADD TO CART
 	const addToCart = async (productId, price, stripePriceId) => {
