@@ -51,7 +51,8 @@ _https://stripe.com/docs/api_
 # Frontend
 - React
 - Bootstrap
-_ React tostify
+- React tostify
+- React Routers
 
 # Backend
 - Express.js

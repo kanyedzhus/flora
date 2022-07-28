@@ -9,7 +9,7 @@ function Searchbar(){
  const navigate = useNavigate();
 
 let { products, searchQuery, changeSearchQuery } = useContext(ProductsContext);
-//console.log(products)
+console.log(products)
 if (!products) {
     products = [];
 }
@@ -21,7 +21,7 @@ const handleChange =(event) => {
     const value = event.target.value;
     setInputProductName(value)
     
-    //console.log(value)
+    console.log(value)
     
 }
 

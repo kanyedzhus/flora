@@ -9,10 +9,10 @@ import DropdownItem from "react-bootstrap/esm/DropdownItem";
 function SubNavbar() {
 	let { categoryId, setCategoryId } = useContext(ProductsContext);
 
-	const handleCategories = (e) => {
+	const handleCategories = (e, number) => {
 		e.preventDefault();
-
-		// setCategoryId(number)
+       setCategoryId(number);
+		console.log(categoryId);
 	};
 
 	return (
@@ -22,8 +22,8 @@ function SubNavbar() {
 					Outdoor Plants
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
-					<Dropdown.Item href="#">Climbing Plants</Dropdown.Item>
-					<Dropdown.Item href="#">Trees</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 5)}}>Climbing Plants</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 6)}}>Trees</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown>
 			<Dropdown className="d-inline mx-2">
@@ -31,8 +31,8 @@ function SubNavbar() {
 					Indoor Plants
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
-					<Dropdown.Item href="#">Potted Plants</Dropdown.Item>
-					<Dropdown.Item href="#">Cacti and succulents</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 2)}}>Potted Plants</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 3)}}>Cacti and succulents</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown>
 			<Dropdown className="d-inline mx-2">
@@ -40,8 +40,8 @@ function SubNavbar() {
 					Flowers
 				</Dropdown.Toggle>
 				<Dropdown.Menu>
-					<Dropdown.Item href="#">Bouquets</Dropdown.Item>
-					<Dropdown.Item href="#">Dried Flowers</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 8)}}>Bouquets</Dropdown.Item>
+					<Dropdown.Item href="/search" onClick={(e) => {handleCategories(e, 9)}}>Dried Flowers</Dropdown.Item>
 				</Dropdown.Menu>
 			</Dropdown>
 		</div>

@@ -8,7 +8,7 @@ console.log(ProductsContext);
 export default function ProductsContextProvider({ children }) {
 	const [contextValues, setContextValues] = useState([]);
 	const [searchQuery, setSearchQuery] = useState("");
-	const [categoryID, setCategoryID] = useState("");
+	const [categoryId, setCategoryId] = useState("");
 
 	const getAllProducts = async () => {
 		try {
@@ -17,8 +17,8 @@ export default function ProductsContextProvider({ children }) {
 			});
 
 			setContextValues(products);
-			console.log("products fetched");
-			console.log(products);
+		//	console.log("products fetched");
+		//	console.log(products);
 		} catch (error) {
 			console.log(error);
 		}
@@ -27,11 +27,11 @@ export default function ProductsContextProvider({ children }) {
 	useEffect(() => {
 		getAllProducts();
 	}, []);
-	console.log(contextValues);
+	//console.log(contextValues);
 
 	const changeSearchQuery = (product) => {
-		console.log("function");
-		console.log(product);
+		//console.log("function");
+		//console.log(product);
 		setSearchQuery(product);
 	};
 
@@ -39,8 +39,8 @@ export default function ProductsContextProvider({ children }) {
 		products: contextValues,
 		searchQuery: searchQuery,
 		changeSearchQuery: changeSearchQuery,
-		categoryId: categoryID,
-		setCategoryID: setCategoryID,
+		categoryId: categoryId,
+		setCategoryId: setCategoryId,
 		getAllProducts: getAllProducts,
 	};
 
