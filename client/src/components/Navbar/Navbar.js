@@ -4,12 +4,14 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { CartContext } from "../../contexts/cart-context";
+import { BuyerContext } from "../../contexts/buyer-context";
 import SubNavbar from "./SubNavbar";
 import Searchbar from "./Searchbar";
 import { fetchFromAPI } from "../../helpers";
 
-function Navbar({ buyer }) {
+function Navbar() {
 	const { cartItems, cartSession, getCartSessionFn } = useContext(CartContext);
+	const { buyer } = useContext(BuyerContext);
 	const navigate = useNavigate();
 
 	console.log({ cartSession });

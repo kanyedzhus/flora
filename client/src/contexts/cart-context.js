@@ -1,14 +1,16 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { fetchFromAPI } from "../../src/helpers";
 import { toast } from "react-toastify";
+import { BuyerContext } from "./buyer-context";
 
 export const CartContext = createContext();
 
 export default function CartContextProvider({ children }) {
+	const { buyer } = useContext(BuyerContext);
 	useEffect(() => {
 		getCartItems();
-		getCartSession();
-	}, []);
+		getCartSession(buyer.buyerId);
+	}, [buyer.buyerId]);
 
 	// *ADD TO CART
 	const addToCart = async (productId, price, stripePriceId) => {

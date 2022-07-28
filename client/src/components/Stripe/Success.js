@@ -3,15 +3,18 @@ import { useNavigate } from "react-router-dom";
 import Layout from "../Layout";
 import { CartContext } from "../../contexts/cart-context";
 import { fetchFromAPI } from "../../helpers";
+import { BuyerContext } from "../../contexts/buyer-context";
 
-export default function Success({ buyer }) {
+export default function Success() {
 	const navigate = useNavigate();
 	const { clearCartFn, cartSession, getCartSessionFn } =
 		useContext(CartContext);
-
+	const { user, buyer, getBuyerFn } = useContext(BuyerContext);
+	console.log({ user }, { buyer });
 	const [buyerOrderId, setBuyerOrderId] = useState();
 
 	useEffect(() => {
+		getBuyerFn(user.userId);
 		getCartSessionFn(buyer.buyerId);
 	}, []);
 
