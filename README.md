@@ -2,7 +2,7 @@
 
 # Project Description
 
-FLORA ia an e-commerce website with multiple vendors feature stripe integration, where users are able to sell and buy plants. Buyers can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
+FLORA is an e-commerce website with multiple vendors feature stripe integration, where users are able to sell and buy plants. Buyers can register, search, add products to their cart and purchase plants while sellers may add products to their catalog and manage their profile.
 
 
 ## Project Setup 
